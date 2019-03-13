@@ -38,6 +38,9 @@
             <basic name="position">
                 <column name="position" nullable="false"/>
             </basic>
+            <basic name="type">
+                <column name="type" nullable="false"/>
+            </basic>
         </attributes>
     </entity>
 </entity-mappings>

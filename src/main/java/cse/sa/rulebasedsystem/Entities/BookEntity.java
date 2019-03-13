@@ -18,6 +18,7 @@ public class BookEntity {
     private String description;
     private Timestamp addTime;
     private String position;
+    private String type;
 
     @Id
     @Column(name = "id", nullable = false)
@@ -129,6 +130,16 @@ public class BookEntity {
         this.position = position;
     }
 
+    @Basic
+    @Column(name = "type", nullable = true, length = 255)
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -144,11 +155,12 @@ public class BookEntity {
                 Objects.equals(isbn, that.isbn) &&
                 Objects.equals(description, that.description) &&
                 Objects.equals(addTime, that.addTime) &&
-                Objects.equals(position, that.position);
+                Objects.equals(position, that.position) &&
+                Objects.equals(type, that.type);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, publisher, img, author, isbn, num, res, description, addTime, position);
+        return Objects.hash(id, name, publisher, img, author, isbn, num, res, description, addTime, position, type);
     }
 }
