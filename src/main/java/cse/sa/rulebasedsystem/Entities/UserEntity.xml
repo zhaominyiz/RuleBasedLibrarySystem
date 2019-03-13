@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings xmlns="http://java.sun.com/xml/ns/persistence/orm"
+        version="2.0">
+
+    <entity class="cse.sa.rulebasedsystem.Entities.UserEntity">
+        <table name="user" schema="library" catalog=""/>
+        <attributes>
+            <id name="account">
+                <column name="account"/>
+            </id>
+            <basic name="password">
+                <column name="password"/>
+            </basic>
+            <basic name="name">
+                <column name="name"/>
+            </basic>
+            <basic name="idNo">
+                <column name="id_no" nullable="false"/>
+            </basic>
+            <basic name="type">
+                <column name="type"/>
+            </basic>
+        </attributes>
+    </entity>
+</entity-mappings>

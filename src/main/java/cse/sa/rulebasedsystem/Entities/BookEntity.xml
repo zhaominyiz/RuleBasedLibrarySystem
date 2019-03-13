@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings xmlns="http://java.sun.com/xml/ns/persistence/orm"
+        version="2.0">
+
+    <entity class="cse.sa.rulebasedsystem.Entities.BookEntity">
+        <table name="book" schema="library" catalog=""/>
+        <attributes>
+            <id name="id">
+                <column name="id" precision="11"/>
+            </id>
+            <basic name="name">
+                <column name="name"/>
+            </basic>
+            <basic name="publisher">
+                <column name="publisher"/>
+            </basic>
+            <basic name="img">
+                <column name="img" nullable="false"/>
+            </basic>
+            <basic name="author">
+                <column name="author"/>
+            </basic>
+            <basic name="isbn">
+                <column name="isbn"/>
+            </basic>
+            <basic name="num">
+                <column name="num" precision="11"/>
+            </basic>
+            <basic name="res">
+                <column name="res" precision="255"/>
+            </basic>
+            <basic name="description">
+                <column name="description" nullable="false"/>
+            </basic>
+            <basic name="addTime">
+                <column name="add_time" nullable="false" precision="-1"/>
+            </basic>
+            <basic name="position">
+                <column name="position" nullable="false"/>
+            </basic>
+        </attributes>
+    </entity>
+</entity-mappings>
