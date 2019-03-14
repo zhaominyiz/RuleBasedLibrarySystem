@@ -1,15 +1,15 @@
 package cse.sa.rulebasedsystem.Entities;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.sql.Timestamp;
 import java.util.Objects;
 
 @Entity
 @Table(name = "bookrecord", schema = "library", catalog = "")
 public class BookrecordEntity {
     private int id;
+    private Integer bookId;
+    private Timestamp date;
 
     @Id
     @Column(name = "id", nullable = false)
@@ -21,16 +21,38 @@ public class BookrecordEntity {
         this.id = id;
     }
 
+    @Basic
+    @Column(name = "book_id", nullable = true)
+    public Integer getBookId() {
+        return bookId;
+    }
+
+    public void setBookId(Integer bookId) {
+        this.bookId = bookId;
+    }
+
+    @Basic
+    @Column(name = "date", nullable = true)
+    public Timestamp getDate() {
+        return date;
+    }
+
+    public void setDate(Timestamp date) {
+        this.date = date;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         BookrecordEntity that = (BookrecordEntity) o;
-        return id == that.id;
+        return id == that.id &&
+                Objects.equals(bookId, that.bookId) &&
+                Objects.equals(date, that.date);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id);
+        return Objects.hash(id, bookId, date);
     }
 }

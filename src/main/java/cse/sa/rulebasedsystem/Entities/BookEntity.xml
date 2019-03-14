@@ -41,6 +41,9 @@
             <basic name="type">
                 <column name="type" nullable="false"/>
             </basic>
+            <basic name="version">
+                <column name="version" nullable="false"/>
+            </basic>
         </attributes>
     </entity>
 </entity-mappings>

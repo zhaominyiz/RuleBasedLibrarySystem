@@ -8,6 +8,12 @@
             <id name="id">
                 <column name="id" precision="11"/>
             </id>
+            <basic name="bookId">
+                <column name="book_id" nullable="false" precision="11"/>
+            </basic>
+            <basic name="date">
+                <column name="date" nullable="false" precision="-1"/>
+            </basic>
         </attributes>
     </entity>
 </entity-mappings>
