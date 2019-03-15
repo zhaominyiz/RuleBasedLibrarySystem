@@ -21,10 +21,26 @@ public class LoginController {
             JSONObject jsonObject=new JSONObject(jsonstr);
             account=jsonObject.getString("account");
             password=jsonObject.getString("password");
-            System.out.println(account+":"+password);
         }catch (Exception ex){
             ex.printStackTrace();
         }
         return loginEngine.doLogin(account,password);
+    }
+
+    @RequestMapping(value="service/signup.login", produces = "application/json;charset=UTF-8",method = RequestMethod.POST)
+    @ResponseBody
+    public String signupcontroller(@RequestBody String jsonstr){
+        String account="",password="",name="",id="";
+        try{
+            JSONObject jsonObject=new JSONObject(jsonstr);
+            account=jsonObject.getString("account");
+            password=jsonObject.getString("password");
+            name=jsonObject.getString("name");
+            //System.out.println("name="+name);
+            id=jsonObject.getString("id");
+        }catch (Exception ex){
+            ex.printStackTrace();
+        }
+        return loginEngine.doSignup(account,password,name,id);
     }
 }
