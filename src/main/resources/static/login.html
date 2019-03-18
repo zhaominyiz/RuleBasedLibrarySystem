@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>登录</title>
+    <link rel="stylesheet" type="text/css" href="css/global.css">
+    <link rel="stylesheet" type="text/css" href="css/all.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+</head>
+<body>
+<div class="header_bg" id="home">
+    <div class="container">
+        <div class="row header text-center specials">
+            <div class="h_logo">
+                <img src="imgs/logo.png" alt="" class="responsive"/>
+            </div>
+            <div class="top-nav" id="nav">
+                <ul class="top-nav nav-list">
+                    <li><a href="main.html">主页</a></li>
+                    <li class="logo page-scroll"><a href="main.html"><img src="imgs/logo.png"></a></li>
+                    <li class="page-scroll"><a href="">注册</a></li>
+                </ul>
+                <a href="#" id="pull"><img src="imgs/nav-icon.png"></a>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>
+<div class="slider_bg" id="mainContainer">
+    <div class="container">
+        <div id="content">
+            <div id="word">
+                <h1>LOGIN</h1>
+                <div id="form">
+                    <form action="" method="post" onsubmit="return finalCheck()">
+                        <table height="253" id="tab">
+                            <tr>
+                                <td width="95" height="68" style="color: aliceblue; text-align: right;" >用 户：</td>
+                                <td width="80"><input id="name" path="username" placeholder="请输入学号" class="ipt"/></td>
+                            </tr>
+                            <tr>
+                                <td height="58" style="color: aliceblue; text-align: right;">密 码：</td>
+                                <td><input id="password" path="password"  placeholder="请输入密码" class="ipt"/> </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" style="text-align: center;"><input type="submit" value="登录" class="button"/>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;
+                                    <input type="reset" value="重置" class="button" /></td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" style="text-align: center; font-size: 19px;"><a href="">用户注册</a></td>
+                            </tr>
+                        </table> 
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="footer_bg" id="contact">
+    <div class="container"></div>
+</div>      
+<div class="footer1_bg">
+    <div class="container">
+        <div class="row  footer">
+            <div class="copy text-center">
+                <p class="link"><span>Copyright &copy; 2019.ZWSL All rights reserved.</span></p>
+                <a href="#home" id="toTop" style="display: block;"><span id="toTopHover" style="opacity: 1;"> </span></a>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
