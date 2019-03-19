@@ -2,9 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>主页</title>
+    <title>图书管理系统</title>
     <link rel="stylesheet" type="text/css" href="css/global.css">
-    <link rel="stylesheet" type="text/css" href="css/all.css">
     <link rel="stylesheet" type="text/css" href="css/style.css">
     <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
@@ -31,9 +30,15 @@
 <div class="slider_bg" id="mainContainer">
     <div class="container">
         <div id="content">
-            <div id="word">
-                <h1>图书管理系统</h1>
-            </div>
+             <div class="word"><h1>TIME TO READ</h1></div>
+            <div class="searchBox">
+                    <link href="http://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+                    <link rel="stylesheet" href="<%=request.getContextPath()%>/css/ZCW/searchbox.css" />
+                    <form method="post" action="<%=request.getContextPath()%>/getappbykeyword.search">
+                        <input type="text" name="keyword" placeholder="请输入您要搜索的图书...">
+                        <button type="submit"></button>
+                    </form>
+                </div>
         </div>
     </div>
 </div>

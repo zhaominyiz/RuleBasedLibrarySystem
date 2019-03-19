@@ -1,0 +1,95 @@
+input{
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding-left:5px;
+}
+
+input:focus{
+    border-color: #66afe9;  
+    outline: 0;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(102,175,233,.6);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(102,175,233,.6)
+}
+#form a{
+    color: #97862b;
+    font-size: 0.8em;
+}
+
+#word h1{
+    font-size: 2.8em;
+    text-align: center;
+    margin-left: -120px;
+    color: #2DC0F1;
+}
+
+#fil{
+    width: 288px;
+    height: 300px;
+    text-align: center;
+    border: solid thin;
+    margin-top: 20px;
+}
+#content{
+    width: 100%;
+    height: 428px;
+    margin-top: 80px;
+    text-align: center;
+    align-items: center;
+}
+#content td{
+    height: 20px;
+    vertical-align: bottom;
+    text-align: left;
+}
+#form{
+    height: 428px;
+    width: 100%;
+    font-size: 2.0em;
+    margin-top: -30px;
+    text-align: center;
+}
+
+.buttom {
+    background: #05b7a7;
+    width: 95px;
+    height: 30px;
+    text-align: center;
+    border: #807777;
+    font-size: 14px;
+    font-weight: bold;
+    color: #fff;
+}
+.ipt {
+    width: 199px;
+    height: 22px;
+    background: #fff;
+    text-indent: 3px;
+    line-height: 20px;
+    vertical-align: middle;
+    font-size: 12px;
+    text-align: left;
+}
+#sign{
+    text-align: center;
+    height: 10px;
+
+}
+#sign a{
+    font-size: 0.8em;
+    color: #97862b;
+    text-decoration:none;
+    width: 80px;
+}
+#sign a:hover{
+    text-decoration: underline;
+}
+
+
+#word {
+    margin-left: 100px;
+}
+
+#tab {
+    margin-left: 300px;
+    margin-top: 50px;
+}

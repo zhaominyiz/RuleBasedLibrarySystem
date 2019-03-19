@@ -30,7 +30,67 @@ a{
     text-decoration: none;
     color:#e0eacf;
 }
+#mainContainer{
+    background: url("../imgs/book.jpg");
+    background-size:cover;
+    background-position-y: -120px;
+    height: 690px;
+    width:100%;
+}
+#fil{
+    width: 288px;
+    height: 300px;
+    text-align: center;
+    border: solid thin;
+    margin-top: 20px;
+}
+#content{
+    width: 100%;
+    height: 428px;
+    margin-top: 80px;
+    text-align: center;
+    align-items: center;
+}
+#content td{
+    height: 20px;
+    vertical-align: bottom;
+    text-align: left;
+}
+#form{
+    height: 428px;
+    width: 100%;
+    font-size: 1.8em;
+    margin-top: -30px;
+    text-align: center;
 
+}
+#word {
+    margin-left: 100px;
+}
+.word{
+    margin-top: -30px;
+    margin-left: 100px;
+}
+.word h1{
+    font-size: 2.0em;
+    text-align: center;
+    margin-left: -105px;
+    color: rgb(243, 248, 250);
+}
+#tab {
+    margin-left: 300px;
+    margin-top: 50px;
+}
+#word h1{
+    font-size: 2.8em;
+    text-align: center;
+    margin-left: -105px;
+    color: rgb(243, 248, 250);
+}
+#form a{
+    color: #a4707f;
+    font-size: 0.8em;
+}
 input{
     border: 1px solid #ccc;
     border-radius: 5px;
@@ -57,7 +117,7 @@ a:hover, .actionDiv li:hover{
 }
 
 .button{
-    background: #05b7a7;
+    background: rgba(241, 190, 170, 0.91);
     width: 195px;
     height: 30px;
     text-align: center;
@@ -67,15 +127,40 @@ a:hover, .actionDiv li:hover{
     color: #fff;
     border-radius: 5px;
 }
-
-
-#mainContainer{
-    background: url("../imgs/background.jpg");
-    background-size:cover;
-    height: 750px;
-    width:100%;
+.buttom {
+    background: rgba(241, 190, 170, 0.91);
+    width: 95px;
+    height: 30px;
+    text-align: center;
+    border: #807777;
+    font-size: 14px;
+    font-weight: bold;
+    color: #fff;
 }
+.ipt {
+    width: 199px;
+    height: 22px;
+    background: #fff;
+    text-indent: 3px;
+    line-height: 20px;
+    vertical-align: middle;
+    font-size: 12px;
+    text-align: left;
+}
+#sign{
+    text-align: center;
+    height: 10px;
 
+}
+#sign a{
+    font-size: 0.8em;
+    color: #97862b;
+    text-decoration:none;
+    width: 80px;
+}
+#sign a:hover{
+    text-decoration: underline;
+}
 .welcomeText{
     position:absolute;
     top:15%;
@@ -88,4 +173,47 @@ a:hover, .actionDiv li:hover{
     vertical-align: middle;
 
     color:whitesmoke;
+}
+
+
+.searchBox form {
+    position: relative;
+    width: 400px;
+    margin: 0 auto;
+}
+
+.searchBox input, button {
+    border: none;
+    outline: none;
+}
+
+.searchBox{
+    position:absolute;
+    right: 565px;
+    width: 430px;
+}
+
+.searchBox input {
+    border: 2px solid #fdfef9;
+    border-radius: 5px;
+    background: #F9F0DA;
+    color: #9E9C9C;
+    width: 400px;
+    height: 35px;
+    margin-right: -10px;
+}
+.searchBox button {
+    height: 35px;
+    width: 42px;
+    cursor: pointer;
+    position: absolute;
+    margin-right: -45px;
+    background: rgba(241, 190, 170, 0.91);
+    border-radius: 0 5px 5px 0;
+}
+.searchBox button:before {
+    content: "\f002";
+    font-family: FontAwesome;
+    font-size: 16px;
+    color: #F9F0DA;
 }

@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <title>登录</title>
     <link rel="stylesheet" type="text/css" href="css/global.css">
-    <link rel="stylesheet" type="text/css" href="css/all.css">
     <link rel="stylesheet" type="text/css" href="css/style.css">
     <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
@@ -45,9 +44,9 @@
                                 <td><input id="password" path="password"  placeholder="请输入密码" class="ipt"/> </td>
                             </tr>
                             <tr>
-                                <td colspan="2" style="text-align: center;"><input type="submit" value="登录" class="button"/>
+                                <td colspan="2" style="text-align: center;"><input type="submit" value="登录" class="buttom"/>
                                     &nbsp;&nbsp;&nbsp;&nbsp;
-                                    <input type="reset" value="重置" class="button" /></td>
+                                    <input type="reset" value="重置" class="buttom" /></td>
                             </tr>
                             <tr>
                                 <td colspan="2" style="text-align: center; font-size: 19px;"><a href="">用户注册</a></td>
@@ -59,6 +58,37 @@
         </div>
     </div>
 </div>
+<script type="text/javascript">
+    $(function() {
+        $('a[href*=#]:not([href=#])').click(function() {
+            if (location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'') && location.hostname == this.hostname) {
+
+                var target = $(this.hash);
+                target = target.length ? target : $('[name=' + this.hash.slice(1) +']');
+                if (target.length) {
+                    $('html,body').animate({
+                        scrollTop: target.offset().top
+                    }, 1000);
+                    return false;
+                }
+            }
+        });
+    });
+
+    function finalCheck() {
+        var name = $("#account").val();
+        var password = $("#password").val();
+        if(name === "" || name == null){
+            alert("请输入用户名！");
+            return false;
+        }
+        if(password === "" || password == null){
+            alert("请输入密码！");
+            return false;
+        }
+        return true;
+    }
+</script>
 <div class="footer_bg" id="contact">
     <div class="container"></div>
 </div>      

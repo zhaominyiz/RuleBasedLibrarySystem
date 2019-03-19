@@ -383,6 +383,7 @@ body {
 /* start footer */
 .footer1_bg{
     background: #222222;
+    height: 80px;
 }
 .copy p{
     color: #c9c9c9;
