@@ -18,11 +18,14 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.imageio.ImageIO;
 
 import java.awt.image.BufferedImage;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.sql.Timestamp;
 import java.util.Hashtable;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class BookEngine {
@@ -197,5 +200,63 @@ public class BookEngine {
             e.printStackTrace();
         }
         return "ERROR";
+    }
+    public String bookIn(String name,String publisher,String author,MultipartFile file,String isbn,String description,
+                           String type,String position,String version,Integer num,String publishID){
+        BookEntity newBook=new BookEntity();
+        newBook.setName(name);
+        newBook.setPublisher(publisher);
+        newBook.setAuthor(author);
+        String bar="";
+        try {
+            bar = decodeBar(file.getInputStream());
+            List<BookEntity> booklist = bookDB.getBookEntitiesByPublisherID(bar);
+            if (booklist != null || booklist.size() != 0) {
+                JSONObject result = new JSONObject();
+                result.put("msg", "ERROR_SAVED");
+                return result.toString();
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        newBook.setImg(bar);
+        newBook.setIsbn(isbn);
+        newBook.setDescription(description);
+        newBook.setType(type);
+        newBook.setPosition(position);
+        newBook.setVersion(version);
+        newBook.setNum(num);
+        newBook.setPublishId(publishID);
+
+        try{
+            bookDB.save(newBook);
+            if(bar.equals("ERROR")){
+                JSONObject result = new JSONObject();
+                result.put("msg", "WARNING_IMG");
+                return result.toString();
+            }
+            else {
+                JSONObject jsonObject = new JSONObject();
+                jsonObject.put("msg", "SUCCESS");
+                return jsonObject.toString();
+            }
+        }catch (Exception e){
+            JSONObject jsonObject=new JSONObject();
+            jsonObject.put("msg","ERROR_SERVER");
+            return jsonObject.toString();
+        }
+    }
+    public String findBook(String msg,String bookType){
+        return "2";
+    }
+    public String findDetail(String isbn){
+        return "1";
+    }
+    public String deleteBook(String isbn){
+        return "1";
+    }
+    public String updateBook(String name,String publisher,String author,MultipartFile img,String isbn,String description,
+                         String type,String position,String version,String num,String publishID){
+        return "1";
     }
 }
