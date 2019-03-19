@@ -22,4 +22,6 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     compile group: 'org.json', name: 'json', version: '20180813'
     compile group: 'com.squareup.okhttp3', name: 'okhttp', version: '3.12.0'
+    compile 'com.google.zxing:core:3.3.0'
+    compile 'com.google.zxing:javase:3.3.0'
 }

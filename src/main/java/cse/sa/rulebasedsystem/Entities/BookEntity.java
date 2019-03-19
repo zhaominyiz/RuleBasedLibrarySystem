@@ -7,6 +7,7 @@ import java.util.Objects;
 @Entity
 @Table(name = "book", schema = "library", catalog = "")
 public class BookEntity {
+    private String publishId;
     private int id;
     private String name;
     private String publisher;
@@ -20,6 +21,16 @@ public class BookEntity {
     private String position;
     private String type;
     private String version;
+
+    @Basic
+    @Column(name = "publishID", nullable = false, length = 255)
+    public String getPublishId() {
+        return publishId;
+    }
+
+    public void setPublishId(String publishId) {
+        this.publishId = publishId;
+    }
 
     @Id
     @Column(name = "id", nullable = false)
@@ -159,6 +170,7 @@ public class BookEntity {
         return id == that.id &&
                 num == that.num &&
                 res == that.res &&
+                Objects.equals(publishId, that.publishId) &&
                 Objects.equals(name, that.name) &&
                 Objects.equals(publisher, that.publisher) &&
                 Objects.equals(img, that.img) &&
@@ -173,6 +185,6 @@ public class BookEntity {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, publisher, img, author, isbn, num, res, description, addTime, position, type, version);
+        return Objects.hash(publishId, id, name, publisher, img, author, isbn, num, res, description, addTime, position, type, version);
     }
 }
