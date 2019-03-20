@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>书本录入</title>
+    <link rel="stylesheet" type="text/css" href="css/global.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+</head>
+<body>
+<div class="header_bg" id="home">
+    <div class="container">
+        <div class="row header text-center specials">
+            <div class="h_logo">
+                <img src="imgs/logo.png" alt="" class="responsive"/>
+            </div>
+            <div class="top-nav" id="nav">
+                <ul class="top-nav nav-list">
+                    <li><a href="main.html">主页</a></li>
+                    <li class="logo page-scroll"><a href="main.html"><img src="imgs/logo.png"></a></li>
+                    <li class="page-scroll"><a href="login.html">退出登录</a></li>
+                </ul>
+                <a href="#" id="pull"><img src="imgs/nav-icon.png"></a>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>
+<div class="slider_bg" id="mainContainer">
+    <div id="form">
+        <form  action="success.html" method="post" >
+            <table width="800" align="left">
+                <tr>
+                    <td width="20%" style="color: aliceblue; text-align: right;">ISBN号：</td>
+                    <td><input type="text" name="isbn" id="isbn" required="required" style="margin: 5px;float: left;" onblur="isIntNum(this)"/>
+                        <span id="isInt_span">请输入正确ISBN号</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="20%" style="color: aliceblue; text-align: right;">图书名称：</td>
+                    <td><input type="text" name="name" id="name" required="required" style="margin: 5px;float: left;"/>
+                        <span id="sname_span">请输入正确图书名称</span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td  style="color: aliceblue; text-align: right;">出版社：</td>
+                    <td><input type="text" name="publisher" id="publisher" required="required" style="margin: 5px;float: left;"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="20%" style="color: aliceblue; text-align: right;">作者：</td>
+                    <td><input type="text" name="author" id="author" required="required" style="margin: 5px;float: left;" />
+                    </td>
+                </tr>
+                <tr>
+                    <td style="color: aliceblue; text-align: right;">封面：</td>
+                    <td><input type="text" name="img" id="img" required="required"  style="margin:5px;float: left;"/>
+                        <span id="patent_er_span">请上传正确封面</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="color: aliceblue; text-align: right;">描述：</td>
+                    <td><input type="text" name="description" id="description" required="required" style="margin: 5px;float: left;" />
+                    </td>
+                </tr>
+                <tr>
+                    <td style="color: aliceblue; text-align: right;">位置：</td>
+                    <td><input type="text" name="position" id="position" required="required" style="margin: 5px;float: left;" />
+                        <span id="type_span">请输入有效位置</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="color: aliceblue; text-align: right;">分类：</td>
+                    <td><input type="text" name="type" id="type" required="required" style="margin: 5px;float: left;"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="color: aliceblue; text-align: right;">数目：</td>
+                    <td><input type="text" name="num" id="num" required="required"  onblur="isIntNum(this)" style="margin: 5px;float: left;"/>
+                        <span id="isInt_span">请输入有效数目</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="color: aliceblue; text-align: right;">版本号：</td>
+                    <td><input type="text" name="version" id="version" required="required"  onblur="isIntNum(this)" style="margin: 5px;float: left;"/>
+                        <span id="isInt_span">请输入有效版本号</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="color: aliceblue; text-align: right;">出版号ID：</td>
+                    <td><input type="text" name="publishID" id="publishID" required="required"  onblur="isIntNum(this)" style="margin: 5px;float: left;"/>
+                        <span id="isInt_span">请输入有效出版号ID</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" align="center"><input class="button" type="submit" value="添加" style="font-size: 30px; margin-top: 10px;padding-top:-50px;padding-bottom: 40px;"></td>
+                </tr>
+            </table>
+        </form>
+    </div>
+</div>
+
+<script type="text/javascript">
+    function isIntNum(val){
+        var regPos = / ^\d+$/; // 非负整数
+        var regNeg = /^\-[1-9][0-9]*$/; // 负整数
+        if(regPos.test(val) || regNeg.test(val)){
+            byId("isInt_span").sytle.color = "green";
+        }else{
+            byId("isInt_span").style.color = "red";
+        }
+    }
+</script>
+
+<div class="footer_bg" id="contact">
+    <div class="container"></div>
+</div>
+<div class="footer1_bg">
+    <div class="container">
+        <div class="row  footer">
+            <div class="copy text-center">
+                <p class="link"><span>Copyright &copy; 2019.ZWSL All rights reserved.</span></p>
+                <a href="#home" id="toTop" style="display: block;"><span id="toTopHover" style="opacity: 1;"> </span></a>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

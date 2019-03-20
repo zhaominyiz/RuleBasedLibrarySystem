@@ -204,7 +204,7 @@ public class BookEngine {
         return "ERROR";
     }
 
-
+    //录入书籍
     public String bookIn(String name,String publisher,String author,MultipartFile file,String isbn,String description,
                            String type,String position,String version,Integer num,String publishID){
         BookEntity newBook=new BookEntity();
@@ -264,6 +264,8 @@ public class BookEngine {
             return jsonObject.toString();
         }
     }
+
+    //寻找一本书
     public String findBook(String msg,String bookType){
         JSONObject re=new JSONObject();
         JSONArray booklistbooklist=new JSONArray();
@@ -355,6 +357,8 @@ public class BookEngine {
             return re.toString();
         }
     }
+
+    //寻找一本书的详细信息
     public String findDetail(String isbn){
         JSONObject re=new JSONObject();
         try {

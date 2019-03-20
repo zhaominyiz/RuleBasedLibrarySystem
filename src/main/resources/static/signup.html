@@ -19,7 +19,7 @@
                 <ul class="top-nav nav-list">
                     <li><a href="main.html">主页</a></li>
                     <li class="logo page-scroll"><a href="main.html"><img src="imgs/logo.png"></a></li>
-                    <li class="page-scroll"><a href="">注册</a></li>
+                    <li class="page-scroll"><a href="login.html">登录</a></li>
                 </ul>
                 <a href="#" id="pull"><img src="imgs/nav-icon.png"></a>
             </div>
@@ -48,10 +48,10 @@
                         </tr>
                         <tr>
                                 <td style="text-align: right;" >身份证：</td>
-                                <td><input type="text" name="id" id="id" required="required" placeholder="请输入身份证号" class="ipt"  /></td>
+                                <td><input type="text" name="id" id="idNo" required="required" placeholder="请输入身份证号" class="ipt"  /></td>
                             </tr>
                         <tr>
-                            <td colspan="2" style="text-align: center;"><input style="color: antiquewhite;"  type="submit" value="提 交" class="buttom" />
+                            <td colspan="2" style="text-align: center;"><input type="button" value="提 交" class="buttom" onclick="dosignup()"/>
                                 &nbsp;&nbsp;&nbsp;&nbsp;
                                 <input style="color: antiquewhite;"  type="reset" value="重 置" class="buttom" /></td>
                         </tr>
@@ -80,9 +80,9 @@
             }
         });
     });
-    <
 
-    function checkandlogin() {
+    function dosignup() {
+        //alert("????")
         if($("#name").val().left<=0){
             alert("请输入姓名");
             return;
@@ -99,36 +99,36 @@
             alert("密码长度需大于等于6")
             return
         }
+       // alert("????")
         let loginJson = {
             "name": $("#name").val(),
             "account": $("#account").val(),
             "password": $("#pwd").val(),
-            "id": $("#id").val()
+            "id": $("#idNo").val()
         };
         console.log(loginJson);
         console.log(JSON.stringify(loginJson));
         $.ajax({
             type: "POST",
-            url: "http://localhost:8080/service/login.login",
+            url: "http://localhost:8080/service/signup.login",
             contentType: "application/json; charset=utf-8",
             data: JSON.stringify(loginJson),
             dataType: "json",
             success: function (res) {
                 console.log(res);
                 //如果获取不到用户类别则为登录失败
+                //alert(res.msg)
                 if (res.msg==="ERROR_INPUTDATA" ) {
                     alert("数据传输失败")
                 }else if(res.msg==="ERROR_ACCOUNT"){
                     alert("用户名有误")
-                }else if(res.msg==="ERROR_PWD"){
-                    alert("密码错误")
                 }else if(res.msg===("ERROR_SERVER")){
                     alert("服务器内部错误")
                 }
-                else if(res.msg==="SUCCESS"){//登录成功
-                    //设置登录类别
-                    sessionStorage.setItem("userType", res.type);
-                    sessionStorage.setItem("userName", res.name);
+                else if(res.msg==="SUCCESS"){
+                    //alert("Success")
+                    sessionStorage.setItem("userType", "user");
+                    sessionStorage.setItem("userName", $("#name").val());
                     sessionStorage.setItem("userAccount",  $("#account").val());
                     //alert(res.type+res.name);
                     //alert(window.location.href.substring(0, window.location.href.lastIndexOf('/')) + "/main.html")

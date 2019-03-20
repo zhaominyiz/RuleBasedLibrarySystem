@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>登录</title>
-    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/4.0.0/css/bootstrap.min.css"
-          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <!--<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/4.0.0/css/bootstrap.min.css"-->
+    <!--integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">-->
     <link rel="stylesheet" type="text/css" href="css/global.css">
     <link rel="stylesheet" type="text/css" href="css/style.css">
     <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
@@ -21,7 +21,7 @@
                 <ul class="top-nav nav-list">
                     <li><a href="main.html">主页</a></li>
                     <li class="logo page-scroll"><a href="main.html"><img src="imgs/logo.png"></a></li>
-                    <li class="page-scroll"><a href="">注册</a></li>
+                    <li class="page-scroll"><a href="signup.html">注册</a></li>
                 </ul>
                 <a href="#" id="pull"><img src="imgs/nav-icon.png"></a>
             </div>
@@ -34,20 +34,20 @@
                 <div id="content">
             <div id="word"><h1>LOGIN</h1></div>
                 <div id="form">
-                    <form style="padding-right: 230px;"  >
+                    <form style="padding-right: 230px;" action="" >
                         <table height="253" id="table">
                             <tr>
                                 <td width="95" height="68" style="color: aliceblue; text-align: right;" >帐 号：</td>
-                                <td width="80"><input type="text" name="account" id="account" required="required"  placeholder="请输入学号" class="ipt" /></td>
+                                <td width="80"><input type="text" name="account" id="account"  placeholder="请输入学号" class="ipt"  /></td>
                             </tr>
                             <tr>
                                 <td height="58" style="color: aliceblue; text-align: right;">密 码：</td>
-                                <td><input type="password" name="password" id="pwd" required="required" placeholder="请输入密码" class="ipt" /> </td>
+                                <td><input type="password" name="password" id="pwd"  placeholder="请输入密码" class="ipt" /> </td>
                             </tr>
                             <tr>
-                                <td colspan="2" style="text-align: center;"><input style="color: antiquewhite;" type="button" value="登 录" class="buttom" onclick="checkandlogin()"/>
+                                <td colspan="2" style="text-align: center;"><input type="button" value="登 录" class="buttom" onclick="checkandlogin()"/>
                                     &nbsp;&nbsp;&nbsp;&nbsp;
-                                    <input style="color: antiquewhite;" type="reset" value="重 置" class="buttom" /></td>
+                                    <input type="reset" value="重 置" class="buttom" /></td>
                             </tr>
                             <tr>
                                 <td colspan="2" style="text-align: center; font-size: 19px;padding-bottom: 14px;"><a href="signup.html">还没帐号？注册</a></td>
@@ -130,17 +130,16 @@
 
         })
     }
-
+ 
 </script>
 <div class="footer_bg" id="contact">
     <div class="container"></div>
-</div>
-<div class="container"></div>
+</div>      
 <div class="footer1_bg">
     <div class="container">
         <div class="row  footer">
             <div class="copy text-center">
-                <p class="link"><span>Copyright &copy; 2019.NJUST All rights reserved.</span></p>
+                <p class="link"><span>Copyright &copy; 2019.ZWSL All rights reserved.</span></p>
                 <a href="#home" id="toTop" style="display: block;"><span id="toTopHover" style="opacity: 1;"> </span></a>
             </div>
         </div>
