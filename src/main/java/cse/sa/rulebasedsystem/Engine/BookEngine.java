@@ -9,8 +9,12 @@ import cse.sa.rulebasedsystem.Entities.BookEntity;
 import cse.sa.rulebasedsystem.Entities.BookrecordEntity;
 import cse.sa.rulebasedsystem.Knowleges.BookRules;
 import cse.sa.rulebasedsystem.Knowleges.LoginRules;
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import com.google.zxing.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -18,10 +22,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.imageio.ImageIO;
 
 import java.awt.image.BufferedImage;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.sql.Timestamp;
 import java.util.Hashtable;
 import java.util.List;
@@ -194,6 +195,7 @@ public class BookEngine {
             Hashtable<DecodeHintType, Object> hints = new Hashtable<>();
             hints.put(DecodeHintType.CHARACTER_SET, "UTF-8");
 
+
             result = new MultiFormatReader().decode(bitmap,hints);
             return result.getText();
         } catch (Exception e) {
@@ -201,39 +203,55 @@ public class BookEngine {
         }
         return "ERROR";
     }
+
+
     public String bookIn(String name,String publisher,String author,MultipartFile file,String isbn,String description,
                            String type,String position,String version,Integer num,String publishID){
         BookEntity newBook=new BookEntity();
         newBook.setName(name);
         newBook.setPublisher(publisher);
         newBook.setAuthor(author);
-        String bar="";
+        String outurl="";
+        String fileName = file.getOriginalFilename();
+        String filePath = ("src/main/resources/static/book_img");//request.getSession().getServletContext().getRealPath("/uploader");
+        List<BookEntity> booklist = bookDB.getBookEntitiesByPublisherID(publishID);
+        if (booklist.size() != 0) {
+            JSONObject result = new JSONObject();
+            result.put("msg", "ERROR_SAVED");
+            return result.toString();
+        }
         try {
-            bar = decodeBar(file.getInputStream());
-            List<BookEntity> booklist = bookDB.getBookEntitiesByPublisherID(bar);
-            if (booklist != null || booklist.size() != 0) {
-                JSONObject result = new JSONObject();
-                result.put("msg", "ERROR_SAVED");
-                return result.toString();
+            File targetFile = new File(filePath);
+            if(!targetFile.exists()){
+                targetFile.mkdirs();
             }
+            String fileurl=filePath+"\\"+fileName;
+            outurl="src/main/resources/static/book_img"+fileName;
+            FileOutputStream out = new FileOutputStream(fileurl);
+            out.write(file.getBytes());
+            out.flush();
+            out.close();
         }catch (Exception e){
             e.printStackTrace();
+            outurl="ERROR";
         }
-        newBook.setImg(bar);
+        newBook.setImg(outurl);
         newBook.setIsbn(isbn);
         newBook.setDescription(description);
         newBook.setType(type);
         newBook.setPosition(position);
         newBook.setVersion(version);
         newBook.setNum(num);
+        Timestamp d = new Timestamp(System.currentTimeMillis());
+        newBook.setAddTime(d);
         newBook.setPublishId(publishID);
 
         try{
             bookDB.save(newBook);
-            if(bar.equals("ERROR")){
-                JSONObject result = new JSONObject();
-                result.put("msg", "WARNING_IMG");
-                return result.toString();
+            if (outurl.equals("ERROR")) {
+                JSONObject jsonObject = new JSONObject();
+                jsonObject.put("msg", "WARNING_IMG");
+                return jsonObject.toString();
             }
             else {
                 JSONObject jsonObject = new JSONObject();
@@ -247,16 +265,192 @@ public class BookEngine {
         }
     }
     public String findBook(String msg,String bookType){
-        return "2";
+        JSONObject re=new JSONObject();
+        JSONArray booklistbooklist=new JSONArray();
+        try{
+            int cnt=0;
+            List<BookEntity> tmpList=bookDB.findName(msg,bookType);
+            cnt+=tmpList.size();
+            System.out.println(cnt);
+            for(BookEntity bookTmp:tmpList){
+                JSONObject reTmp=new JSONObject();
+                reTmp.put("id",bookTmp.getId());
+                reTmp.put("bookname",bookTmp.getName());
+                reTmp.put("img",bookTmp.getImg());
+                reTmp.put("description",bookTmp.getDescription());
+                reTmp.put("type",bookTmp.getType());
+                reTmp.put("position",bookTmp.getPosition());
+                reTmp.put("num",bookTmp.getNum());
+                reTmp.put("res",bookTmp.getRes());
+                reTmp.put("author",bookTmp.getAuthor());
+                reTmp.put("publisher",bookTmp.getPublisher());
+                reTmp.put("isbn",bookTmp.getIsbn());
+                reTmp.put("version",bookTmp.getVersion());
+                booklistbooklist.put(reTmp);
+            }
+            List<BookEntity> tmpList2=bookDB.findAuthor(msg,bookType);
+            cnt+=tmpList2.size();
+            System.out.println(cnt);
+            for(BookEntity bookTmp:tmpList2){
+                JSONObject reTmp=new JSONObject();
+                reTmp.put("id",bookTmp.getId());
+                reTmp.put("bookname",bookTmp.getName());
+                reTmp.put("img",bookTmp.getImg());
+                reTmp.put("description",bookTmp.getDescription());
+                reTmp.put("type",bookTmp.getType());
+                reTmp.put("position",bookTmp.getPosition());
+                reTmp.put("num",bookTmp.getNum());
+                reTmp.put("res",bookTmp.getRes());
+                reTmp.put("author",bookTmp.getAuthor());
+                reTmp.put("publisher",bookTmp.getPublisher());
+                reTmp.put("isbn",bookTmp.getIsbn());
+                reTmp.put("version",bookTmp.getVersion());
+                booklistbooklist.put(reTmp);
+            }
+            List<BookEntity> tmpList3=bookDB.findPublisher(msg,bookType);
+            cnt+=tmpList3.size();
+            System.out.println(cnt);
+            for(BookEntity bookTmp:tmpList3){
+                JSONObject reTmp=new JSONObject();
+                reTmp.put("id",bookTmp.getId());
+                reTmp.put("bookname",bookTmp.getName());
+                reTmp.put("img",bookTmp.getImg());
+                reTmp.put("description",bookTmp.getDescription());
+                reTmp.put("type",bookTmp.getType());
+                reTmp.put("position",bookTmp.getPosition());
+                reTmp.put("num",bookTmp.getNum());
+                reTmp.put("res",bookTmp.getRes());
+                reTmp.put("author",bookTmp.getAuthor());
+                reTmp.put("publisher",bookTmp.getPublisher());
+                reTmp.put("isbn",bookTmp.getIsbn());
+                reTmp.put("version",bookTmp.getVersion());
+                booklistbooklist.put(reTmp);
+            }
+            List<BookEntity> tmpList4=bookDB.findIsbn(msg,bookType);
+            cnt+=tmpList4.size();
+            System.out.println(cnt);
+            for(BookEntity bookTmp:tmpList4){
+                JSONObject reTmp=new JSONObject();
+                reTmp.put("id",bookTmp.getId());
+                reTmp.put("bookname",bookTmp.getName());
+                reTmp.put("img",bookTmp.getImg());
+                reTmp.put("description",bookTmp.getDescription());
+                reTmp.put("type",bookTmp.getType());
+                reTmp.put("position",bookTmp.getPosition());
+                reTmp.put("num",bookTmp.getNum());
+                reTmp.put("res",bookTmp.getRes());
+                reTmp.put("author",bookTmp.getAuthor());
+                reTmp.put("publisher",bookTmp.getPublisher());
+                reTmp.put("isbn",bookTmp.getIsbn());
+                reTmp.put("version",bookTmp.getVersion());
+                booklistbooklist.put(reTmp);
+            }
+            re.put("msg","SUCCESS");
+            re.put("cnt",cnt);
+            re.put("booklist",booklistbooklist);
+            return re.toString();
+        }catch (Exception e){
+            e.printStackTrace();
+            re.put("msg","ERROR_SERVER");
+            return re.toString();
+        }
     }
     public String findDetail(String isbn){
-        return "1";
+        JSONObject re=new JSONObject();
+        try {
+            BookEntity currentBook = bookDB.findByIsbn(isbn);
+            if(currentBook==null){
+                re.put("msg","ERROR_NOTFOUND");
+                return re.toString();
+            }
+            re.put("msg","SUCCESS");
+            re.put("bookname",currentBook.getName());
+            re.put("img",currentBook.getImg());
+            re.put("description",currentBook.getDescription());
+            re.put("type",currentBook.getType());
+            re.put("position",currentBook.getPosition());
+            re.put("num",currentBook.getNum());
+            re.put("res",currentBook.getRes());
+            re.put("author",currentBook.getAuthor());
+            re.put("publisher",currentBook.getPublisher());
+            re.put("isbn",currentBook.getIsbn());
+            re.put("version",currentBook.getVersion());
+            return re.toString();
+        }catch (Exception e){
+            e.printStackTrace();
+            re.put("msg","ERROR_SERVER");
+            return re.toString();
+        }
     }
     public String deleteBook(String isbn){
-        return "1";
+        BookEntity currentBook=bookDB.findByIsbn(isbn);
+        JSONObject re=new JSONObject();
+        if(currentBook==null){
+            re.put("msg","ERROR_NOTFOUND");
+            return re.toString();
+        }
+        try{
+            bookDB.delete(currentBook);
+            re.put("msg","SUCCESS");
+            return re.toString();
+        }catch (Exception e){
+            e.printStackTrace();
+            re.put("msg","ERROR_SERVER");
+            return re.toString();
+        }
     }
-    public String updateBook(String name,String publisher,String author,MultipartFile img,String isbn,String description,
-                         String type,String position,String version,String num,String publishID){
-        return "1";
+    public String updateBook(String name,String publisher,String author,MultipartFile file,String isbn,String description,
+                         String type,String position,String version,Integer num,String publishID){
+        BookEntity newBook=bookDB.findByIsbn(isbn);
+        JSONObject re=new JSONObject();
+        if(newBook==null){
+            re.put("msg","ERROR_NOTFOUND");
+            return re.toString();
+        }
+        newBook.setName(name);
+        newBook.setPublisher(publisher);
+        newBook.setAuthor(author);
+        String outurl="";
+        String fileName = file.getOriginalFilename();
+        String filePath = ("src/main/resources/static/book_img");//request.getSession().getServletContext().getRealPath("/uploader");
+        List<BookEntity> booklist = bookDB.getBookEntitiesByPublisherID(publishID);
+        if (booklist.size() != 0) {
+            JSONObject result = new JSONObject();
+            result.put("msg", "ERROR_SAVED");
+            return result.toString();
+        }
+        try {
+            File targetFile = new File(filePath);
+            if(!targetFile.exists()){
+                targetFile.mkdirs();
+            }
+            String fileurl=filePath+"\\"+fileName;
+            outurl="src/main/resources/static/book_img"+fileName;
+            FileOutputStream out = new FileOutputStream(fileurl);
+            out.write(file.getBytes());
+            out.flush();
+            out.close();
+        }catch (Exception e){
+            e.printStackTrace();
+            outurl="ERROR";
+        }
+        newBook.setImg(outurl);
+        newBook.setIsbn(isbn);
+        newBook.setDescription(description);
+        newBook.setType(type);
+        newBook.setPosition(position);
+        newBook.setVersion(version);
+        newBook.setNum(num);
+        newBook.setPublishId(publishID);
+        try{
+            bookDB.save(newBook);
+            re.put("msg","SUCCESS");
+            return re.toString();
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            re.put("msg","ERROR_SERVER");
+            return re.toString();
+        }
     }
 }

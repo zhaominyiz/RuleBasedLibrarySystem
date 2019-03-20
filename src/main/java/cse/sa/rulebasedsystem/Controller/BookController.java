@@ -65,6 +65,9 @@ public class BookController {
             bookType=jsonObject.getString("type");
         }catch (Exception ex){
             ex.printStackTrace();
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("msg", "ERROR_INPUTDATA");
+            return jsonObject.toString();
         }
         return bookEngine.findBook(msg,bookType);
     }
@@ -78,6 +81,9 @@ public class BookController {
             isbn=jsonObject.getString("isbn");
         }catch (Exception ex){
             ex.printStackTrace();
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("msg", "ERROR_INPUTDATA");
+            return jsonObject.toString();
         }
         return bookEngine.findDetail(isbn);
     }
@@ -91,23 +97,33 @@ public class BookController {
             isbn=jsonObject.getString("isbn");
         }catch (Exception ex){
             ex.printStackTrace();
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("msg", "ERROR_INPUTDATA");
+            return jsonObject.toString();
         }
         return bookEngine.deleteBook(isbn);
     }
 
     @RequestMapping(value = "update.manage", produces = "application/json;charset=UTF-8")
     public String updateBook(MultipartHttpServletRequest request) {
-        String name = request.getParameter("name");
-        String publisher = request.getParameter("publisher");
-        String author = request.getParameter("author");
-        MultipartFile img = request.getFile("img");
-        String isbn=request.getParameter("isbn");
-        String description=request.getParameter("description");
-        String type=request.getParameter("type");
-        String position=request.getParameter("position");
-        String version=request.getParameter("version");
-        String num=request.getParameter("num");
-        String publishID=request.getParameter("publishID");
-        return bookEngine.updateBook(name,publisher,author,img,isbn,description,type,position,version,num,publishID);
+        try {
+            String name = request.getParameter("name");
+            String publisher = request.getParameter("publisher");
+            String author = request.getParameter("author");
+            MultipartFile img = request.getFile("img");
+            String isbn = request.getParameter("isbn");
+            String description = request.getParameter("description");
+            String type = request.getParameter("type");
+            String position = request.getParameter("position");
+            String version = request.getParameter("version");
+            Integer num = Integer.parseInt(request.getParameter("num"));
+            String publishID = request.getParameter("publishID");
+            return bookEngine.updateBook(name,publisher,author,img,isbn,description,type,position,version,num,publishID);
+        }catch (Exception ex){
+            ex.printStackTrace();
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("msg", "ERROR_INPUTDATA");
+            return jsonObject.toString();
+        }
     }
 }

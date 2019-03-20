@@ -1,10 +1,14 @@
 package cse.sa.rulebasedsystem.Entities;
 
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Objects;
 
 @Entity
+@EntityListeners(AuditingEntityListener.class) //启动自动生成时间
 @Table(name = "book", schema = "library", catalog = "")
 public class BookEntity {
     private String publishId;
@@ -123,7 +127,8 @@ public class BookEntity {
     }
 
     @Basic
-    @Column(name = "add_time", nullable = true)
+    @CreatedDate
+    @Column(name = "add_time")
     public Timestamp getAddTime() {
         return addTime;
     }
