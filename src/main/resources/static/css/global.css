@@ -81,10 +81,14 @@ a{
     position: relative;
     vertical-align:middle;
     height: 428px;
-    font-size: 1.8em;
+    font-size: 1.7em;
+    color: aliceblue;
     text-align: center;
     padding-left: 25%;
     padding-right: 25%;
+}
+#form input {
+    color: black;
 }
 #form a{
     color: #ccc;
