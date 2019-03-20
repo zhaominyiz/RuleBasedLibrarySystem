@@ -28,40 +28,38 @@
     </div>
 </div>
 <div class="slider_bg" id="mainContainer">
-    <div class="container">
-        <div id="content">
-            <div id="word">
-                <h1>LOGIN</h1>
+            <div class="container">
+                <div id="content">
+            <div id="word"><h1>LOGIN</h1></div>
                 <div id="form">
-                    <form action="" method="post" onsubmit="return finalCheck()">
-                        <table height="253" id="tab">
+                    <form style="padding-right: 230px;" action="main.html" method="post" onsubmit="return finalCheck(this)">
+                        <table height="253" id="table">
                             <tr>
                                 <td width="95" height="68" style="color: aliceblue; text-align: right;" >用 户：</td>
-                                <td width="80"><input id="name" path="username" placeholder="请输入学号" class="ipt"/></td>
+                                <td width="80"><input type="text" name="account" id="name"  placeholder="请输入学号" class="ipt" onkeyup="check()" /></td>
                             </tr>
                             <tr>
                                 <td height="58" style="color: aliceblue; text-align: right;">密 码：</td>
-                                <td><input id="password" path="password"  placeholder="请输入密码" class="ipt"/> </td>
+                                <td><input type="password" name="password" id="passw"  placeholder="请输入密码" class="ipt" onkeyup="check1()"/> </td>
                             </tr>
                             <tr>
-                                <td colspan="2" style="text-align: center;"><input type="submit" value="登录" class="buttom"/>
+                                <td colspan="2" style="text-align: center;"><input type="submit" value="登 录" class="buttom" />
                                     &nbsp;&nbsp;&nbsp;&nbsp;
-                                    <input type="reset" value="重置" class="buttom" /></td>
+                                    <input type="reset" value="重 置" class="buttom" /></td>
                             </tr>
                             <tr>
-                                <td colspan="2" style="text-align: center; font-size: 19px;"><a href="">用户注册</a></td>
+                                <td colspan="2" style="text-align: center; font-size: 19px;padding-bottom: 14px;"><a href="">还没帐号？注册</a></td>
                             </tr>
                         </table> 
                     </form>
                 </div>
-            </div>
         </div>
     </div>
 </div>
 <script type="text/javascript">
     $(function() {
         $('a[href*=#]:not([href=#])').click(function() {
-            if (location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'') && location.hostname == this.hostname) {
+            if (location.name.replace(/^\//,'') == this.name.replace(/^\//,'') && location.hostname == this.hostname) {
 
                 var target = $(this.hash);
                 target = target.length ? target : $('[name=' + this.hash.slice(1) +']');
@@ -75,19 +73,32 @@
         });
     });
 
-    function finalCheck() {
-        var name = $("#account").val();
-        var password = $("#password").val();
-        if(name === "" || name == null){
-            alert("请输入用户名！");
-            return false;
+    function finalCheck(form) {
+        with(form){
+            if(name.value.length<=0){
+                name.focus();
+                alert("请输入学号或工号！");
+                return false;
+            }
+            if(passw.value.length<=0){
+                passw.focus();
+                alert("请输入密码！");
+                return false;
+            }
         }
-        if(password === "" || password == null){
-            alert("请输入密码！");
-            return false;
-        }
-        return true;
     }
+    function check(){
+        if(name.value.length<=0)
+            tip1.innerHTML="请输入学号或工号！";
+    }
+    function check1() {
+        if (passw.value.length <= 0)
+            tip2.innerHTML = "请输入密码！";
+        if(passw.value.length<6)
+            tip2.innerHTML ="密码至少为6位";
+
+    }
+ 
 </script>
 <div class="footer_bg" id="contact">
     <div class="container"></div>
