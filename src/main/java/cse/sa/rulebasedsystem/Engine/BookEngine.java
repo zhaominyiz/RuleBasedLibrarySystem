@@ -357,7 +357,31 @@ public class BookEngine {
         }
     }
     public String findDetail(String isbn){
-        return "1";
+        JSONObject re=new JSONObject();
+        try {
+            BookEntity currentBook = bookDB.findByIsbn(isbn);
+            if(currentBook==null){
+                re.put("msg","ERROR_NOTFOUND");
+                return re.toString();
+            }
+            re.put("msg","SUCCESS");
+            re.put("bookname",currentBook.getName());
+            re.put("img",currentBook.getImg());
+            re.put("description",currentBook.getDescription());
+            re.put("type",currentBook.getType());
+            re.put("position",currentBook.getPosition());
+            re.put("num",currentBook.getNum());
+            re.put("res",currentBook.getRes());
+            re.put("author",currentBook.getAuthor());
+            re.put("publisher",currentBook.getPublisher());
+            re.put("isbn",currentBook.getIsbn());
+            re.put("version",currentBook.getVersion());
+            return re.toString();
+        }catch (Exception e){
+            e.printStackTrace();
+            re.put("msg","ERROR_SERVER");
+            return re.toString();
+        }
     }
     public String deleteBook(String isbn){
         return "1";

@@ -4,6 +4,7 @@ import cse.sa.rulebasedsystem.Entities.BookEntity;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
+import org.springframework.lang.Nullable;
 
 import java.util.List;
 
@@ -23,4 +24,7 @@ public interface BookImpl extends CrudRepository<BookEntity,Integer> {
 
     @Query(value = "select * from book where author like CONCAT('%',:an,'%') and type like CONCAT('%',:un,'%')", nativeQuery = true)
     public List<BookEntity> findAuthor(@Param("an") String msg,@Param("un") String type);
+
+    @Nullable
+    public BookEntity findByIsbn(String isbn);
 }
