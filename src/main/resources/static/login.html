@@ -3,12 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <title>登录</title>
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="css/global.css">
     <link rel="stylesheet" type="text/css" href="css/style.css">
     <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
 </head>
-<body topmargin=0 leftmargin=0>
+<body>
 <div class="header_bg" id="home">
     <div class="container">
         <div class="row header text-center specials">
@@ -28,33 +30,31 @@
     </div>
 </div>
 <div class="slider_bg" id="mainContainer">
-    <div class="container">
-        <div id="content">
-            <div id="word">
-                <h1>LOGIN</h1>
-                <div id="form" class="loginBox">
-                    <form action="main.html" method="post" onsubmit="return finalCheck(this)">
+            <div class="container">
+                <div id="content">
+            <div id="word"><h1>LOGIN</h1></div>
+                <div id="form">
+                    <form style="padding-right: 230px;" action="" >
                         <table height="253" id="table">
                             <tr>
-                                <td width="95" height="68" style="color: aliceblue; text-align: right;" >用 户：</td>
-                                <td width="80"><input type="text" name="account" id="account"  placeholder="请输入学号" class="ipt" onkeyup="check()" /></td>
+                                <td width="95" height="68" style="color: aliceblue; text-align: right;" >帐 号：</td>
+                                <td width="80"><input type="text" name="account" id="name"  placeholder="请输入学号" class="ipt"  /></td>
                             </tr>
                             <tr>
                                 <td height="58" style="color: aliceblue; text-align: right;">密 码：</td>
-                                <td><input type="password" name="password" id="passw"  placeholder="请输入密码" class="ipt" onkeyup="check1()"/> </td>
+                                <td><input type="password" name="password" id="pwd"  placeholder="请输入密码" class="ipt" /> </td>
                             </tr>
                             <tr>
-                                <td colspan="2" style="text-align: center;"><input type="submit" value="登录" class="buttom" />
+                                <td colspan="2" style="text-align: center;"><input type="button" value="登 录" class="buttom" onclick="checkandlogin()"/>
                                     &nbsp;&nbsp;&nbsp;&nbsp;
-                                    <input type="reset" value="重置" class="buttom" /></td>
+                                    <input type="reset" value="重 置" class="buttom" /></td>
                             </tr>
                             <tr>
-                                <td colspan="2" style="text-align: center; font-size: 19px;padding-bottom: 15px;"><a href="">还没帐号？注册</a></td>
+                                <td colspan="2" style="text-align: center; font-size: 19px;padding-bottom: 14px;"><a href="">还没帐号？注册</a></td>
                             </tr>
                         </table> 
                     </form>
                 </div>
-            </div>
         </div>
     </div>
 </div>
@@ -77,8 +77,8 @@
 
     function finalCheck(form) {
         with(form){
-            if(account.value.length<=0){
-                account.focus();
+            if(name.value.length<=0){
+                name.focus();
                 alert("请输入学号或工号！");
                 return false;
             }
@@ -89,19 +89,63 @@
             }
         }
     }
-    <!--
-    function check(){
-        if(name.value.length<=0)
-            tip1.innerHTML="请输入学号或工号！";
-    }
-    function check1() {
-        if (passw.value.length <= 0)
-            tip2.innerHTML = "请输入密码！";
-        if(passw.value.length<6)
-            tip2.innerHTML ="密码至少为6位";
+    function checkandlogin() {
 
+        if($("#name").val().length<=0){
+            alert("请输入帐号");
+            return;
+        }
+        if ($("#pwd").val().length <= 0) {
+            alert("请输入密码")
+            return
+        }
+        if($("#pwd").val().length<6) {
+            alert("密码长度需大于等于6")
+            return
+        }
+        let loginJson = {
+            "account": $("#name").val(),
+            "password": $("#pwd").val()
+        };
+        console.log(loginJson);
+        console.log(JSON.stringify(loginJson));
+        $.ajax({
+            type: "POST",
+            url: "http://localhost:8080/service/login.login",
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify(loginJson),
+            dataType: "json",
+            success: function (res) {
+                console.log(res);
+                //如果获取不到用户类别则为登录失败
+                if (res.msg==="ERROR_INPUTDATA" ) {
+                    alert("数据传输失败")
+                }else if(res.msg==="ERROR_ACCOUNT"){
+                    alert("用户名有误")
+                }else if(res.msg==="ERROR_PWD"){
+                    alert("密码错误")
+                }else if(res.msg===("ERROR_SERVER")){
+                    alert("服务器内部错误")
+                }
+                else if(res.msg==="SUCCESS"){//登录成功
+                    //设置登录类别
+                    sessionStorage.setItem("userType", res.type);
+                    sessionStorage.setItem("userName", res.name);
+                    sessionStorage.setItem("userAccount",  $("#name").val());
+                    //alert(res.type+res.name);
+                    //alert(window.location.href.substring(0, window.location.href.lastIndexOf('/')) + "/main.html")
+                    window.location.replace(window.location.href.substring(0, window.location.href.lastIndexOf('/')) + "/main.html")
+
+                }
+            },
+            error: function (XMLHttpRequest, textStatus) {
+                alert("与服务器通讯失败！请刷新重试！");
+                console.error(textStatus + ":" + XMLHttpRequest.status + " " + XMLHttpRequest.readyState);
+            }
+
+        })
     }
-    -->
+ 
 </script>
 <div class="footer_bg" id="contact">
     <div class="container"></div>
@@ -116,5 +160,14 @@
         </div>
     </div>
 </div>
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js" crossorigin="anonymous"></script>
+<script src="https://cdn.bootcss.com/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.bootcss.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
 </body>
 </html>

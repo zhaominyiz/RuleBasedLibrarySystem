@@ -37,16 +37,16 @@
 <div class="slider_bg" id="mainContainer">
     <div class="container">
         <div id="content">
-             <div class="word"><h1>TIME TO READ</h1>
-                 <div class="searchBox">
+            <div class="word"><h1>TIME TO READ</h1>
+                <div class="searchBox">
                     <link href="http://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
                     <link rel="stylesheet" href="<%=request.getContextPath()%>/css/ZCW/searchbox.css" />
                     <form method="post" action="<%=request.getContextPath()%>/getappbykeyword.search">
                         <input type="text" name="keyword" placeholder="请输入您要搜索的图书...">
                         <button type="submit"></button>
                     </form>
-                 </div>
-             </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -97,12 +97,12 @@
             $("#right_btn").html(txt2);
         }
     }
-function  logout() {
-    sessionStorage.removeItem("userAccount")
-    sessionStorage.removeItem("userName")
-    sessionStorage.removeItem("userType")
-    window.location.replace(window.location.href.substring(0, window.location.href.lastIndexOf('/')) + "/main.html")
-}
+    function  logout() {
+        sessionStorage.removeItem("userAccount")
+        sessionStorage.removeItem("userName")
+        sessionStorage.removeItem("userType")
+        window.location.replace(window.location.href.substring(0, window.location.href.lastIndexOf('/')) + "/main.html")
+    }
 </script>
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->

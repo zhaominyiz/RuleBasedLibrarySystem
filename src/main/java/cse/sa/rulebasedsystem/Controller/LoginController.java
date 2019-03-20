@@ -21,6 +21,7 @@ public class LoginController {
             JSONObject jsonObject=new JSONObject(jsonstr);
             account=jsonObject.getString("account");
             password=jsonObject.getString("password");
+            System.out.println(account+";"+password);
         }catch (Exception ex){
             ex.printStackTrace();
         }
