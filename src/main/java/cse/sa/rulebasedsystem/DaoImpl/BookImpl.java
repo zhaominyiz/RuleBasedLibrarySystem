@@ -27,4 +27,5 @@ public interface BookImpl extends CrudRepository<BookEntity,Integer> {
 
     @Nullable
     public BookEntity findByIsbn(String isbn);
+
 }
