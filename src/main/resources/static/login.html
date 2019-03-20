@@ -34,18 +34,18 @@
                 <div id="content">
             <div id="word"><h1>LOGIN</h1></div>
                 <div id="form">
-                    <form style="padding-right: 230px;" action="" >
+                    <form style="padding-right: 230px;"  >
                         <table height="253" id="table">
                             <tr>
                                 <td width="95" height="68" style="color: aliceblue; text-align: right;" >帐 号：</td>
-                                <td width="80"><input type="text" name="account" id="name"  placeholder="请输入学号" class="ipt"  /></td>
+                                <td width="80"><input type="text" name="account" id="account" required="required"  placeholder="请输入学号" class="ipt" /></td>
                             </tr>
                             <tr>
                                 <td height="58" style="color: aliceblue; text-align: right;">密 码：</td>
-                                <td><input type="password" name="password" id="pwd"  placeholder="请输入密码" class="ipt" /> </td>
+                                <td><input type="password" name="password" id="pwd" required="required" placeholder="请输入密码" class="ipt" /> </td>
                             </tr>
                             <tr>
-                                <td colspan="2" style="text-align: center;"><input type="button" value="登 录" class="buttom" onclick="checkandlogin()"/>
+                                <td colspan="2" style="text-align: center;"><input style="color: antiquewhite;" type="button" value="登 录" class="buttom" onclick="checkandlogin()"/>
                                     &nbsp;&nbsp;&nbsp;&nbsp;
                                     <input style="color: antiquewhite;" type="reset" value="重 置" class="buttom" /></td>
                             </tr>
@@ -74,24 +74,9 @@
             }
         });
     });
-
-    function finalCheck(form) {
-        with(form){
-            if(name.value.length<=0){
-                name.focus();
-                alert("请输入学号或工号！");
-                return false;
-            }
-            if(passw.value.length<=0){
-                passw.focus();
-                alert("请输入密码！");
-                return false;
-            }
-        }
-    }
     function checkandlogin() {
 
-        if($("#name").val().length<=0){
+        if($("#account").val().length<=0){
             alert("请输入帐号");
             return;
         }
@@ -104,7 +89,7 @@
             return
         }
         let loginJson = {
-            "account": $("#name").val(),
+            "account": $("#account").val(),
             "password": $("#pwd").val()
         };
         console.log(loginJson);
@@ -131,7 +116,7 @@
                     //设置登录类别
                     sessionStorage.setItem("userType", res.type);
                     sessionStorage.setItem("userName", res.name);
-                    sessionStorage.setItem("userAccount",  $("#name").val());
+                    sessionStorage.setItem("userAccount",  $("#account").val());
                     //alert(res.type+res.name);
                     //alert(window.location.href.substring(0, window.location.href.lastIndexOf('/')) + "/main.html")
                     window.location.replace(window.location.href.substring(0, window.location.href.lastIndexOf('/')) + "/main.html")
@@ -145,16 +130,17 @@
 
         })
     }
- 
+
 </script>
 <div class="footer_bg" id="contact">
     <div class="container"></div>
-</div>      
+</div>
+<div class="container"></div>
 <div class="footer1_bg">
     <div class="container">
         <div class="row  footer">
             <div class="copy text-center">
-                <p class="link"><span>Copyright &copy; 2019.ZWSL All rights reserved.</span></p>
+                <p class="link"><span>Copyright &copy; 2019.NJUST All rights reserved.</span></p>
                 <a href="#home" id="toTop" style="display: block;"><span id="toTopHover" style="opacity: 1;"> </span></a>
             </div>
         </div>

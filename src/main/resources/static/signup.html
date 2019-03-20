@@ -32,23 +32,23 @@
         <div id="content">
             <div id="word"><h1>SIGNUP</h1></div>
             <div id="form">
-                <form style="padding-right: 230px;" action="main.html" method="post" onsubmit="return finalCheck(this)">
+                <form style="padding-right: 230px;" action="login.html"  onsubmit="return finalCheck(this)">
                     <table height="353" id="table">
                         <tr>
                             <td width="126px" style="text-align: right;" > 姓 名：</td>
-                            <td><input type="text" name="name" id="name"  placeholder="请输入姓名" class="ipt" onkeyup="check()" /></td>
+                            <td><input type="text" name="name" id="name" required="required" placeholder="请输入姓名" class="ipt")" /></td>
                         </tr>
                         <tr>
-                            <td style="text-align: right;" >用 户：</td>
-                            <td><input type="text" name="account" id="account"  placeholder="请输入学号" class="ipt" onkeyup="check()" /></td>
+                            <td style="text-align: right;" >账 号：</td>
+                            <td><input type="text" name="account" id="account" required="required" placeholder="请输入学号" class="ipt" /></td>
                         </tr>
                         <tr>
                             <td style="text-align: right;">密 码：</td>
-                            <td><input type="password" name="password" id="passw"  placeholder="请输入密码" class="ipt" onkeyup="check1()"/> </td>
+                            <td><input type="password" name="password" id="pwd" required="required" placeholder="请输入密码" class="ipt" /> </td>
                         </tr>
                         <tr>
                                 <td style="text-align: right;" >身份证：</td>
-                                <td><input type="text" name="id" id="id"  placeholder="请输入身份证号" class="ipt" onkeyup="check()" /></td>
+                                <td><input type="text" name="id" id="id" required="required" placeholder="请输入身份证号" class="ipt"  /></td>
                             </tr>
                         <tr>
                             <td colspan="2" style="text-align: center;"><input style="color: antiquewhite;"  type="submit" value="提 交" class="buttom" />
@@ -80,7 +80,7 @@
             }
         });
     });
-
+<!--
     function finalCheck(form) {
         with(form){
             if(name.value.length<=0){
@@ -93,14 +93,77 @@
                 alert("请输入学号！");
                 return false;
             }
-            if(passw.value.length<=0){
-                passw.focus();
+            if(pwd.value.length<=0){
+                pwd.focus();
                 alert("请输入密码！");
                 return false;
             }
         }
     }
-    </script>
+    -->
+    function checkandlogin() {
+        if($("#name").val().left<=0){
+            alert("请输入姓名");
+            return;
+        }
+        if($("#account").val().length<=0){
+            alert("请输入学号或工号");
+            return;
+        }
+        if ($("#pwd").val().length <= 0) {
+            alert("请设置密码")
+            return
+        }
+        if($("#pwd").val().length<6) {
+            alert("密码长度需大于等于6")
+            return
+        }
+        let loginJson = {
+            "name": $("#name").val(),
+            "account": $("#account").val(),
+            "password": $("#pwd").val(),
+            "id": $("#id").val()
+        };
+        console.log(loginJson);
+        console.log(JSON.stringify(loginJson));
+        $.ajax({
+            type: "POST",
+            url: "http://localhost:8080/service/login.login",
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify(loginJson),
+            dataType: "json",
+            success: function (res) {
+                console.log(res);
+                //如果获取不到用户类别则为登录失败
+                if (res.msg==="ERROR_INPUTDATA" ) {
+                    alert("数据传输失败")
+                }else if(res.msg==="ERROR_ACCOUNT"){
+                    alert("用户名有误")
+                }else if(res.msg==="ERROR_PWD"){
+                    alert("密码错误")
+                }else if(res.msg===("ERROR_SERVER")){
+                    alert("服务器内部错误")
+                }
+                else if(res.msg==="SUCCESS"){//登录成功
+                    //设置登录类别
+                    sessionStorage.setItem("userType", res.type);
+                    sessionStorage.setItem("userName", res.name);
+                    sessionStorage.setItem("userAccount",  $("#account").val());
+                    //alert(res.type+res.name);
+                    //alert(window.location.href.substring(0, window.location.href.lastIndexOf('/')) + "/main.html")
+                    window.location.replace(window.location.href.substring(0, window.location.href.lastIndexOf('/')) + "/main.html")
+
+                }
+            },
+            error: function (XMLHttpRequest, textStatus) {
+                alert("与服务器通讯失败！请刷新重试！");
+                console.error(textStatus + ":" + XMLHttpRequest.status + " " + XMLHttpRequest.readyState);
+            }
+
+        })
+    }
+
+</script>
 <div class="footer_bg" id="contact">
     <div class="container"></div>
 </div>
@@ -108,11 +171,18 @@
     <div class="container">
         <div class="row  footer">
             <div class="copy text-center">
-                <p class="link"><span>Copyright &copy; 2019.ZWSL All rights reserved.</span></p>
+                <p class="link"><span>Copyright &copy; 2019.NJUST All rights reserved.</span></p>
                 <a href="#home" id="toTop" style="display: block;"><span id="toTopHover" style="opacity: 1;"> </span></a>
             </div>
         </div>
     </div>
 </div>
+<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js" crossorigin="anonymous"></script>
+<script src="https://cdn.bootcss.com/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.bootcss.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
 </body>
 </html>
