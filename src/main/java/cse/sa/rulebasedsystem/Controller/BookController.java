@@ -65,6 +65,9 @@ public class BookController {
             bookType=jsonObject.getString("type");
         }catch (Exception ex){
             ex.printStackTrace();
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("msg", "ERROR_INPUTDATA");
+            return jsonObject.toString();
         }
         return bookEngine.findBook(msg,bookType);
     }
