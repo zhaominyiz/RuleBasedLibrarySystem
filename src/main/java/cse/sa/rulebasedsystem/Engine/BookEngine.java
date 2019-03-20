@@ -272,6 +272,7 @@ public class BookEngine {
             int cnt=0;
             List<BookEntity> tmpList=bookDB.findName(msg,bookType);
             cnt+=tmpList.size();
+            System.out.println(cnt);
             for(BookEntity bookTmp:tmpList){
                 JSONObject reTmp=new JSONObject();
                 reTmp.put("id",bookTmp.getId());
@@ -290,6 +291,7 @@ public class BookEngine {
             }
             List<BookEntity> tmpList2=bookDB.findAuthor(msg,bookType);
             cnt+=tmpList2.size();
+            System.out.println(cnt);
             for(BookEntity bookTmp:tmpList2){
                 JSONObject reTmp=new JSONObject();
                 reTmp.put("id",bookTmp.getId());
@@ -308,6 +310,7 @@ public class BookEngine {
             }
             List<BookEntity> tmpList3=bookDB.findPublisher(msg,bookType);
             cnt+=tmpList3.size();
+            System.out.println(cnt);
             for(BookEntity bookTmp:tmpList3){
                 JSONObject reTmp=new JSONObject();
                 reTmp.put("id",bookTmp.getId());
@@ -326,6 +329,7 @@ public class BookEngine {
             }
             List<BookEntity> tmpList4=bookDB.findIsbn(msg,bookType);
             cnt+=tmpList4.size();
+            System.out.println(cnt);
             for(BookEntity bookTmp:tmpList4){
                 JSONObject reTmp=new JSONObject();
                 reTmp.put("id",bookTmp.getId());
