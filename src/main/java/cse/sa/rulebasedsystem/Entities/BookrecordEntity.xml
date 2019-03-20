@@ -8,6 +8,9 @@
             <id name="id">
                 <column name="id" precision="11"/>
             </id>
+            <basic name="userName">
+                <column name="user_name" nullable="false"/>
+            </basic>
             <basic name="bookId">
                 <column name="book_id" nullable="false" precision="11"/>
             </basic>
