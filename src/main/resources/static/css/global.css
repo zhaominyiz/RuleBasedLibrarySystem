@@ -191,8 +191,9 @@ a:hover, .actionDiv li:hover{
 }
 .searchBox form {
     position: relative;
-    width: 480px;
+    width: 500px;
     margin: 0 auto;
+    padding-right: 100px;
 }
 
 .searchBox input, button {
