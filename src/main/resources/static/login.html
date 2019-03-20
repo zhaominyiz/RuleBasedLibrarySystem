@@ -8,7 +8,7 @@
     <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
 </head>
-<body>
+<body topmargin=0 leftmargin=0>
 <div class="header_bg" id="home">
     <div class="container">
         <div class="row header text-center specials">
@@ -28,31 +28,33 @@
     </div>
 </div>
 <div class="slider_bg" id="mainContainer">
-            <div class="container">
-                <div id="content">
-            <div id="word"><h1>LOGIN</h1></div>
-                <div id="form">
-                    <form style="padding-right: 230px;" action="main.html" method="post" onsubmit="return finalCheck(this)">
+    <div class="container">
+        <div id="content">
+            <div id="word">
+                <h1>LOGIN</h1>
+                <div id="form" class="loginBox">
+                    <form action="main.html" method="post" onsubmit="return finalCheck(this)">
                         <table height="253" id="table">
                             <tr>
                                 <td width="95" height="68" style="color: aliceblue; text-align: right;" >用 户：</td>
-                                <td width="80"><input type="text" name="account" id="name"  placeholder="请输入学号" class="ipt" onkeyup="check()" /></td>
+                                <td width="80"><input type="text" name="account" id="account"  placeholder="请输入学号" class="ipt" onkeyup="check()" /></td>
                             </tr>
                             <tr>
                                 <td height="58" style="color: aliceblue; text-align: right;">密 码：</td>
                                 <td><input type="password" name="password" id="passw"  placeholder="请输入密码" class="ipt" onkeyup="check1()"/> </td>
                             </tr>
                             <tr>
-                                <td colspan="2" style="text-align: center;"><input type="submit" value="登 录" class="buttom" />
+                                <td colspan="2" style="text-align: center;"><input type="submit" value="登录" class="buttom" />
                                     &nbsp;&nbsp;&nbsp;&nbsp;
-                                    <input type="reset" value="重 置" class="buttom" /></td>
+                                    <input type="reset" value="重置" class="buttom" /></td>
                             </tr>
                             <tr>
-                                <td colspan="2" style="text-align: center; font-size: 19px;padding-bottom: 14px;"><a href="">还没帐号？注册</a></td>
+                                <td colspan="2" style="text-align: center; font-size: 19px;padding-bottom: 15px;"><a href="">还没帐号？注册</a></td>
                             </tr>
                         </table> 
                     </form>
                 </div>
+            </div>
         </div>
     </div>
 </div>
@@ -75,8 +77,8 @@
 
     function finalCheck(form) {
         with(form){
-            if(name.value.length<=0){
-                name.focus();
+            if(account.value.length<=0){
+                account.focus();
                 alert("请输入学号或工号！");
                 return false;
             }
@@ -87,6 +89,7 @@
             }
         }
     }
+    <!--
     function check(){
         if(name.value.length<=0)
             tip1.innerHTML="请输入学号或工号！";
@@ -98,7 +101,7 @@
             tip2.innerHTML ="密码至少为6位";
 
     }
- 
+    -->
 </script>
 <div class="footer_bg" id="contact">
     <div class="container"></div>

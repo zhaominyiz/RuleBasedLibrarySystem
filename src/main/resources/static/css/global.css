@@ -76,11 +76,18 @@ a{
     margin-left: -105px;
     color: rgb(243, 248, 250);
 }
+.loginBox form{
+    display: block;
+    position: relative;
+    vertical-align:middle;
+    padding-right: 445px;
+}
 #form{
     display: block;
     position: relative;
     vertical-align:middle;
     height: 428px;
+
     font-size: 1.8em;
     text-align: center;
     padding-left: 25%;
