@@ -7,6 +7,7 @@ import cse.sa.rulebasedsystem.DaoImpl.BookImpl;
 import cse.sa.rulebasedsystem.DaoImpl.BookRecordImpl;
 import cse.sa.rulebasedsystem.Entities.BookEntity;
 import cse.sa.rulebasedsystem.Entities.BookrecordEntity;
+import cse.sa.rulebasedsystem.Entities.UserEntity;
 import cse.sa.rulebasedsystem.Knowleges.BookRules;
 import cse.sa.rulebasedsystem.Knowleges.LoginRules;
 import org.json.JSONArray;
@@ -456,5 +457,99 @@ public class BookEngine {
             re.put("msg","ERROR_SERVER");
             return re.toString();
         }
+    }
+
+    public String dogetBorrowList(String account, String isbn, String searchmethod) {
+        JSONObject result=new JSONObject();
+        if(searchmethod==null){
+            result.put("msg","ERROR_INPUTDATA");
+            return result.toString();
+        }
+        if(searchmethod.equals("BYBOOK")){
+            if(isbn==null){
+                result.put("msg","ERROR_INPUTDATA");
+                return result.toString();
+            }
+            String rule=new BookRules().searchrule("SEARCH BORROW LIST BY ISBN");
+            if(rule.equals("CONNECT BORROW LIST WITH BOOK AND ISBN EQUALS")) {
+                return getBookListByISBN(isbn);
+            }else{
+                result.put("msg","ERROR_SERVER");
+                return result.toString();
+            }
+
+        }else{
+            if(account==null){
+                result.put("msg","ERROR_INPUTDATA");
+                return result.toString();
+            }
+            String rule=new BookRules().searchrule("SEARCH BORROW LIST BY BOOK");
+            if(rule.equals("CONNECT BORROW LIST WITH BOOK AND ISBN BOOKID")) {
+                return getBookListByUserID(isbn);
+            }else{
+                result.put("msg","ERROR_SERVER");
+                return result.toString();
+            }
+        }
+
+    }
+
+    public String getBookListByISBN(String isbn){
+        JSONObject result=new JSONObject();
+        JSONArray tmparr=new JSONArray();
+        BookEntity book=bookDB.findByIsbn(isbn);
+        if(book==null){
+            result.put("msg","ERROR_ISBN");
+            return result.toString();
+        }
+        int id=book.getId();
+        List<BookrecordEntity>f=bookrecordDB.getRecordByBookId(id);
+
+        for(BookrecordEntity tmp : f){
+            JSONObject tt=new JSONObject();
+            tt.put("id",book.getId());
+            tt.put("isbn",book.getIsbn());
+            tt.put("name",book.getName());
+            tt.put("user",tmp.getUserName());
+            tt.put("datetime",tmp.getDate());
+            tt.put("img",book.getImg());
+            tt.put("publisher",book.getPublisher());
+            tt.put("author",book.getAuthor());
+            tmparr.put(tt);
+        }
+        result.put("cnt",f.size());
+        result.put("msg","SUCCESS");
+        result.put("booklist",tmparr);
+        return result.toString();
+    }
+
+    public String getBookListByUserID(String userid){
+        JSONObject result=new JSONObject();
+        JSONArray tmparr=new JSONArray();
+        result.put("msg","SUCCESS");
+        List<BookrecordEntity>f=bookrecordDB.getRecordByUserName(userid);
+        if(f==null||f.size()==0){
+            return  result.toString();
+        }
+        for (BookrecordEntity b:
+             f) {
+            List<BookEntity> list=bookDB.getBookEntitiesByID(b.getId());
+            if(list==null||list.size()==0)continue;
+            BookEntity book=list.get(0);
+            JSONObject tt=new JSONObject();
+            tt.put("id",book.getId());
+            tt.put("isbn",book.getIsbn());
+            tt.put("name",book.getName());
+            tt.put("user",b.getUserName());
+            tt.put("datetime",b.getDate());
+            tt.put("img",book.getImg());
+            tt.put("publisher",book.getPublisher());
+            tt.put("author",book.getAuthor());
+            tmparr.put(tt);
+        }
+        result.put("cnt",f.size());
+        result.put("msg","SUCCESS");
+        result.put("booklist",tmparr);
+        return result.toString();
     }
 }

@@ -31,7 +31,7 @@ public class BookController {
         return bookEngine.translateReturnBook(account,file);
     }
 
-    @RequestMapping(value = "bookin.book", produces = "application/json;charset=UTF-8")
+    @RequestMapping(value = "service/bookin.book", produces = "application/json;charset=UTF-8")
     public String bookIn(MultipartHttpServletRequest request) {
         String name = request.getParameter("name");
         String publisher = request.getParameter("publisher");
@@ -55,7 +55,7 @@ public class BookController {
         return bookEngine.bookIn(name,publisher,author,file,isbn,description,type,position,version,num,publishID);
     }
 
-    @RequestMapping(value="find.book", produces = "application/json;charset=UTF-8",method = RequestMethod.POST)
+    @RequestMapping(value="service/find.book", produces = "application/json;charset=UTF-8",method = RequestMethod.POST)
     @ResponseBody
     public String findBook(@RequestBody String jsonstr){
         String msg="",bookType="";
@@ -72,7 +72,7 @@ public class BookController {
         return bookEngine.findBook(msg,bookType);
     }
 
-    @RequestMapping(value="finddetail.book", produces = "application/json;charset=UTF-8",method = RequestMethod.POST)
+    @RequestMapping(value="service/finddetail.book", produces = "application/json;charset=UTF-8",method = RequestMethod.POST)
     @ResponseBody
     public String findDetail(@RequestBody String jsonstr){
         String isbn="";
@@ -88,7 +88,7 @@ public class BookController {
         return bookEngine.findDetail(isbn);
     }
 
-    @RequestMapping(value="delete.manage", produces = "application/json;charset=UTF-8",method = RequestMethod.POST)
+    @RequestMapping(value="service/delete.manage", produces = "application/json;charset=UTF-8",method = RequestMethod.POST)
     @ResponseBody
     public String deleteBook(@RequestBody String jsonstr){
         String isbn="";
@@ -104,7 +104,7 @@ public class BookController {
         return bookEngine.deleteBook(isbn);
     }
 
-    @RequestMapping(value = "update.manage", produces = "application/json;charset=UTF-8")
+    @RequestMapping(value = "service/update.manage", produces = "application/json;charset=UTF-8")
     public String updateBook(MultipartHttpServletRequest request) {
         try {
             String name = request.getParameter("name");
@@ -125,5 +125,21 @@ public class BookController {
             jsonObject.put("msg", "ERROR_INPUTDATA");
             return jsonObject.toString();
         }
+    }
+
+
+    @RequestMapping(value="service/borrow.login", produces = "application/json;charset=UTF-8",method = RequestMethod.POST)
+    @ResponseBody
+    public String receiveBorrowList(@RequestBody String jsonstr){
+        String account="",isbn="",name="",searchmethod="";
+        try{
+            JSONObject jsonObject=new JSONObject(jsonstr);
+            account=jsonObject.getString("account");
+            isbn=jsonObject.getString("isbn");
+            searchmethod=jsonObject.getString("searchmethod");
+        }catch (Exception ex){
+            ex.printStackTrace();
+        }
+        return bookEngine.dogetBorrowList(account,isbn,searchmethod);
     }
 }

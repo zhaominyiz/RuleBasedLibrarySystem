@@ -28,4 +28,6 @@ public interface BookImpl extends CrudRepository<BookEntity,Integer> {
     @Nullable
     public BookEntity findByIsbn(String isbn);
 
+    @Query("select p from BookEntity p WHERE p.id=:bar")
+    public List<BookEntity> getBookEntitiesByID(@Param("bar") int bar);
 }
