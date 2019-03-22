@@ -40,11 +40,101 @@
              <div class="word"><h1>TIME TO READ</h1>
                  <div class="searchBox">
                     <link href="http://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
-                    <link rel="stylesheet" href="<%=request.getContextPath()%>/css/ZCW/searchbox.css" />
                     <form method="post" action="<%=request.getContextPath()%>/getappbykeyword.search">
                         <input type="text" name="keyword" placeholder="请输入您要搜索的图书...">
                         <button type="submit"></button>
                     </form>
+                 </div>
+                 <script>
+                 let loginJson = {
+                 "msg": null,
+                 "type": null
+                 };
+                 console.log(findJson);
+                 console.log(JSON.stringify(findJson));
+                 $.ajax({
+                 type: "POST",
+                 url: "http://localhost:8080/service/find.book",
+                 contentType: "application/json; charset=utf-8",
+                 data: JSON.stringify(loginJson),
+                 dataType: "json",
+                 success: function (res) {
+                 console.log(res);
+                 //如果获取不到用户类别则为登录失败
+                 if (res.msg==="ERROR_INPUTDATA" ) {
+                 alert("数据传输失败")
+                 }else if(res.msg==="ERROR_ACCOUNT"){
+                 alert("用户名有误")
+                 }else if(res.msg==="ERROR_PWD"){
+                 alert("密码错误")
+                 }else if(res.msg===("ERROR_SERVER")){
+                 alert("服务器内部错误")
+                 }
+                 else if(res.msg==="SUCCESS"){//登录成功
+                 //设置登录类别
+                 sessionStorage.setItem("userType", res.type);
+                 sessionStorage.setItem("userName", res.name);
+                 sessionStorage.setItem("userAccount",  $("#account").val());
+                 //alert(res.type+res.name);
+                 //alert(window.location.href.substring(0, window.location.href.lastIndexOf('/')) + "/main.html")
+                 window.location.replace(window.location.href.substring(0, window.location.href.lastIndexOf('/')) + "/main.html")
+
+                 }
+                 },
+                 error: function (XMLHttpRequest, textStatus) {
+                 alert("与服务器通讯失败！请刷新重试！");
+                 console.error(textStatus + ":" + XMLHttpRequest.status + " " + XMLHttpRequest.readyState);
+                 }
+
+                 })
+                 }
+
+                 </script>
+                 <div class="mainBox">
+                     <div class="newBook">
+                         <div class="bookTip"><img src="imgs/xssj.png"></div>
+                         <div class="bookInfo">
+                             <table>
+                             <tr style="height: 40px; ">
+                                 <th>封面</th>
+                                 <th>书名</th>
+                                 <th>作者</th>
+                                 <th style="text-align: center;">出版社</th>
+                                 <th style="text-align: center;">更多</th>
+                             </tr>
+                                 <c:forEach items="${book}" var="book">
+                                     <tr style="height: 40px; ">
+                                         <td id="img"><img src="${book.img}" style="width:80px;height: 80px;" href="#" onclick="window.open('<%=request.getContextPath()%>/bookinformation/${book.id}.manager', '书本详情',
+                                        'height=700, width=600, toolbar =no, menubar=no, scrollbars=no, resizable=no, location=no, status=no')"/></td>
+                                         <td id="name">${book.name}</td>
+                                         <td id="author">${book.author}</td>
+                                         <td id="publisher">${book.publisher}</td>
+                                         <td id="info"><a href="${book.bookinformationUrl}">查看详情</a></td>
+                                     </tr>
+                                 </c:forEach>
+                             </table>>
+                         </div>
+                     </div>
+
+                   <!--
+                   <div class="bookTypeBox">
+                        <table>
+                            <tr>
+                                <td><img src="imgs/tskx.jpg"></td>
+                                <td>
+                                    <ul>
+                                        <li><a herf="">哲学</a></li>
+                                        <li>文学</li>
+                                        <li>艺术</li>
+                                        <li>军事</li>
+                                        <li>政治</li>
+                                        <li>历史</li>
+                                    </ul>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>-->
+
                  </div>
              </div>
         </div>

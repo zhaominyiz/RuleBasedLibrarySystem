@@ -36,17 +36,17 @@
 <div class="slider_bg" id="mainContainer">
     <div class="container">
         <div id="content">
-            <div id="word"><h1>录入书籍</h1></div>
+            <div id="word"><h1>图书录入</h1></div>
             <div id="form">
-        <form  style="margin-left: -120px;margin-top: 100px;">
-            <table width="800px">
+        <form  style="margin-left: -120px;margin-top: 50px;">
+            <table style="width: 800px;height: 400px;padding-top: 10px;">
                 <tr>
-                    <td width="20%" style="text-align: right;">ISBN号：</td>
-                    <td><input type="text" name="isbn" id="isbn" required="required" style="margin: 10px;float: left;height: 30px;width: 200px" onblur="isIntNum(this)"/>
+                    <td width="20%" style="text-align: right;padding-top: 12px">ISBN号：</td>
+                    <td style="padding-top: 12px"><input type="text" name="isbn" id="isbn" required="required" style="margin: 10px;float: left;height: 30px;width: 200px" onblur="isIntNum(this)"/>
                     </td>
 
-                    <td width="20%" style="text-align: right;">图书名称：</td>
-                    <td><input type="text" name="name" id="name" required="required" style="margin: 10px;float: left;height: 30px;width: 200px"/>
+                    <td  style="text-align: right;padding-top: 12px">书名：</td>
+                    <td style="padding-top: 12px"><input type="text" name="name" id="name" required="required" style="margin: 10px;float: left;height: 30px;width: 200px"/>
                     </td>
 
                 </tr>
@@ -91,17 +91,13 @@
                     </td>
                 </tr>
                 <tr>
-                    <td style="text-align: right;">封面：</td>
-                    <td>
-                        　　　　                 <p>
-                        　　　　                     <input type="file" id="test-image-file" name="test" accept="image/gif, image/jpeg, image/png, image/jpg" style="width: 80%;height:30px;font-size: 15px;margin-top: -40px">
-                        　　　　               　</p>
-                        <p id="test-file-info"></p>
+                    <td style="text-align: right;height: 48px">封面：</td>
+                    <td style="padding-left: 9px"><input type="file" id="test-image-file" name="test" accept="image/gif, image/jpeg, image/png, image/jpg" style="width: 80%;font-size: 15px;color: aliceblue">
                     </td>
 
                 </tr>
                 <tr>
-                    <td colspan="2"  align="center"><input style="color: antiquewhite;position: relative;left: 350px" type="button" value="提 交" class="buttom" onclick="dopostinfo()"/>
+                    <td colspan="2"  align="center" style="padding-bottom: 15px;"><input style="color: antiquewhite;position: relative;left: 350px" type="button" value="提 交" class="buttom" onclick="dopostinfo()"/>
                         &nbsp;&nbsp;&nbsp;&nbsp;
                         <!--<td><input style="color: antiquewhite;"  type="reset" value="重 置" class="buttom" /></td>-->
                 </tr>
