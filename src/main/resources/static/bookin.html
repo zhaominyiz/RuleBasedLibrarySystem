@@ -17,9 +17,15 @@
             </div>
             <div class="top-nav" id="nav">
                 <ul class="top-nav nav-list">
-                    <li><a href="main.html">主页</a></li>
-                    <li class="logo page-scroll"><a href="main.html"><img src="imgs/logo.png"></a></li>
-                    <li class="page-scroll"><a href="login.html">退出登录</a></li>
+                    <li id="left_btn4"><a href=""></a></li>
+                    <li id="left_btn3"><a href=""></a></li>
+                    <li id="left_btn2"><a href=""></a></li>
+                    <li><a href="login.html" id="left_btn">登录</a></li>
+                    <li class="logo page-scroll"><a href=""><img src="imgs/logo.png"></a></li>
+                    <li class="page-scroll" id="right_btn"><a href="signup.html">注册</a></li>
+                    <li id="right_btn2"><a href=""></a></li>
+                    <li id="right_btn3"><a href=""></a></li>
+                    <li id="right_btn4"><a href=""></a></li>
                 </ul>
                 <a href="#" id="pull"><img src="imgs/nav-icon.png"></a>
             </div>
@@ -28,80 +34,200 @@
     </div>
 </div>
 <div class="slider_bg" id="mainContainer">
-    <div id="form">
-        <form  action="success.html" method="post" >
-            <table width="800" align="left">
+    <div class="container">
+        <div id="content">
+            <div id="word"><h1>录入书籍</h1></div>
+            <div id="form">
+        <form  style="margin-left: -120px;margin-top: 100px;">
+            <table width="800px">
                 <tr>
-                    <td width="20%" style="color: aliceblue; text-align: right;">ISBN号：</td>
-                    <td><input type="text" name="isbn" id="isbn" required="required" style="margin: 5px;float: left;" onblur="isIntNum(this)"/>
-                        <span id="isInt_span">请输入正确ISBN号</span>
+                    <td width="20%" style="text-align: right;">ISBN号：</td>
+                    <td><input type="text" name="isbn" id="isbn" required="required" style="margin: 10px;float: left;height: 30px;width: 200px" onblur="isIntNum(this)"/>
                     </td>
+
+                    <td width="20%" style="text-align: right;">图书名称：</td>
+                    <td><input type="text" name="name" id="name" required="required" style="margin: 10px;float: left;height: 30px;width: 200px"/>
+                    </td>
+
                 </tr>
+
                 <tr>
-                    <td width="20%" style="color: aliceblue; text-align: right;">图书名称：</td>
-                    <td><input type="text" name="name" id="name" required="required" style="margin: 5px;float: left;"/>
-                        <span id="sname_span">请输入正确图书名称</span>
+                    <td  style="text-align: right;">出版社：</td>
+                    <td><input type="text" name="publisher" id="publisher" required="required" style="margin: 10px;float: left;height: 30px;width: 200px"/>
+                    </td>
+
+                    <td width="20%" style="text-align: right;">作者：</td>
+                    <td><input type="text" name="author" id="author" required="required" style="margin: 10px;float: left;height: 30px;width: 200px" />
                     </td>
                 </tr>
 
                 <tr>
-                    <td  style="color: aliceblue; text-align: right;">出版社：</td>
-                    <td><input type="text" name="publisher" id="publisher" required="required" style="margin: 5px;float: left;"/>
+                    <td style="text-align: right;">出版号ID：</td>
+                    <td><input type="text" name="publishID" id="publishID" required="required"  onblur="isIntNum(this)" style="margin: 10px;float: left;height: 30px;width: 200px"/>
+                    </td>
+
+                    <td style="text-align: right;">描述：</td>
+                    <td ><input type="text" name="description" id="description" required="required" style="margin: 10px;float: left;height: 30px;width: 200px" />
+                    </td>
+
+                </tr>
+
+                <tr>
+                    <td style="text-align: right;">位置：</td>
+                    <td><input type="text" name="position" id="position" required="required" style="margin: 10px;float: left;height: 30px;width: 200px" />
+                    </td>
+
+                    <td style="text-align: right;">分类：</td>
+                    <td><input type="text" name="type" id="type" required="required" style="margin: 10px;float: left;height: 30px;width: 200px"/>
                     </td>
                 </tr>
                 <tr>
-                    <td width="20%" style="color: aliceblue; text-align: right;">作者：</td>
-                    <td><input type="text" name="author" id="author" required="required" style="margin: 5px;float: left;" />
+                    <td style="text-align: right;">数目：</td>
+                    <td><input type="text" name="num" id="num" required="required"  onblur="isIntNum(this)" style="margin: 10px;float: left;height: 30px;width: 200px"/>
+                    </td>
+
+                    <td style="text-align: right;">版本号：</td>
+                    <td><input type="text" name="version" id="version" required="required"  onblur="isIntNum(this)" style="margin: 10px;float: left;height: 30px;width: 200px"/>
                     </td>
                 </tr>
                 <tr>
-                    <td style="color: aliceblue; text-align: right;">封面：</td>
-                    <td><input type="text" name="img" id="img" required="required"  style="margin:5px;float: left;"/>
-                        <span id="patent_er_span">请上传正确封面</span>
+                    <td style="text-align: right;">封面：</td>
+                    <td>
+                        　　　　                 <p>
+                        　　　　                     <input type="file" id="test-image-file" name="test" accept="image/gif, image/jpeg, image/png, image/jpg" style="width: 80%;height:30px;font-size: 15px;margin-top: -40px">
+                        　　　　               　</p>
+                        <p id="test-file-info"></p>
                     </td>
+
                 </tr>
                 <tr>
-                    <td style="color: aliceblue; text-align: right;">描述：</td>
-                    <td><input type="text" name="description" id="description" required="required" style="margin: 5px;float: left;" />
-                    </td>
+                    <td colspan="2"  align="center"><input style="color: antiquewhite;position: relative;left: 350px" type="button" value="提 交" class="buttom" onclick="dopostinfo()"/>
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        <!--<td><input style="color: antiquewhite;"  type="reset" value="重 置" class="buttom" /></td>-->
                 </tr>
-                <tr>
-                    <td style="color: aliceblue; text-align: right;">位置：</td>
-                    <td><input type="text" name="position" id="position" required="required" style="margin: 5px;float: left;" />
-                        <span id="type_span">请输入有效位置</span>
-                    </td>
-                </tr>
-                <tr>
-                    <td style="color: aliceblue; text-align: right;">分类：</td>
-                    <td><input type="text" name="type" id="type" required="required" style="margin: 5px;float: left;"/>
-                    </td>
-                </tr>
-                <tr>
-                    <td style="color: aliceblue; text-align: right;">数目：</td>
-                    <td><input type="text" name="num" id="num" required="required"  onblur="isIntNum(this)" style="margin: 5px;float: left;"/>
-                        <span id="isInt_span">请输入有效数目</span>
-                    </td>
-                </tr>
-                <tr>
-                    <td style="color: aliceblue; text-align: right;">版本号：</td>
-                    <td><input type="text" name="version" id="version" required="required"  onblur="isIntNum(this)" style="margin: 5px;float: left;"/>
-                        <span id="isInt_span">请输入有效版本号</span>
-                    </td>
-                </tr>
-                <tr>
-                    <td style="color: aliceblue; text-align: right;">出版号ID：</td>
-                    <td><input type="text" name="publishID" id="publishID" required="required"  onblur="isIntNum(this)" style="margin: 5px;float: left;"/>
-                        <span id="isInt_span">请输入有效出版号ID</span>
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="2" align="center"><input class="button" type="submit" value="添加" style="font-size: 30px; margin-top: 10px;padding-top:-50px;padding-bottom: 40px;"></td>
-                </tr>
+                <!--<tr>-->
+                    <!--<td colspan="2" align="center" ><input class="button" type="submit" value="添加" style="position: relative;left: 400px" ></td>-->
+                <!--</tr>-->
             </table>
         </form>
+
+            </div>
+        </div>
     </div>
 </div>
+<script type = "text/javascript">
+    $(function() {
+        $('a[href*=#]:not([href=#])').click(function() {
+            if (location.name.replace(/^\//,'') == this.name.replace(/^\//,'') && location.hostname == this.hostname) {
 
+                var target = $(this.hash);
+                target = target.length ? target : $('[name=' + this.hash.slice(1) +']');
+                if (target.length) {
+                    $('html,body').animate({
+                        scrollTop: target.offset().top
+                    }, 1000);
+                    return false;
+                }
+            }
+        });
+    });
+
+    window.onload = function()
+    {
+
+        var account=sessionStorage.getItem("userAccount")
+        var realname=sessionStorage.getItem("userName")
+        var usertype=sessionStorage.getItem("userType")
+        //alert(account+";"+realname+";"+usertype)
+        if(usertype===null){
+
+        }else if(usertype==="admin"){
+            //alert("IS ADMIN");
+            var txt1="<a href=\"bookin.html\">录入书籍</a>";
+            var txt2="<a href=\"recordfind.html\">查询记录</a>";
+            var txt4="<a >"+"欢迎使用："+"</a>";
+            var txtlogout="<input type=\"button\" value=\"注 销\" class=\"buttom\" onclick='logout()'/>"
+            $("#right_btn2").html(txt4);
+            $("#right_btn3").html("<a >"+realname+"</a>");
+            $("#right_btn4").html(txtlogout);
+            $("#left_btn").html(txt1);
+            $("#right_btn").html(txt2);
+
+        }else if(usertype==="user"){
+            var txt1="<a href=\"borrow.html\">借书</a>";
+            var txt2="<a href=\"return.html\">还书</a>";
+            var txt4="<a >"+"欢迎使用："+"</a>";
+            var txtlogout="<input type=\"button\" value=\"注 销\" class=\"buttom\" onclick='logout()'/>"
+            $("#right_btn2").html(txt4);
+            $("#right_btn3").html("<a >"+realname+"</a>");
+            $("#right_btn4").html(txtlogout);
+            $("#left_btn").html(txt1);
+            $("#right_btn").html(txt2);
+        }
+    }
+    function  logout() {
+        sessionStorage.removeItem("userAccount")
+        sessionStorage.removeItem("userName")
+        sessionStorage.removeItem("userType")
+        window.location.replace(window.location.href.substring(0, window.location.href.lastIndexOf('/')) + "/main.html")
+    }
+    function  dopostinfo() {
+
+        var fd=new FormData();
+        var img=document.getElementById('test-image-file').files[0];
+        var name=$("#name").val()
+        var publisher=$("#publisher").val()
+        var author=$("#author").val()
+        var isbn=$("#isbn").val()
+        var description=$("#description").val()
+        var type=$("#type").val()
+        var position=$("#position").val()
+        var version=$("#version").val()
+        var num=$("#num").val()
+        var publishID=$("#publishID").val()
+        fd.append('name',name)
+        fd.append('img',img)
+        fd.append('publisher',publisher)
+        fd.append('author',author)
+        fd.append('isbn',isbn)
+        fd.append('description',description)
+        fd.append('type',type)
+        fd.append('position',position)
+        fd.append('version',version)
+        fd.append('num',num)
+        fd.append('publishID',publishID)
+        $.ajax({
+            type: "POST",
+            url: "http://localhost:8080/service/bookin.book",
+            processData:false,  //tell jQuery not to process the data
+            contentType: false,  //tell jQuery not to set contentType
+            data:fd,
+            success: function (res) {
+                alert("成功录入")
+                console.log(res);
+                //如果获取不到用户类别则为登录失败
+                //alert(res.msg)
+                if (res.msg==="ERROR_INPUTDATA" ) {
+                    alert("数据传输失败")
+                }else if(res.msg==="ERROR_SAVED"){
+                    alert("此书已被录入")
+                }else if(res.msg===("ERROR_SERVER")){
+                    alert("服务器内部错误")
+                }
+                else if(res.msg==="SUCCESS"){
+                    alert("Success")
+                    window.location.replace(window.location.href.substring(0, window.location.href.lastIndexOf('/')) + "/main.html")
+
+                }
+            },
+            error: function (XMLHttpRequest, textStatus) {
+                alert("与服务器通讯失败！请刷新重试！");
+                console.error(textStatus + ":" + XMLHttpRequest.status + " " + XMLHttpRequest.readyState);
+            }
+
+        })
+    }
+</script>
 <script type="text/javascript">
     function isIntNum(val){
         var regPos = / ^\d+$/; // 非负整数
@@ -112,6 +238,47 @@
             byId("isInt_span").style.color = "red";
         }
     }
+
+    var
+        fileInput = document.getElementById('test-image-file'),
+        info = document.getElementById('test-file-info'),
+        preview = document.getElementById('test-image-preview');
+    // 监听change事件:
+    fileInput.addEventListener('change', function() {
+        // 清除背景图片:
+        preview.style.backgroundImage = '';
+        // 检查文件是否选择:
+        if(!fileInput.value) {
+            info.innerHTML = '没有选择文件';
+            return;
+        }
+        // 获取File引用:
+        var file = fileInput.files[0];
+        //判断文件大小
+        var size = file.size;
+        if(size >= 1*1024*1024){
+            alert('文件大于1兆不行!');
+            return false;
+        }
+        // 获取File信息:
+        info.innerHTML = '文件: ' + file.name + '<br>' +
+            '大小: ' + file.size + '<br>' +
+            '修改: ' + file.lastModifiedDate;
+        if(file.type !== 'image/jpeg' && file.type !== 'image/png' && file.type !== 'image/gif') {
+            alert('不是有效的图片文件!');
+            return;
+
+            // 读取文件:
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                var
+                    data = e.target.result; // 'data:image/jpeg;base64,/9j/4AAQSk...(base64编码)...}'
+                preview.style.backgroundImage = 'url(' + data + ')';
+            };
+            // 以DataURL的形式读取文件:
+            reader.readAsDataURL(file);
+            console.log(file);
+        };
 </script>
 
 <div class="footer_bg" id="contact">
@@ -121,11 +288,18 @@
     <div class="container">
         <div class="row  footer">
             <div class="copy text-center">
-                <p class="link"><span>Copyright &copy; 2019.ZWSL All rights reserved.</span></p>
+                <p class="link"><span>Copyright &copy; 2019.NJUST All rights reserved.</span></p>
                 <a href="#home" id="toTop" style="display: block;"><span id="toTopHover" style="opacity: 1;"> </span></a>
             </div>
         </div>
     </div>
 </div>
+<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js" crossorigin="anonymous"></script>
+<script src="https://cdn.bootcss.com/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.bootcss.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
 </body>
 </html>

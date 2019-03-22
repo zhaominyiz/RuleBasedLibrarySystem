@@ -33,6 +33,7 @@ public class BookController {
 
     @RequestMapping(value = "service/bookin.book", produces = "application/json;charset=UTF-8")
     public String bookIn(MultipartHttpServletRequest request) {
+
         String name = request.getParameter("name");
         String publisher = request.getParameter("publisher");
         String author = request.getParameter("author");
@@ -42,6 +43,7 @@ public class BookController {
         String type=request.getParameter("type");
         String position=request.getParameter("position");
         String version=request.getParameter("version");
+        //System.out.println(publ);
         Integer num;
         try {
             num = Integer.parseInt(request.getParameter("num"));
@@ -52,6 +54,7 @@ public class BookController {
             return jsonObject.toString();
         }
         String publishID=request.getParameter("publishID");
+
         return bookEngine.bookIn(name,publisher,author,file,isbn,description,type,position,version,num,publishID);
     }
 
