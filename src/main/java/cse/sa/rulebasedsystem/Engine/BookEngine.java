@@ -237,7 +237,7 @@ public class BookEngine {
             e.printStackTrace();
             outurl="ERROR";
         }
-        newBook.setImg(outurl);
+        newBook.setImg("book_img/"+fileName);
         newBook.setIsbn(isbn);
         newBook.setDescription(description);
         newBook.setType(type);
@@ -441,7 +441,7 @@ public class BookEngine {
             e.printStackTrace();
             fileurl="ERROR";
         }
-        newBook.setImg(fileurl);
+        newBook.setImg("book_img/"+fileName);
         newBook.setIsbn(isbn);
         newBook.setDescription(description);
         newBook.setType(type);
