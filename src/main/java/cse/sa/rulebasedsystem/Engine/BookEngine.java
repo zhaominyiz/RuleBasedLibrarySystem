@@ -213,6 +213,7 @@ public class BookEngine {
         newBook.setPublisher(publisher);
         newBook.setAuthor(author);
         String outurl="";
+        String fileurl="";
         String fileName = file.getOriginalFilename();
         String filePath = ("src/main/resources/static/book_img");//request.getSession().getServletContext().getRealPath("/uploader");
         List<BookEntity> booklist = bookDB.getBookEntitiesByPublisherID(publishID);
@@ -226,7 +227,7 @@ public class BookEngine {
             if(!targetFile.exists()){
                 targetFile.mkdirs();
             }
-            String fileurl=filePath+"\\"+fileName;
+            fileurl=filePath+"\\"+fileName;
             outurl="src/main/resources/static/book_img"+fileName;
             FileOutputStream out = new FileOutputStream(fileurl);
             out.write(file.getBytes());
@@ -416,6 +417,7 @@ public class BookEngine {
         newBook.setPublisher(publisher);
         newBook.setAuthor(author);
         String outurl="";
+        String fileurl="";
         String fileName = file.getOriginalFilename();
         String filePath = ("src/main/resources/static/book_img");//request.getSession().getServletContext().getRealPath("/uploader");
         List<BookEntity> booklist = bookDB.getBookEntitiesByPublisherID(publishID);
@@ -429,7 +431,7 @@ public class BookEngine {
             if(!targetFile.exists()){
                 targetFile.mkdirs();
             }
-            String fileurl=filePath+"\\"+fileName;
+            fileurl=filePath+"\\"+fileName;
             outurl="src/main/resources/static/book_img"+fileName;
             FileOutputStream out = new FileOutputStream(fileurl);
             out.write(file.getBytes());
@@ -437,9 +439,9 @@ public class BookEngine {
             out.close();
         }catch (Exception e){
             e.printStackTrace();
-            outurl="ERROR";
+            fileurl="ERROR";
         }
-        newBook.setImg(outurl);
+        newBook.setImg(fileurl);
         newBook.setIsbn(isbn);
         newBook.setDescription(description);
         newBook.setType(type);
