@@ -94,7 +94,7 @@
                      <div class="newBook">
                          <div class="bookTip"><img src="imgs/xssj.png"></div>
                          <div class="bookInfo">
-                             <table>
+                             <table id="booklist">
                              <tr style="height: 40px; ">
                                  <th>封面</th>
                                  <th>书名</th>
@@ -102,38 +102,9 @@
                                  <th style="text-align: center;">出版社</th>
                                  <th style="text-align: center;">更多</th>
                              </tr>
-                                 <c:forEach items="${book}" var="book">
-                                     <tr style="height: 40px; ">
-                                         <td id="img"><img src="${book.img}" style="width:80px;height: 80px;" href="#" onclick="window.open('<%=request.getContextPath()%>/bookinformation/${book.id}.manager', '书本详情',
-                                        'height=700, width=600, toolbar =no, menubar=no, scrollbars=no, resizable=no, location=no, status=no')"/></td>
-                                         <td id="name">${book.name}</td>
-                                         <td id="author">${book.author}</td>
-                                         <td id="publisher">${book.publisher}</td>
-                                         <td id="info"><a href="${book.bookinformationUrl}">查看详情</a></td>
-                                     </tr>
-                                 </c:forEach>
                              </table>>
                          </div>
                      </div>
-
-                   <!--
-                   <div class="bookTypeBox">
-                        <table>
-                            <tr>
-                                <td><img src="imgs/tskx.jpg"></td>
-                                <td>
-                                    <ul>
-                                        <li><a herf="">哲学</a></li>
-                                        <li>文学</li>
-                                        <li>艺术</li>
-                                        <li>军事</li>
-                                        <li>政治</li>
-                                        <li>历史</li>
-                                    </ul>
-                                </td>
-                            </tr>
-                        </table>
-                    </div>-->
 
                  </div>
              </div>
@@ -186,6 +157,38 @@
             $("#left_btn").html(txt1);
             $("#right_btn").html(txt2);
         }
+        getIndexBook();
+    }
+    function getIndexBook() {
+        let loginJson = {
+            "msg":'gogogo'
+        };
+        $.ajax({
+            type: "POST",
+            url: "http://localhost:8080/service/getborrowlist.book",
+            contentType: "application/json; charset=utf-8",
+            data:JSON.stringify(loginJson),
+            dataType: "json",
+            success: function (res) {
+                console.log(res);
+                $.each(res.booklist, function (index, object) {
+                    var txt="<tr style=\"height: 40px; \"><td i><img src=\""+object.img+"\" style=\"width:80px;height: 80px;\" href=\"#\" onclick='getDetail(\"+object.isbn+\")'" +
+                        "'height=700, width=600, toolbar =no, menubar=no, scrollbars=no, resizable=no, location=no, status=no')\"/></td>\n" +
+                        " <td >"+object.bookname+"</td>\n" +
+                        "<td >"+object.author+"</td>\n" +
+                        "<td >"+object.publisher+"</td>\n" +
+                        "<td i><a href=\"javascript:void(0)\" onclick='getDetail("+object.isbn+")'>查看详情</a></td>\n" +
+                        "</tr>"
+                    //alert(txt)
+                    $("#booklist").append(txt);
+                });
+            },
+            error: function (XMLHttpRequest, textStatus) {
+                alert("与服务器通讯失败！请刷新重试！");
+                alert(textStatus + ":" + XMLHttpRequest.status + " " + XMLHttpRequest.readyState);
+            }
+
+        })
     }
 function  logout() {
     sessionStorage.removeItem("userAccount")

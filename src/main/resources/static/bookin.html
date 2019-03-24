@@ -128,45 +128,6 @@
         });
     });
 
-    window.onload = function()
-    {
-
-        var account=sessionStorage.getItem("userAccount")
-        var realname=sessionStorage.getItem("userName")
-        var usertype=sessionStorage.getItem("userType")
-        //alert(account+";"+realname+";"+usertype)
-        if(usertype===null){
-
-        }else if(usertype==="admin"){
-            //alert("IS ADMIN");
-            var txt1="<a href=\"bookin.html\">录入书籍</a>";
-            var txt2="<a href=\"recordfind.html\">查询记录</a>";
-            var txt4="<a >"+"欢迎使用："+"</a>";
-            var txtlogout="<input type=\"button\" value=\"注 销\" class=\"buttom\" onclick='logout()'/>"
-            $("#right_btn2").html(txt4);
-            $("#right_btn3").html("<a >"+realname+"</a>");
-            $("#right_btn4").html(txtlogout);
-            $("#left_btn").html(txt1);
-            $("#right_btn").html(txt2);
-
-        }else if(usertype==="user"){
-            var txt1="<a href=\"borrow.html\">借书</a>";
-            var txt2="<a href=\"return.html\">还书</a>";
-            var txt4="<a >"+"欢迎使用："+"</a>";
-            var txtlogout="<input type=\"button\" value=\"注 销\" class=\"buttom\" onclick='logout()'/>"
-            $("#right_btn2").html(txt4);
-            $("#right_btn3").html("<a >"+realname+"</a>");
-            $("#right_btn4").html(txtlogout);
-            $("#left_btn").html(txt1);
-            $("#right_btn").html(txt2);
-        }
-    }
-    function  logout() {
-        sessionStorage.removeItem("userAccount")
-        sessionStorage.removeItem("userName")
-        sessionStorage.removeItem("userType")
-        window.location.replace(window.location.href.substring(0, window.location.href.lastIndexOf('/')) + "/main.html")
-    }
     function  dopostinfo() {
 
         var fd=new FormData();
@@ -222,6 +183,47 @@
             }
 
         })
+    }
+</script>
+<script type = "text/javascript">
+    window.onload = function()
+    {
+
+        var account=sessionStorage.getItem("userAccount")
+        var realname=sessionStorage.getItem("userName")
+        var usertype=sessionStorage.getItem("userType")
+        //alert(account+";"+realname+";"+usertype)
+        if(usertype===null){
+
+        }else if(usertype==="admin"){
+            //alert("IS ADMIN");
+            var txt1="<a href=\"bookin.html\">录入书籍</a>";
+            var txt2="<a href=\"recordfind.html\">查询记录</a>";
+            var txt4="<a >"+"欢迎使用："+"</a>";
+            var txtlogout="<input type=\"button\" value=\"注 销\" class=\"buttom\" onclick='logout()'/>"
+            $("#right_btn2").html(txt4);
+            $("#right_btn3").html("<a >"+realname+"</a>");
+            $("#right_btn4").html(txtlogout);
+            $("#left_btn").html(txt1);
+            $("#right_btn").html(txt2);
+
+        }else if(usertype==="user"){
+            var txt1="<a href=\"borrow.html\">借书</a>";
+            var txt2="<a href=\"return.html\">还书</a>";
+            var txt4="<a >"+"欢迎使用："+"</a>";
+            var txtlogout="<input type=\"button\" value=\"注 销\" class=\"buttom\" onclick='logout()'/>"
+            $("#right_btn2").html(txt4);
+            $("#right_btn3").html("<a >"+realname+"</a>");
+            $("#right_btn4").html(txtlogout);
+            $("#left_btn").html(txt1);
+            $("#right_btn").html(txt2);
+        }
+    }
+    function  logout() {
+        sessionStorage.removeItem("userAccount")
+        sessionStorage.removeItem("userName")
+        sessionStorage.removeItem("userType")
+        window.location.replace(window.location.href.substring(0, window.location.href.lastIndexOf('/')) + "/main.html")
     }
 </script>
 <script type="text/javascript">

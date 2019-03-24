@@ -161,7 +161,7 @@ public class BookEngine {
             }
     }
     //解析
-    public  String decodeBar(String imgPath){
+    public  String decodeBar(String imgPath)throws Exception{
         BufferedImage image = null;
         Result result = null;
         try {
@@ -174,13 +174,12 @@ public class BookEngine {
 
             Hashtable<DecodeHintType, Object> hints = new Hashtable<>();
             hints.put(DecodeHintType.CHARACTER_SET, "UTF-8");
-
+            //hints.put(DecodeHintType.PURE_BARCODE, Boolean.TRUE);
             result = new MultiFormatReader().decode(bitmap,hints);
             return result.getText();
         } catch (Exception e) {
-            e.printStackTrace();
+            throw  e;
         }
-        return "ERROR";
     }
     public  String decodeBar(InputStream stream)throws Exception{
         BufferedImage image = null;
@@ -552,6 +551,36 @@ public class BookEngine {
         result.put("cnt",f.size());
         result.put("msg","SUCCESS");
         result.put("booklist",tmparr);
+        return result.toString();
+    }
+
+    public String getLastFourBook() {
+        JSONObject result=new JSONObject();
+        JSONArray tmparr=new JSONArray();
+        List<BookEntity>bookEntityList=bookDB.getAllbooks();
+        int cnt=0;
+        for(int i=bookEntityList.size()-1;i>=bookEntityList.size()-4;i--){
+            if(i==-1)break;
+            cnt++;
+            BookEntity bookTmp=bookEntityList.get(i);
+            JSONObject tt=new JSONObject();
+            tt.put("id",bookTmp.getId());
+            tt.put("bookname",bookTmp.getName());
+            tt.put("img",bookTmp.getImg());
+            tt.put("description",bookTmp.getDescription());
+            tt.put("type",bookTmp.getType());
+            tt.put("position",bookTmp.getPosition());
+            tt.put("num",bookTmp.getNum());
+            tt.put("res",bookTmp.getRes());
+            tt.put("author",bookTmp.getAuthor());
+            tt.put("publisher",bookTmp.getPublisher());
+            tt.put("isbn",bookTmp.getIsbn());
+            tt.put("version",bookTmp.getVersion());
+            tmparr.put(tt);
+        }
+        result.put("cnt",cnt);
+        result.put("booklist",tmparr);
+        result.put("msg","SUCCESS");
         return result.toString();
     }
 }

@@ -30,4 +30,7 @@ public interface BookImpl extends CrudRepository<BookEntity,Integer> {
 
     @Query("select p from BookEntity p WHERE p.id=:bar")
     public List<BookEntity> getBookEntitiesByID(@Param("bar") int bar);
+
+    @Query("select p from BookEntity p")
+    List<BookEntity> getAllbooks();
 }

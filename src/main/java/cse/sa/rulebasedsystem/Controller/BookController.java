@@ -131,7 +131,7 @@ public class BookController {
     }
 
 
-    @RequestMapping(value="service/borrow.login", produces = "application/json;charset=UTF-8",method = RequestMethod.POST)
+    @RequestMapping(value="service/getborrowlist.book", produces = "application/json;charset=UTF-8",method = RequestMethod.POST)
     @ResponseBody
     public String receiveBorrowList(@RequestBody String jsonstr){
         String account="",isbn="",name="",searchmethod="";
@@ -144,5 +144,12 @@ public class BookController {
             ex.printStackTrace();
         }
         return bookEngine.dogetBorrowList(account,isbn,searchmethod);
+    }
+
+    @RequestMapping(value="service/show.book", produces = "application/json;charset=UTF-8",method = RequestMethod.POST)
+    @ResponseBody
+    public String getindexinfo(@RequestBody String jsonstr){
+        System.out.println(jsonstr);
+        return bookEngine.getLastFourBook();
     }
 }
