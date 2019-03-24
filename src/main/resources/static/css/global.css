@@ -2,6 +2,17 @@
     font-family: 'open_sansregular';
     src:url('../fonts/OpenSans-Regular-webfont.ttf') format('truetype');
 }
+input:required:invalid, input:focus:invalid {
+    background-image: url(../imgs/z.png);
+    background-position: right top;
+    background-repeat: no-repeat;
+}
+input:required:valid {
+    background-image: url(../imgs/);
+    background-position: right top;
+    background-repeat: no-repeat;
+}
+
 body {
     font-family: 'open_sansregular';
     background:#ffffff;
@@ -51,9 +62,8 @@ a{
     text-align: center;
     align-items: center;
 }
-#content td{
+#form td{
     height: 20px;
-    vertical-align: bottom;
     text-align: left;
 }
 
@@ -233,13 +243,35 @@ a:hover, .actionDiv li:hover{
     font-size: 18px;
     color: #F9F0DA;
 }
-input:required:invalid, input:focus:invalid {
-    background-image: url(../imgs/z.png);
-    background-position: right top;
-    background-repeat: no-repeat;
+.mainBox{
+    display: block;
+    margin-top: 40px;
+    width: 1000px;
+    height: 400px;
+    background-color: rgba(255, 255, 255, .15);
 }
-input:required:valid {
-    background-image: url(../imgs/);
-    background-position: right top;
-    background-repeat: no-repeat;
+.mainBox li{
+    float: left;
+    width: 80px;
+    color: antiquewhite;
+}
+.bookTip{
+    float: left;
+}
+
+.bookInfo table{
+    width: 865px;
+}
+.bookInfo th{
+    color: #ffffff;
+    font-size: 1.3em;
+    text-align: center;
+}
+.bookInfo td{
+    color: antiquewhite;
+    text-align: center;
+    padding-top: 10px;
+}
+.bookTypeBox{
+    padding-top: 30px;
 }
