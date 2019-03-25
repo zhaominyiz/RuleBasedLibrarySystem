@@ -42,7 +42,7 @@ public class TestController {
         try{
             if(Base64ToImage(file,"tmp.jpg")){
                 String s= bookEngine.decodeBar("tmp.jpg");
-                System.out.println(s+"!!!!!!!!!!!!");
+                //System.out.println(s+"!!!!!!!!!!!!");
                 return s;
             }else{
                 return "???";

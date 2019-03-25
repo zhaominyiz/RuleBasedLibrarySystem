@@ -85,7 +85,7 @@
 <script type = "text/javascript">
     window.onload = function()
     {
-
+        //alert("????")
         var account=sessionStorage.getItem("userAccount")
         var realname=sessionStorage.getItem("userName")
         var usertype=sessionStorage.getItem("userType")
@@ -141,7 +141,7 @@
             },
             error: function (XMLHttpRequest, textStatus) {
                 alert("与服务器通讯失败！请刷新重试！");
-                alert(textStatus + ":" + XMLHttpRequest.status + " " + XMLHttpRequest.readyState);
+                //alert(textStatus + ":" + XMLHttpRequest.status + " " + XMLHttpRequest.readyState);
             }
 
         })
@@ -198,9 +198,21 @@
             data:fd,
             success: function (res) {
                 console.log(res);
-                //alert(res);
-                var txt4="<a >"+"检测出书籍："+res+"</a>";
-                $("#resulttxt").html(txt4);
+               //s alert(res.msg);
+                if(res.msg==="SUCCESS") {
+                    $("#resulttxt").html("<a>成功借书</a>")
+                    window.location.replace(window.location.href.substring(0, window.location.href.lastIndexOf('/')) + "/borrow.html")
+                }
+               if(res.msg==="ERROR_FULL"){
+                    $("#resulttxt").html("<a >借书失败，借书已满</a>");
+                }
+                if(res.msg==="ERROR_NOBOOK") {
+                    $("#resulttxt").html("<a >借书失败，此书已被借走</a>");
+                }
+                if(res.msg==="REBORROWED"){
+                    $("#resulttxt").html("<a >成功借书！</a>")
+                }
+
                 //alert("GAGA")
             },
             error: function (XMLHttpRequest, textStatus) {

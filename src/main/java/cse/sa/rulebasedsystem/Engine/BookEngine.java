@@ -29,6 +29,8 @@ import java.util.Hashtable;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static cse.sa.rulebasedsystem.Controller.TestController.Base64ToImage;
+
 @Service
 public class BookEngine {
     private AccountImpl accountDB;
@@ -42,7 +44,7 @@ public class BookEngine {
         this.bookrecordDB=bookRecord;
     }
 
-    public String translateBorrowBook(String account,MultipartFile file){
+    public String translateBorrowBook(String account,String file){
         JSONObject result=new JSONObject();
         if(account==null||file==null){
             result.put("msg","ERROR_INPUTDATA");
@@ -63,7 +65,7 @@ public class BookEngine {
             return result.toString();
         }
     }
-    public String doSolveBorrowBook(String account,MultipartFile file){
+    public String doSolveBorrowBook(String account,String file){
         JSONObject result=new JSONObject();
         int cnt=accountDB.getUserEntitiesByAccountName(account).size();
         if(cnt==0){
@@ -76,13 +78,22 @@ public class BookEngine {
             return result.toString();
         }else{
             try {
-                String bar = decodeBar(file.getInputStream());
+                String bar="";
+                if(Base64ToImage(file,"tmp.jpg"))
+                    bar=decodeBar("tmp.jpg");
                 List<BookEntity>booklist=bookDB.getBookEntitiesByPublisherID(bar);
                 if(booklist==null||booklist.size()==0){
                     result.put("msg","ERROR_NOBOOK");
                     return result.toString();
                 }
                 BookEntity book=booklist.get(0);
+                int id=book.getId();
+                for(BookrecordEntity f :list){
+                    if(f.getBookId()==id){
+                        result.put("msg","BORROWED");
+                        return result.toString();
+                    }
+                }
                 if(book.getRes()==0){//没有书了
                     result.put("msg","ERROR_NOBOOK");
                     return result.toString();
@@ -104,7 +115,7 @@ public class BookEngine {
         }
     }
 
-    public String translateReturnBook(String username,MultipartFile file){
+    public String translateReturnBook(String username,String file){
         JSONObject result=new JSONObject();
         if(username==null||file==null){
             result.put("msg","ERROR_INPUTDATA");
@@ -125,7 +136,7 @@ public class BookEngine {
             return result.toString();
         }
     }
-    public String doSolveReturnBook(String account,MultipartFile file){
+    public String doSolveReturnBook(String account,String file){
         JSONObject result=new JSONObject();
         int cnt=accountDB.getUserEntitiesByAccountName(account).size();
         if(cnt==0){
@@ -134,7 +145,10 @@ public class BookEngine {
         }
         List<BookrecordEntity>list=bookrecordDB.getRecordByUserName(account);
         try {
-            String bar = decodeBar(file.getInputStream());
+            String bar = "";
+            if(Base64ToImage(file,"tmp.jpg"))
+                bar=decodeBar("tmp.jpg");
+            System.out.println("获得条形码"+bar);
             List<BookEntity>booklist=bookDB.getBookEntitiesByPublisherID(bar);
             if(booklist==null||booklist.size()==0){
                     result.put("msg","ERROR_NOBOOK");

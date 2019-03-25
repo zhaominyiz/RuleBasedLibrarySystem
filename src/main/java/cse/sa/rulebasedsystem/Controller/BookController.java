@@ -17,17 +17,18 @@ public class BookController {
         this.bookEngine=bookEngine;
     }
 
-    @RequestMapping(value = "service/order.book", produces = "application/json;charset=UTF-8")
+    @RequestMapping(value = "service/order.book")
     public String receive_order_request(MultipartHttpServletRequest request) {
         String account=request.getParameter("account");
-        MultipartFile file=request.getFile("img");
+        String file=request.getParameter("img");
+        System.out.println("Account="+account);
         return bookEngine.translateBorrowBook(account,file);
     }
 
-    @RequestMapping(value = "service/return.book", produces = "application/json;charset=UTF-8")
+    @RequestMapping(value = "service/return.book")
     public String receive_return_request(MultipartHttpServletRequest request) {
         String account=request.getParameter("account");
-        MultipartFile file=request.getFile("img");
+        String file=request.getParameter("img");
         return bookEngine.translateReturnBook(account,file);
     }
 
@@ -66,6 +67,7 @@ public class BookController {
             JSONObject jsonObject=new JSONObject(jsonstr);
             msg=jsonObject.getString("msg");
             bookType=jsonObject.getString("type");
+            System.out.println("MSg"+msg+"TYPE"+bookType);
         }catch (Exception ex){
             ex.printStackTrace();
             JSONObject jsonObject = new JSONObject();

@@ -42,7 +42,7 @@
                     <link href="http://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
                     <form>
                         <input type="text" name="keyword" id="keyword" placeholder="请输入您要搜索的图书...">
-                        <button type="submit" onclick="bookresult()"></button>
+                        <input style="color: aliceblue; " type="button" value="搜 索" class="buttom" onclick="getbooklist()"/>
                     </form>
                  </div>
                  <div class="mainBox">
@@ -80,6 +80,21 @@
     </div>
 </div>
 <script type = "text/javascript">
+    $(function() {
+        $('a[href*=#]:not([href=#])').click(function() {
+            if (location.name.replace(/^\//,'') == this.name.replace(/^\//,'') && location.hostname == this.hostname) {
+
+                var target = $(this.hash);
+                target = target.length ? target : $('[name=' + this.hash.slice(1) +']');
+                if (target.length) {
+                    $('html,body').animate({
+                        scrollTop: target.offset().top
+                    }, 1000);
+                    return false;
+                }
+            }
+        });
+    });
     window.onload = function()
     {
 
@@ -145,15 +160,15 @@
 
         })
     }
-    function bookresult() {
+    function getbooklist() {
         let resultJson={
             "msg":$("#keyword").val(),
             "type":""
         };
         console.log(resultJson);
-        console.log(JSON.stringify(resultJson));
+        alert(JSON.stringify(resultJson));
         $.ajax({
-            type:"POST",
+            type: "POST",
             url: "http://localhost:8080/service/find.book",
             contentType: "application/json; charset=utf-8",
             data: JSON.stringify(resultJson),
