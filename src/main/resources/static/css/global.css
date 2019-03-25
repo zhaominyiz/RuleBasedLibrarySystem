@@ -271,6 +271,7 @@ a:hover, .actionDiv li:hover{
     color: antiquewhite;
     text-align: center;
     padding-top: 10px;
+    font-size: 1.3em;
 }
 .bookTypeBox{
     padding-top: 30px;

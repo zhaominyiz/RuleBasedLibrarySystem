@@ -40,12 +40,30 @@
             <div class="word"><h1>SEARCHING FOR BOOKS</h1>
                 <div class="searchBox">
                     <link href="http://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
-                    <form method="post" action="<%=request.getContextPath()%>/getappbykeyword.search">
+                    <form method="post" action="">
                         <input type="text" name="keyword" placeholder="请输入您要搜索的图书...">
                         <button type="submit"></button>
                     </form>
                 </div>
-
+                <div class="mainBox">
+                    <div class="bookInfo">
+                        <form id="resultlist">
+                            <table style="width: 1000px;">
+                                <tr style="height: 40px; ">
+                                    <th>序号</th>
+                                    <th>书名</th>
+                                    <th>作者</th>
+                                    <th>出版社</th>
+                                    <th>版本号</th>
+                                    <th>余量</th>
+                                    <th>索书号</th>
+                                    <th>位置</th>
+                                    <th>更多</th>
+                                </tr>
+                            </table>
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

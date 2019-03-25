@@ -38,11 +38,11 @@
                         <table height="253" id="table">
                             <tr style="padding-top: 20px">
                                 <td width="95" style="color: aliceblue; text-align: right;    padding-top: 12px" >帐 号：</td>
-                                <td width="80" style="padding-top: 12px"><input type="text" name="account" id="account"  placeholder="请输入学号" class="ipt"  /></td>
+                                <td width="80" style="padding-top: 12px"><input type="text" name="account" id="account" required="required" placeholder="请输入学号" class="ipt"  /></td>
                             </tr>
                             <tr>
                                 <td height="58" style="color: aliceblue; text-align: right;">密 码：</td>
-                                <td><input type="password" name="password" id="pwd"  placeholder="请输入密码" class="ipt" /> </td>
+                                <td><input type="password" name="password" id="pwd" required="required"  placeholder="请输入密码" class="ipt" /> </td>
                             </tr>
                             <tr>
                                 <td colspan="2" style="text-align: center;"><input style="color: aliceblue; " type="button" value="登 录" class="buttom" onclick="checkandlogin()"/>
@@ -76,14 +76,7 @@
     });
     function checkandlogin() {
 
-        if($("#account").val().length<=0){
-            alert("请输入帐号");
-            return;
-        }
-        if ($("#pwd").val().length <= 0) {
-            alert("请输入密码")
-            return
-        }
+
         if($("#pwd").val().length<6) {
             alert("密码长度需大于等于6")
             return
