@@ -45,103 +45,93 @@ public class BookEngine {
     }
 
     public String translateBorrowBook(String account,String file){
-        JSONObject result=new JSONObject();
+        //JSONObject result=new JSONObject();
         if(account==null||file==null){
-            result.put("msg","ERROR_INPUTDATA");
-            return result.toString();
+            return "ERROR_INPUTDATA";
         }
         try {
             String rule=new BookRules().searchrule("BORROWSUCCESS");
             if(rule.equals("BOOK HAS REST AND USER NOT FULL")) {
                 return doSolveBorrowBook(account,file);
             }else{
-                result.put("msg","ERROR_SERVER");
-                return result.toString();
+                return "ERROR_SERVER";
             }
 
         }catch (Exception ex){
             ex.printStackTrace();
-            result.put("msg","ERROR_IMG");
-            return result.toString();
+            return "ERROR_IMG";
         }
     }
     public String doSolveBorrowBook(String account,String file){
-        JSONObject result=new JSONObject();
+        //JSONObject result=new JSONObject();
         int cnt=accountDB.getUserEntitiesByAccountName(account).size();
         if(cnt==0){
-            result.put("msg","ERROR_ACCOUNT");
-            return result.toString();
+            return "ERROR_ACCOUNT";
         }
         List<BookrecordEntity>list=bookrecordDB.getRecordByUserName(account);
         if(((List) list).size()>=10){
-            result.put("msg","ERROR_FULL");
-            return result.toString();
+            return "ERROR_FULL";
         }else{
             try {
                 String bar="";
                 if(Base64ToImage(file,"tmp.jpg"))
                     bar=decodeBar("tmp.jpg");
+                System.out.println("FIND BAR="+bar);
                 List<BookEntity>booklist=bookDB.getBookEntitiesByPublisherID(bar);
                 if(booklist==null||booklist.size()==0){
-                    result.put("msg","ERROR_NOBOOK");
-                    return result.toString();
+                    return "ERROR_NOBOOK";
                 }
                 BookEntity book=booklist.get(0);
+                System.out.println(book.getName());
                 int id=book.getId();
-                for(BookrecordEntity f :list){
-                    if(f.getBookId()==id){
-                        result.put("msg","BORROWED");
-                        return result.toString();
+                if(list!=null&&list.size()!=0)
+                    for(BookrecordEntity f :list){
+                        if(f.getBookId()==id){
+                            //System.out.println("BORROWED");
+                            return "BORROWED";
+                        }
                     }
-                }
                 if(book.getRes()==0){//没有书了
-                    result.put("msg","ERROR_NOBOOK");
-                    return result.toString();
+                    return "ERROR_NOBOOK";
                 }
                 book.setRes(book.getRes()-1);
                 bookDB.save(book);
+                System.out.println("HERE");
                 BookrecordEntity bookrecordEntity=new BookrecordEntity();
                 bookrecordEntity.setBookId(book.getId());
                 Timestamp d = new Timestamp(System.currentTimeMillis());
                 bookrecordEntity.setDate(d);
                 bookrecordEntity.setUserName(account);
                 bookrecordDB.save(bookrecordEntity);
-                result.put("msg","SUCCESS");
-                return result.toString();
+                return "SUCCESS";
             }catch (Exception ex){
-                result.put("msg","ERROR_IMG");
-                return result.toString();
+                return "ERROR_IMG";
             }
         }
     }
 
     public String translateReturnBook(String username,String file){
-        JSONObject result=new JSONObject();
+        //JSONObject result=new JSONObject();
         if(username==null||file==null){
-            result.put("msg","ERROR_INPUTDATA");
-            return result.toString();
+            return "ERROR_INPUTDATA";
         }
         try {
             String rule=new BookRules().searchrule("RETURNSUCCESS");
             if(rule.equals("HAS RECORD")) {
                 return doSolveReturnBook(username,file);
             }else{
-                result.put("msg","ERROR_SERVER");
-                return result.toString();
+                return "ERROR_SERVER";
             }
 
         }catch (Exception ex){
             ex.printStackTrace();
-            result.put("msg","ERROR_IMG");
-            return result.toString();
+            return "ERROR_IMG";
         }
     }
     public String doSolveReturnBook(String account,String file){
-        JSONObject result=new JSONObject();
         int cnt=accountDB.getUserEntitiesByAccountName(account).size();
         if(cnt==0){
-            result.put("msg","ERROR_ACCOUNT");
-            return result.toString();
+            return "ERROR_ACCOUNT";
         }
         List<BookrecordEntity>list=bookrecordDB.getRecordByUserName(account);
         try {
@@ -151,27 +141,25 @@ public class BookEngine {
             System.out.println("获得条形码"+bar);
             List<BookEntity>booklist=bookDB.getBookEntitiesByPublisherID(bar);
             if(booklist==null||booklist.size()==0){
-                    result.put("msg","ERROR_NOBOOK");
-                    return result.toString();
+                return "ERROR_NOBOOK";
             }
             BookEntity book=booklist.get(0);
             int book_id=book.getId();
+            System.out.println("借的书的ID"+book_id);
             List<BookrecordEntity>recordlist=bookrecordDB.getRecordByUserNameANDBookID(account,book_id);
             if(recordlist.size()==0){
-                result.put("msg","ERROR_NOTBORROW");
-                return result.toString();
+                return "ERROR_NOTBORROW";
             }
+            System.out.println("借书记录"+recordlist.size());
             for (BookrecordEntity a:
                  recordlist) {
                 bookrecordDB.delete(a);
             }
             book.setRes(book.getRes()+1);
             bookDB.save(book);
-            result.put("msg","SUCCESS");
-            return result.toString();
+            return "SUCCESS";
         }catch (Exception ex){
-                result.put("msg","ERROR_IMG");
-                return result.toString();
+            return "ERROR_IMG";
             }
     }
     //解析
@@ -500,7 +488,7 @@ public class BookEngine {
             }
             String rule=new BookRules().searchrule("SEARCH BORROW LIST BY BOOK");
             if(rule.equals("CONNECT BORROW LIST WITH BOOK AND ISBN BOOKID")) {
-                return getBookListByUserID(isbn);
+                return getBookListByUserID(account);
             }else{
                 result.put("msg","ERROR_SERVER");
                 return result.toString();

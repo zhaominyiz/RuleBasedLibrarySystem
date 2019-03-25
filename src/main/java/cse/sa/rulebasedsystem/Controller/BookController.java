@@ -3,6 +3,7 @@ package cse.sa.rulebasedsystem.Controller;
 import cse.sa.rulebasedsystem.Engine.BookEngine;
 import cse.sa.rulebasedsystem.Engine.LoginEngine;
 import org.json.JSONObject;
+import org.omg.Messaging.SYNC_WITH_TRANSPORT;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -21,8 +22,10 @@ public class BookController {
     public String receive_order_request(MultipartHttpServletRequest request) {
         String account=request.getParameter("account");
         String file=request.getParameter("img");
-        System.out.println("Account="+account);
-        return bookEngine.translateBorrowBook(account,file);
+        //System.out.println("Account="+account);
+        String s= bookEngine.translateBorrowBook(account,file);
+        System.out.println(s);
+        return s;
     }
 
     @RequestMapping(value = "service/return.book")
@@ -133,7 +136,7 @@ public class BookController {
     }
 
 
-    @RequestMapping(value="service/getborrowlist.book", produces = "application/json;charset=UTF-8",method = RequestMethod.POST)
+    @RequestMapping(value="service/borrow.manage", produces = "application/json;charset=UTF-8",method = RequestMethod.POST)
     @ResponseBody
     public String receiveBorrowList(@RequestBody String jsonstr){
         String account="",isbn="",name="",searchmethod="";
@@ -145,7 +148,9 @@ public class BookController {
         }catch (Exception ex){
             ex.printStackTrace();
         }
-        return bookEngine.dogetBorrowList(account,isbn,searchmethod);
+        String s= bookEngine.dogetBorrowList(account,isbn,searchmethod);
+        //System.out.println(s);
+        return s;
     }
 
     @RequestMapping(value="service/show.book", produces = "application/json;charset=UTF-8",method = RequestMethod.POST)

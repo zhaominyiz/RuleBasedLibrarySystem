@@ -22,7 +22,7 @@
                     <li id="left_btn3"><a href=""></a></li>
                     <li id="left_btn2"><a href=""></a></li>
                     <li><a href="login.html" id="left_btn">登录</a></li>
-                    <li class="logo page-scroll"><a href=""><img src="imgs/logo.png"></a></li>
+                    <li class="logo page-scroll"><a href="main.html"><img src="imgs/logo.png"></a></li>
                     <li class="page-scroll" id="right_btn"><a href="">注册</a></li>
                     <li id="right_btn2"><a href=""></a></li>
                     <li id="right_btn3"><a href=""></a></li>
@@ -43,7 +43,7 @@
                     <form style="margin-left: -200px;margin-top: 20px;" action="" >
                         <table height="253" id="table">
                             <tr>
-                               <td ><video id="video" width="200px" height="150px" autoplay="autoplay" muted="muted" style="margin-left: 70px;margin-top: 20px;"></video></td>
+                                <td ><video id="video" width="200px" height="150px" autoplay="autoplay" muted="muted" style="margin-left: 70px;margin-top: 20px;"></video></td>
                             </tr>
                             <tr>
                                 <td ><a id="resulttxt" style="margin-left: 90px;margin-top: 20px;">尚未检测出书本</a></td>
@@ -85,7 +85,7 @@
 <script type = "text/javascript">
     window.onload = function()
     {
-
+        //alert("????")
         var account=sessionStorage.getItem("userAccount")
         var realname=sessionStorage.getItem("userName")
         var usertype=sessionStorage.getItem("userType")
@@ -127,7 +127,7 @@
         };
         $.ajax({
             type: "POST",
-            url: "http://localhost:8080/service/getborrowlist.book",
+            url: "http://localhost:8080/service/borrow.manage",
             contentType: "application/json; charset=utf-8",
             data:JSON.stringify(loginJson),
             dataType: "json",
@@ -141,7 +141,7 @@
             },
             error: function (XMLHttpRequest, textStatus) {
                 alert("与服务器通讯失败！请刷新重试！");
-                alert(textStatus + ":" + XMLHttpRequest.status + " " + XMLHttpRequest.readyState);
+                //alert(textStatus + ":" + XMLHttpRequest.status + " " + XMLHttpRequest.readyState);
             }
 
         })
@@ -178,8 +178,8 @@
         let canvas = document.getElementById("canvas");
         var f=video
         //alert(f)
-         let ctx = canvas.getContext('2d');
-         ctx.drawImage(video, 0, 0, 400, 300);
+        let ctx = canvas.getContext('2d');
+        ctx.drawImage(video, 0, 0, 400, 300);
         //alert("GUGU")
         var imgData = canvas.toDataURL("image/jpg");
         //alert("PAPA")
@@ -188,25 +188,38 @@
         //alert("DUDU")
         var fd=new FormData();
         fd.append('img',base64Data)
-        fd.append("du",'ra')
+        fd.append("account",sessionStorage.getItem("userAccount"))
         //alert("RUSH")
         $.ajax({
             type: "POST",
-            url: "http://localhost:8080/service/getbar.book",
+            url: "http://localhost:8080/service/return.book",
             processData:false,  //tell jQuery not to process the data
             contentType: false,  //tell jQuery not to set contentType
             data:fd,
             success: function (res) {
-                console.log(res);
-                //alert(res);
-                var txt4="<a >"+"检测出书籍："+res+"</a>";
-                $("#resulttxt").html(txt4);
+                //alert(res.toString())
+                if(res.toString()==="SUCCESS") {
+                    $("#resulttxt").html("<a>成功还书</a>")
+                    window.location.replace(window.location.href.substring(0, window.location.href.lastIndexOf('/')) + "/return.html")
+                }
+                else if(res.toString()==="ERROR_ACCOUNT"){
+                    $("#resulttxt").html("<a >账户信息错误</a>");
+                }
+                else if(res.toString()==="ERROR_NOBOOK") {
+                    $("#resulttxt").html("<a >无此书信息</a>");
+                }
+                else if(res.toString()==="ERROR_NOTBORROW"){
+                    $("#resulttxt").html("<a >您未借此书</a>")
+                }else{
+                    $("#resulttxt").html("<a >图像不清</a>")
+                }
+
                 //alert("GAGA")
             },
             error: function (XMLHttpRequest, textStatus) {
                 var txt4="<a >"+"请将书本条形码对准窗口："+"</a>";
                 $("#resulttxt").html(txt4);
-               //alert(textStatus + ":" + XMLHttpRequest.status + " " + XMLHttpRequest.readyState);
+                alert(textStatus + ":" + XMLHttpRequest.status + " " + XMLHttpRequest.readyState);
             }
         })
     }

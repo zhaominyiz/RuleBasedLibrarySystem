@@ -8,7 +8,7 @@ public class BookRules {
     public BookRules(){
         knowledges=new HashMap<String,String>();
         knowledges.put("BORROWSUCCESS","BOOK HAS REST AND USER NOT FULL");
-        knowledges.put("RETURNSUCCESS","USER NOT ERROR");
+        knowledges.put("RETURNSUCCESS","HAS RECORD");
         knowledges.put("SEARCH BORROW LIST BY ISBN","CONNECT BORROW LIST WITH BOOK AND ISBN EQUALS");
         knowledges.put("SEARCH BORROW LIST BY BOOK","CONNECT BORROW LIST WITH BOOK AND ISBN BOOKID");
     }

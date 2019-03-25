@@ -22,7 +22,7 @@
                     <li id="left_btn3"><a href=""></a></li>
                     <li id="left_btn2"><a href=""></a></li>
                     <li><a href="login.html" id="left_btn">登录</a></li>
-                    <li class="logo page-scroll"><a href=""><img src="imgs/logo.png"></a></li>
+                    <li class="logo page-scroll"><a href="main.html"><img src="imgs/logo.png"></a></li>
                     <li class="page-scroll" id="right_btn"><a href="">注册</a></li>
                     <li id="right_btn2"><a href=""></a></li>
                     <li id="right_btn3"><a href=""></a></li>
@@ -127,7 +127,7 @@
         };
         $.ajax({
             type: "POST",
-            url: "http://localhost:8080/service/getborrowlist.book",
+            url: "http://localhost:8080/service/borrow.manage",
             contentType: "application/json; charset=utf-8",
             data:JSON.stringify(loginJson),
             dataType: "json",
@@ -197,20 +197,22 @@
             contentType: false,  //tell jQuery not to set contentType
             data:fd,
             success: function (res) {
-                console.log(res);
-               //s alert(res.msg);
-                if(res.msg==="SUCCESS") {
+                //var res=tmp.parseJSON();
+                //alert("tmp="+tmp.toString()+"JSON="+res.toString())
+                if(res.toString()==="SUCCESS") {
                     $("#resulttxt").html("<a>成功借书</a>")
                     window.location.replace(window.location.href.substring(0, window.location.href.lastIndexOf('/')) + "/borrow.html")
                 }
-               if(res.msg==="ERROR_FULL"){
+               else if(res.toString()==="ERROR_FULL"){
                     $("#resulttxt").html("<a >借书失败，借书已满</a>");
                 }
-                if(res.msg==="ERROR_NOBOOK") {
+                else if(res.toString()==="ERROR_NOBOOK") {
                     $("#resulttxt").html("<a >借书失败，此书已被借走</a>");
                 }
-                if(res.msg==="REBORROWED"){
-                    $("#resulttxt").html("<a >成功借书！</a>")
+                else if(res.toString()==="BORROWED"){
+                    $("#resulttxt").html("<a >您已借入此书</a>")
+                }else{
+                    $("#resulttxt").html("<a >图像不清</a>")
                 }
 
                 //alert("GAGA")
@@ -218,7 +220,7 @@
             error: function (XMLHttpRequest, textStatus) {
                 var txt4="<a >"+"请将书本条形码对准窗口："+"</a>";
                 $("#resulttxt").html(txt4);
-               //alert(textStatus + ":" + XMLHttpRequest.status + " " + XMLHttpRequest.readyState);
+               alert(textStatus + ":" + XMLHttpRequest.status + " " + XMLHttpRequest.readyState);
             }
         })
     }
