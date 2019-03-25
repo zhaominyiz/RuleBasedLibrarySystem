@@ -140,15 +140,18 @@ a:hover, .actionDiv li:hover{
 }
 
 .button{
-    background: rgb(168, 128, 113);
-    width: 195px;
-    height: 30px;
+    background-image: url("../imgs/ss.png");
+    background-position: center;
+    position: absolute;
+    float: left;
+    width: 45px;
+    height: 39px;
     text-align: center;
     border: #807777;
     font-size: 14px;
     font-weight: bold;
     color: #fff;
-    border-radius: 5px;
+    border-radius: 0 5px 5px 0;
 }
 .buttom {
     background: rgb(168, 128, 113);
@@ -211,14 +214,7 @@ a:hover, .actionDiv li:hover{
     padding-right: 100px;
 }
 
-.searchBox input, button {
-    border: none;
-    outline: none;
-}
-
-
-
-.searchBox input {
+.searchinput {
     border: 2px solid #fdfef9;
     border-radius: 5px 0 0 5px;
     background: #f7efd2;
@@ -268,6 +264,20 @@ a:hover, .actionDiv li:hover{
     text-align: center;
 }
 .bookInfo td{
+    color: antiquewhite;
+    text-align: center;
+    padding-top: 10px;
+    font-size: 1.3em;
+}
+.result table{
+    width: 1000px;
+}
+.result th{
+    color: #ffffff;
+    font-size: 1.3em;
+    text-align: center;
+}
+.result td{
     color: antiquewhite;
     text-align: center;
     padding-top: 10px;

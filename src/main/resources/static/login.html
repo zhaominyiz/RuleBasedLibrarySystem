@@ -76,7 +76,14 @@
     });
     function checkandlogin() {
 
-
+        if($("#account").val().length<0) {
+            alert("请输入学号或工号")
+            return
+        }
+        if($("#pwd").val().length<0) {
+            alert("请输入密码")
+            return
+        }
         if($("#pwd").val().length<6) {
             alert("密码长度需大于等于6")
             return

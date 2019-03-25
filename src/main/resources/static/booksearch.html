@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>检索</title>
+    <title>图书管理系统</title>
     <link rel="stylesheet" type="text/css" href="css/global.css">
     <link rel="stylesheet" type="text/css" href="css/style.css">
     <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
@@ -22,7 +22,7 @@
                     <li id="left_btn3"><a href=""></a></li>
                     <li id="left_btn2"><a href=""></a></li>
                     <li><a href="login.html" id="left_btn">登录</a></li>
-                    <li class="logo page-scroll"><a href=""><img src="imgs/logo.png"></a></li>
+                    <li class="logo page-scroll"><a href="main.html"><img src="imgs/logo.png"></a></li>
                     <li class="page-scroll" id="right_btn"><a href="signup.html">注册</a></li>
                     <li id="right_btn2"><a href=""></a></li>
                     <li id="right_btn3"><a href=""></a></li>
@@ -37,31 +37,23 @@
 <div class="slider_bg" id="mainContainer">
     <div class="container">
         <div id="content">
-            <div class="word"><h1>SEARCHING FOR BOOKS</h1>
-                <div class="searchBox">
-                    <link href="http://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
-                    <form method="post" action="">
-                        <input type="text" name="keyword" placeholder="请输入您要搜索的图书...">
-                        <button type="submit"></button>
-                    </form>
-                </div>
-                <div class="mainBox">
-                    <div class="bookInfo">
-                        <form id="resultlist">
-                            <table style="width: 1000px;">
-                                <tr style="height: 40px; ">
-                                    <th>序号</th>
+            <div class="word"><h1>SEARCHING</h1>
+                <div class="mainBox" style="height: 500px">
+                    <div class="newBook">
+                        <div class="result">
+                            <table id="booklist">
+                                <tr style="height: 40px;">
+                                    <th>封面</th>
                                     <th>书名</th>
                                     <th>作者</th>
                                     <th>出版社</th>
-                                    <th>版本号</th>
+                                    <th> isbn号</th>
                                     <th>余量</th>
-                                    <th>索书号</th>
                                     <th>位置</th>
                                     <th>更多</th>
                                 </tr>
                             </table>
-                        </form>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -82,13 +74,14 @@
     </div>
 </div>
 <script type = "text/javascript">
+
     window.onload = function()
     {
-
         var account=sessionStorage.getItem("userAccount")
         var realname=sessionStorage.getItem("userName")
         var usertype=sessionStorage.getItem("userType")
-        //alert(account+";"+realname+";"+usertype)
+        var key=sessionStorage.getItem("keyword")
+        //alert(key)
         if(usertype===null){
 
         }else if(usertype==="admin"){
@@ -114,6 +107,44 @@
             $("#left_btn").html(txt1);
             $("#right_btn").html(txt2);
         }
+        getIndexBook()
+    }
+    function getIndexBook() {
+        var key=sessionStorage.getItem("keyword")
+        console.log(key)
+        let loginJson = {
+            "msg":key,
+            "type":""
+        };
+        $.ajax({
+            type: "POST",
+            url: "http://localhost:8080/service/find.book",
+            contentType: "application/json; charset=utf-8",
+            data:JSON.stringify(loginJson),
+            dataType: "json",
+            success: function (res) {
+                console.log(res);
+                $.each(res.booklist, function (index, object) {
+                    var txt="<tbody></tbody><tr style=\"height: 40px; \"><td i><img src=\""+object.img+"\" style=\"width:60px;height: 80px;\" href=\"#\" onclick='getDetail(\"+object.isbn+\")'" +
+                        "'height=700, width=1000, toolbar =no, menubar=no, scrollbars=no, resizable=no, location=no, status=no')\"/></td>\n" +
+                        " <td >"+object.bookname+"</td>\n" +
+                        "<td >"+object.author+"</td>\n" +
+                        "<td >"+object.publisher+"</td>\n" +
+                        "<td >"+object.isbn+"</td>\n" +
+                        "<td >"+object.res+"</td>\n" +
+                        "<td >"+object.position+"</td>\n" +
+                        "<td i><a href=\"javascript:void(0)\" onclick='getDetail("+object.isbn+")'>查看详情</a></td>\n" +
+                        "</tr>"+"</tbody>"
+                    //alert(txt)
+                    $("#booklist").append(txt);
+                });
+            },
+            error: function (XMLHttpRequest, textStatus) {
+                alert("与服务器通讯失败！请刷新重试！");
+                alert(textStatus + ":" + XMLHttpRequest.status + " " + XMLHttpRequest.readyState);
+            }
+
+        })
     }
     function  logout() {
         sessionStorage.removeItem("userAccount")
@@ -122,6 +153,7 @@
         window.location.replace(window.location.href.substring(0, window.location.href.lastIndexOf('/')) + "/main.html")
     }
 </script>
+
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js" crossorigin="anonymous"></script>

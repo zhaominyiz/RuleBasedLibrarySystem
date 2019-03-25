@@ -22,7 +22,7 @@
                     <li id="left_btn3"><a href=""></a></li>
                     <li id="left_btn2"><a href=""></a></li>
                     <li><a href="login.html" id="left_btn">登录</a></li>
-                    <li class="logo page-scroll"><a href=""><img src="imgs/logo.png"></a></li>
+                    <li class="logo page-scroll"><a href="main.html"><img src="imgs/logo.png"></a></li>
                     <li class="page-scroll" id="right_btn"><a href="signup.html">注册</a></li>
                     <li id="right_btn2"><a href=""></a></li>
                     <li id="right_btn3"><a href=""></a></li>
@@ -41,8 +41,8 @@
                  <div class="searchBox">
                     <link href="http://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
                     <form>
-                        <input type="text" name="keyword" id="keyword" placeholder="请输入您要搜索的图书...">
-                        <input style="color: aliceblue; " type="button" value="搜 索" class="buttom" onclick="getbooklist()"/>
+                        <input class="searchinput" type="text" name="keyword" id="keyword" placeholder="请输入您要搜索的图书...">
+                        <input type="button"  class="button" onclick="getbooklist()"/>
                     </form>
                  </div>
                  <div class="mainBox">
@@ -166,9 +166,12 @@
                     alert("服务器内部错误")
                 }else if(res.msg=="SUCCESS"){
                     sessionStorage.setItem("keyword",$("#keyword").val());
-                    sessionStorage.setItem("rescount",res.cnt);
-                    sessionStorage.setItem("resultlist",res.booklist);
-                    window.location.replace(window.location.href.substring(0, window.location.href.lastIndexOf('/')) + "/booksearch.html")
+                    if(res.cnt>=1) {
+                        window.location.replace(window.location.href.substring(0, window.location.href.lastIndexOf('/')) + "/booksearch.html")
+                    }
+                    else {
+                        alert("不好意思，图书馆无此书")
+                    }
                 }
             },
             error: function (XMLHttpRequest, textStatus) {
