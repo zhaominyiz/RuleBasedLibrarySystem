@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>书本信息</title>
+    <link rel="stylesheet" type="text/css" href="css/global.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+</head>
+<body>
+<div class="header_bg" id="home">
+    <div class="container">
+        <div class="row header text-center specials">
+            <div class="h_logo">
+                <img src="imgs/logo.png" alt="" class="responsive"/>
+            </div>
+            <div class="top-nav" id="nav">
+                <ul class="top-nav nav-list">
+                    <li><a href="main.html">主页</a></li>
+                    <li class="logo page-scroll"><a href="main.html"><img src="imgs/logo.png"></a></li>
+                    <li class="page-scroll"><a href="login.html">退出登录</a></li>
+                </ul>
+                <a href="#" id="pull"><img src="imgs/nav-icon.png"></a>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>
+<div class="slider_bg" id="mainContainer">
+    <div id="form">
+        <form  action="main.html" method="get" >
+         <table width="800" align="left" style="margin-top: 100px">
+              <tr>
+                <td width="20%" style="color: aliceblue; text-align: left;font-size: 15px,padding: 5px">ISBN号：</td>
+                <td>
+                </td>
+
+                 <td width="20%" style="color: aliceblue; text-align: left; font-size: 15px,padding: 5px">图书名称：</td>
+                <td>
+                </td>
+
+              </tr>
+
+              <tr>
+                <td  style="color: aliceblue; text-align: left;font-size: 15px,padding: 5px">出版社：</td>
+                <td>
+                </td>
+
+                <td width="20%" style="color: aliceblue; text-align: left;font-size: 15px,padding: 5px">作者：</td>
+                <td>
+                </td>
+              </tr>
+
+               <tr>
+                <td style="color: aliceblue; text-align: left;font-size: 25px;padding: 5px">出版号ID：</td>
+                <td style="width: 150px">
+                </td>
+
+                 <td style="color: aliceblue; text-align:left;font-size: 15px,padding: 5px">描述：</td>
+                <td style="width: 150px">
+                </td>
+
+              </tr>
+              
+               <tr>
+                <td style="color: aliceblue; text-align: left;font-size: 15px,padding: 5px">位置：</td>
+                <td>
+                </td>
+
+                <td style="color: aliceblue; text-align: left;font-size: 15px,padding: 5px">分类：</td>
+                <td>
+                </td>
+              </tr>
+              <tr>
+                <td style="color: aliceblue; text-align: left;font-size: 15px,padding: 5px">数目：</td>
+                <td>
+                </td>
+  
+                <td style="color: aliceblue; text-align: left;font-size: 15px,padding: 5px">版本号：</td>
+                <td>
+                </td>
+              </tr>
+              <tr>
+                <td style="color: aliceblue; text-align: left;font-size: 15px,padding: 5px">封面：</td>
+                <td>
+                </td>
+                
+              </tr>
+              <tr>
+                <td colspan="2" align="center" ><input class="button" type="submit" value="返回" style="position: relative;left: 200px" ></td>
+              </tr>
+        </table>
+    </form>
+
+    </div>
+</div>
+
+<script type="text/javascript">
+  
+  $.ajax({ 
+    type:"GET",
+    url:"http://localhost:8080/service/finddetail.book"
+    data:{bookname:$("#bookname").val(),img:$("#img").val(),description:$("#description").val(),type:$("#type").val(),position:$("#position").val(),num:$("#num").val(),res:$("#res").val(),author:$("#author").val(),publisher:$("#publisher").val(),isbn:$("#isbn").val(),version:$("#version").val()},
+    dataType:"json",
+    success:function(data){
+      var html = '';
+      $.each(data,function(index,comment){
+        html+='<div class="comment"><p>' + comment['bookname']+'</p><p>'+comment['img']+'</p><p>'+comment['description']+'</p><p>'+comment['type']+'</p><p>'+comment['position']+'</p><p>'+comment['num']+'</p><p>'+comment['res']+'</p><p>'+comment['author']+'</p><p>'+comment['publisher']+'</p><p>'+comment['isbn']+'</p><p>'+comment['version']+'</p></div>';
+      });
+    }
+  });
+
+</script>
+
+<script type = "text/javascript">
+    window.onload = function()
+    {
+
+        var account=sessionStorage.getItem("userAccount")
+        var realname=sessionStorage.getItem("userName")
+        var usertype=sessionStorage.getItem("userType")
+        //alert(account+";"+realname+";"+usertype)
+        if(usertype===null){
+
+        }else if(usertype==="admin"){
+            //alert("IS ADMIN");
+            var txt1="<a href=\"bookin.html\">录入书籍</a>";
+            var txt2="<a href=\"../../../../../../Documents/Tencent%20Files/1044774028/FileRecv/recordfind.html\">查询记录</a>";
+            var txt4="<a >"+"欢迎使用："+"</a>";
+            var txtlogout="<input type=\"button\" value=\"注 销\" class=\"buttom\" onclick='logout()'/>"
+            $("#right_btn2").html(txt4);
+            $("#right_btn3").html("<a >"+realname+"</a>");
+            $("#right_btn4").html(txtlogout);
+            $("#left_btn").html(txt1);
+            $("#right_btn").html(txt2);
+
+        }else if(usertype==="user"){
+            var txt1="<a href=\"borrow.html\">借书</a>";
+            var txt2="<a href=\"return.html\">还书</a>";
+            var txt4="<a >"+"欢迎使用："+"</a>";
+            var txtlogout="<input type=\"button\" value=\"注 销\" class=\"buttom\" onclick='logout()'/>"
+            $("#right_btn2").html(txt4);
+            $("#right_btn3").html("<a >"+realname+"</a>");
+            $("#right_btn4").html(txtlogout);
+            $("#left_btn").html(txt1);
+            $("#right_btn").html(txt2);
+        }
+    }
+    function  logout() {
+        sessionStorage.removeItem("userAccount")
+        sessionStorage.removeItem("userName")
+        sessionStorage.removeItem("userType")
+        window.location.replace(window.location.href.substring(0, window.location.href.lastIndexOf('/')) + "/main.html")
+    }
+</script>
+
+
+<div class="footer_bg" id="contact">
+    <div class="container"></div>
+</div>      
+<div class="footer1_bg">
+    <div class="container">
+        <div class="row  footer">
+            <div class="copy text-center">
+                <p class="link"><span>Copyright &copy; 2019.ZWSL All rights reserved.</span></p>
+                <a href="#home" id="toTop" style="display: block;"><span id="toTopHover" style="opacity: 1;"> </span></a>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

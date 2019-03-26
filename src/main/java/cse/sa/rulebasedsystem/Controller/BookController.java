@@ -148,8 +148,9 @@ public class BookController {
         }catch (Exception ex){
             ex.printStackTrace();
         }
+        System.out.println(account+";"+isbn+";"+searchmethod);
         String s= bookEngine.dogetBorrowList(account,isbn,searchmethod);
-        //System.out.println(s);
+        System.out.println(s);
         return s;
     }
 

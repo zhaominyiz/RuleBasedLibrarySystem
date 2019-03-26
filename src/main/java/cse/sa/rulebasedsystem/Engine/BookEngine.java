@@ -534,9 +534,10 @@ public class BookEngine {
         if(f==null||f.size()==0){
             return  result.toString();
         }
+        //System.out.println("DRDDR");
         for (BookrecordEntity b:
              f) {
-            List<BookEntity> list=bookDB.getBookEntitiesByID(b.getId());
+            List<BookEntity> list=bookDB.getBookEntitiesByID(b.getBookId());
             if(list==null||list.size()==0)continue;
             BookEntity book=list.get(0);
             JSONObject tt=new JSONObject();
@@ -548,11 +549,13 @@ public class BookEngine {
             tt.put("img",book.getImg());
             tt.put("publisher",book.getPublisher());
             tt.put("author",book.getAuthor());
+            System.out.println(book.getName());
             tmparr.put(tt);
         }
         result.put("cnt",f.size());
         result.put("msg","SUCCESS");
         result.put("booklist",tmparr);
+        System.out.println(tmparr.toString());
         return result.toString();
     }
 

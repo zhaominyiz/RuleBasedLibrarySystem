@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>检索</title>
+		<link rel="stylesheet" type="text/css" href="css/global.css">
+		<link rel="stylesheet" type="text/css" href="css/style.css">
+		<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+		<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+	</head>
+	<body>
+
+		<div class="header_bg" id="home">
+			<div class="container">
+				<div class="row header text-center specials">
+					<div class="h_logo">
+						<img src="imgs/logo.png" alt="" class="responsive" />
+					</div>
+					<div class="top-nav" id="nav">
+						<ul class="top-nav nav-list">
+							<li id="left_btn4"><a href=""></a></li>
+							<li id="left_btn3"><a href=""></a></li>
+							<li id="left_btn2"><a href=""></a></li>
+							<li><a href="login.html" id="left_btn">登录</a></li>
+							<li class="logo page-scroll"><a href=""><img src="imgs/logo.png"></a></li>
+							<li class="page-scroll" id="right_btn"><a href="signup.html">注册</a></li>
+							<li id="right_btn2"><a href=""></a></li>
+							<li id="right_btn3"><a href=""></a></li>
+							<li id="right_btn4"><a href=""></a></li>
+						</ul>
+						<a href="#" id="pull"><img src="imgs/nav-icon.png"></a>
+					</div>
+					<div class="clearfix"></div>
+				</div>
+			</div>
+		</div>
+		<div class="slider_bg" id="mainContainer">
+			<div class="container">
+				<div id="content">
+					<div class="word">
+						<h1>SEARCHING RESULT</h1>
+						<div class="searchBox">
+							<table style="width: 1000px;">
+								<tr style="height: 40px; ">
+									<td style="text-align:lift;font-size:25px;color: aliceblue">查询方式：</td>
+									<td>
+										<select id="s1" style="font-size: 15px;height:38px;">
+											<option value="0">用户所借阅书籍</option>
+											<option value="1">借阅此书籍的所有用户</option>
+										</select>
+									</td>
+									<td>
+										<form>
+											<link href="http://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+											<input type="text" name="account" placeholder="请输入..." id="keyword_bo">
+											<button type="submit" onclick="dorushgo()"></button>
+										</form>
+									</td>
+								</tr>
+							</table>
+						</div>
+						<div class="mainBox">
+							<div class="bookInfo">
+								<form id="resultlist">
+									<table id="record" style="width: 1000px;">
+										<tr style="height: 40px; ">
+											<th>序号</th>
+											<th>书名</th>
+											<th>借书者</th>
+											<th>ISBN</th>
+											<th>作者</th>
+											<th>出版社</th>
+											<th>借书时间</th>
+											<th>查看详情</th>
+										</tr>
+									</table>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="footer_bg" id="contact">
+			<div class="container"></div>
+		</div>
+		<div class="footer1_bg">
+			<div class="container">
+				<div class="row  footer">
+					<div class="copy text-center">
+						<p class="link"><span>Copyright &copy; 2019.NJUST All rights reserved.</span></p>
+						<a href="#home" id="toTop" style="display: block;"><span id="toTopHover" style="opacity: 1;"> </span></a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript">
+			window.onload = function() {
+				
+				// var selectvar select = document.getElementById("s1");
+				// var value=select.options[obj.selectedIndex].value;
+				// if(value==0){
+				//
+				// }else{
+				// 	var x=document.getElementById("s1");
+				// 	x[1].innerHTML="用户名";
+				//
+				// }
+				
+
+				var account = sessionStorage.getItem("userAccount")
+				var realname = sessionStorage.getItem("userName")
+				var usertype = sessionStorage.getItem("userType")
+				//alert(account+";"+realname+";"+usertype)
+				if (usertype === null) {
+
+				} else if (usertype === "admin") {
+					//alert("IS ADMIN");
+					var txt1 = "<a href=\"bookin.html\">录入书籍</a>";
+					var txt2 = "<a href=\"recordfind.html\">查询记录</a>";
+					var txt4 = "<a >" + "欢迎使用：" + "</a>";
+					var txtlogout = "<input type=\"button\" value=\"注 销\" class=\"buttom\" onclick='logout()'/>"
+					$("#right_btn2").html(txt4);
+					$("#right_btn3").html("<a >" + realname + "</a>");
+					$("#right_btn4").html(txtlogout);
+					$("#left_btn").html(txt1);
+					$("#right_btn").html(txt2);
+
+				} else if (usertype === "user") {
+					var txt1 = "<a href=\"borrow.html\">借书</a>";
+					var txt2 = "<a href=\"return.html\">还书</a>";
+					var txt4 = "<a >" + "欢迎使用：" + "</a>";
+					var txtlogout = "<input type=\"button\" value=\"注 销\" class=\"buttom\" onclick='logout()'/>"
+					$("#right_btn2").html(txt4);
+					$("#right_btn3").html("<a >" + realname + "</a>");
+					$("#right_btn4").html(txtlogout);
+					$("#left_btn").html(txt1);
+					$("#right_btn").html(txt2);
+				}
+
+				searchborrowlist()
+			}
+
+			function logout() {
+				sessionStorage.removeItem("userAccount")
+				sessionStorage.removeItem("userName")
+				sessionStorage.removeItem("userType")
+				window.location.replace(window.location.href.substring(0, window.location.href.lastIndexOf('/')) + "/main.html")
+			}
+		</script>
+		<script>
+			function searchborrowlist() {
+			    var tmp=sessionStorage.getItem("method_bo")
+				//alert("METHOD"+tmp)
+				var meh=sessionStorage.getItem("keyword_bo")
+				if(tmp==null)return
+                let loginJson = {
+                    "account":meh,
+                    "isbn":meh,
+                    "searchmethod":tmp
+                };
+                sessionStorage.removeItem("method_bo")
+                sessionStorage.removeItem("keyword_bo")
+                $.ajax({
+                    type: "POST",
+                    url: "http://localhost:8080/service/borrow.manage",
+                    contentType: "application/json; charset=utf-8",
+                    data:JSON.stringify(loginJson),
+                    dataType: "json",
+                    success: function (res) {
+                        console.log(res);
+                        //alert("DWAda")
+                        var cnt=1;
+                        $.each(res.booklist, function (index, object) {
+                            var txt="<tr ><th>"+cnt+"</th>"+"<th>"+object.name+"</th>"+"<th>"+object.user+"</th>"
+							+"<th>"+object.isbn+"</th>"+"<th>"+object.author+"</th>"+"<th>"+object.publisher+"</th>"
+                                +"<th>"+object.datetime+"</th>"+"<th><a href=\"javascript:void(0)\" onclick='getDetail("+object.isbn+")'>查看详情</a></th>"
+                            //alert(txt)
+                            $("#record").append(txt);
+                        });
+                    },
+                    error: function (XMLHttpRequest, textStatus) {
+                        alert("与服务器通讯失败！请刷新重试！");
+                        //alert(textStatus + ":" + XMLHttpRequest.status + " " + XMLHttpRequest.readyState);
+                    }
+
+                })
+            }
+            function dorushgo() {
+			    if($("#s1")==="0"){
+                    sessionStorage.setItem("method_bo","BYBOOK")
+				}else {
+                    sessionStorage.setItem("method_bo", "BYACCOUNT")
+                }
+                sessionStorage.setItem("keyword_bo", $("#keyword_bo").val())
+				//alert(sessionStorage.getItem("keyword_bo"))
+                window.location.replace(window.location.href.substring(0, window.location.href.lastIndexOf('/')) + "/recordfind.html")
+            }
+		</script>
+		<!-- Optional JavaScript -->
+		<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+		<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js" crossorigin="anonymous"></script>
+		<script src="https://cdn.bootcss.com/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+		 crossorigin="anonymous"></script>
+		<script src="https://cdn.bootcss.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+		 crossorigin="anonymous"></script>
+	</body>
+</html>

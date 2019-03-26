@@ -120,6 +120,7 @@
         window.setInterval("takePhoto()",4000);
     }
     function getOrderList() {
+        //alert("????")
         let loginJson = {
             "account":sessionStorage.getItem('userAccount'),
             "isbn":"null",
@@ -133,6 +134,7 @@
             dataType: "json",
             success: function (res) {
                 console.log(res);
+                //alert(res.booklist)
                 $.each(res.booklist, function (index, object) {
                     var txt="<tr ><th>"+object.name+"</th></tr>"
                     //alert(txt)
