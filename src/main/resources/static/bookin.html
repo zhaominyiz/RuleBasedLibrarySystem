@@ -38,98 +38,77 @@
         <div id="content">
             <div id="word"><h1>图书录入</h1></div>
             <div id="form">
-        <form  style="margin-left: -120px;margin-top: 50px;">
-            <table style="width: 800px;height: 400px;padding-top: 10px;">
-                <tr>
-                    <td width="20%" style="text-align: right;padding-top: 12px">ISBN号：</td>
-                    <td style="padding-top: 12px"><input type="text" name="isbn" id="isbn" required="required" style="margin: 10px;float: left;height: 30px;width: 200px" onblur="isIntNum(this)"/>
-                    </td>
+                <form style="margin-left: -120px;margin-top: 15px;">
+                    <table style="width: 800px;height: 420px;">
+                        <tr>
+                            <td width="20%" style="text-align: right;padding-top: 12px">ISBN号：</td>
+                            <td style="padding-top: 12px;width: 200px;"><input type="text" name="isbn" id="isbn" required="required" style="margin: 10px;float: left;height: 30px;width: 200px" onblur="isIntNum(this)"/>
+                            </td>
+                            <td style="text-align: right;padding-top: 12px">书名：</td>
+                            <td style="padding-top: 12px"><input type="text" name="name" id="name" required="required" style="margin: 10px;float: left;height: 30px;width: 200px"/></td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: right;">出版社：</td>
+                            <td><input type="text" name="publisher" id="publisher" required="required" style="margin: 10px;float: left;height: 30px;width: 200px"/></td>
+                            <td width="20%" style="text-align: right;">作者：</td>
+                            <td><input type="text" name="author" id="author" required="required" style="margin: 10px;float: left;height: 30px;width: 200px"/></td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: right;">出版号ID：</td>
+                            <td><input type="text" name="publishID" id="publishID" required="required" onblur="isIntNum(this)" style="margin: 10px;float: left;height: 30px;width: 200px"/></td>
+                            <td style="text-align: right;">版本号：</td>
+                            <td><input type="text" name="version" id="version" required="required" onblur="isIntNum(this)" style="margin: 10px;float: left;height: 30px;width: 200px"/>
+                            </td>
+                        </tr>
 
-                    <td  style="text-align: right;padding-top: 12px">书名：</td>
-                    <td style="padding-top: 12px"><input type="text" name="name" id="name" required="required" style="margin: 10px;float: left;height: 30px;width: 200px"/>
-                    </td>
+                        <tr>
+                            <td style="text-align: right;">位置：</td>
+                            <td><input type="text" name="position" id="position" required="required" style="margin: 10px;float: left;height: 30px;width: 200px"/></td>
 
-                </tr>
-
-                <tr>
-                    <td  style="text-align: right;">出版社：</td>
-                    <td><input type="text" name="publisher" id="publisher" required="required" style="margin: 10px;float: left;height: 30px;width: 200px"/>
-                    </td>
-
-                    <td width="20%" style="text-align: right;">作者：</td>
-                    <td><input type="text" name="author" id="author" required="required" style="margin: 10px;float: left;height: 30px;width: 200px" />
-                    </td>
-                </tr>
-
-                <tr>
-                    <td style="text-align: right;">出版号ID：</td>
-                    <td><input type="text" name="publishID" id="publishID" required="required"  onblur="isIntNum(this)" style="margin: 10px;float: left;height: 30px;width: 200px"/>
-                    </td>
-
-                    <td style="text-align: right;">描述：</td>
-                    <td ><input type="text" name="description" id="description" required="required" style="margin: 10px;float: left;height: 30px;width: 200px" />
-                    </td>
-
-                </tr>
-
-                <tr>
-                    <td style="text-align: right;">位置：</td>
-                    <td><input type="text" name="position" id="position" required="required" style="margin: 10px;float: left;height: 30px;width: 200px" />
-                    </td>
-
-                    <td style="text-align: right;">分类：</td>
-                    <td><input type="text" name="type" id="type" required="required" style="margin: 10px;float: left;height: 30px;width: 200px"/>
-                    </td>
-                </tr>
-                <tr>
-                    <td style="text-align: right;">数目：</td>
-                    <td><input type="text" name="num" id="num" required="required"  onblur="isIntNum(this)" style="margin: 10px;float: left;height: 30px;width: 200px"/>
-                    </td>
-
-                    <td style="text-align: right;">版本号：</td>
-                    <td><input type="text" name="version" id="version" required="required"  onblur="isIntNum(this)" style="margin: 10px;float: left;height: 30px;width: 200px"/>
-                    </td>
-                </tr>
-                <tr>
-                    <td style="text-align: right;height: 48px">封面：</td>
-                    <td style="padding-left: 9px"><input type="file" id="test-image-file" name="test" accept="image/gif, image/jpeg, image/png, image/jpg" style="width: 80%;font-size: 15px;color: aliceblue">
-                    </td>
-
-                </tr>
-                <tr>
-                    <td colspan="2"  align="center" style="padding-bottom: 15px;"><input style="color: antiquewhite;position: relative;left: 350px" type="button" value="提 交" class="buttom" onclick="dopostinfo()"/>
-                        &nbsp;&nbsp;&nbsp;&nbsp;
-                        <!--<td><input style="color: antiquewhite;"  type="reset" value="重 置" class="buttom" /></td>-->
-                </tr>
-                <!--<tr>-->
-                    <!--<td colspan="2" align="center" ><input class="button" type="submit" value="添加" style="position: relative;left: 400px" ></td>-->
-                <!--</tr>-->
-            </table>
-        </form>
-
+                            <td style="text-align: right;">分类：</td>
+                            <td><input type="text" name="type" id="type" required="required"
+                                       style="margin: 10px;float: left;height: 30px;width: 200px"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: right;">数目：</td>
+                            <td><input type="text" name="num" id="num" required="required" onblur="isIntNum(this)" style="margin: 10px;float: left;height: 30px;width: 200px"/>
+                            </td>
+                            <td style="text-align: right;">简介：</td>
+                            <td colspan="2"><textarea name="description" cols="300" rows="" placeholder="请输入书籍相关简介" id="description" required="required"></textarea></td>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: right;height: 48px">封面：</td>
+                            <td style="padding-left: 9px"><input type="file" id="test-image-file" name="test" accept="image/gif, image/jpeg, image/png, image/jpg" style="width: 200px;font-size: 15px;color: aliceblue"></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" align="center" style="padding-bottom: 15px;">
+                                <input
+                                    style="color: antiquewhite;position: relative;left: 350px;font-size: 20px;height: 35px;width: 100px;"
+                                    type="button" value="提 交"
+                                    class="buttom" onclick="dopostinfo()"/>
+                            </td>
+                                <!--&nbsp;&nbsp;&nbsp;&nbsp;-->
+                                <!--<td><input style="color: antiquewhite;"  type="reset" value="重 置" class="buttom" /></td>-->
+                        </tr>
+                        <!--<tr>-->
+                        <!--<td colspan="2" align="center" ><input class="button" type="submit" value="添加" style="position: relative;left: 400px" ></td>-->
+                        <!--</tr>-->
+                    </table>
+                </form>
+            </div>
+            <div class="Error_prompt" style="margin-top: 60px">
+                <span>有误</span>
             </div>
         </div>
     </div>
 </div>
+
 <script type = "text/javascript">
-    $(function() {
-        $('a[href*=#]:not([href=#])').click(function() {
-            if (location.name.replace(/^\//,'') == this.name.replace(/^\//,'') && location.hostname == this.hostname) {
-
-                var target = $(this.hash);
-                target = target.length ? target : $('[name=' + this.hash.slice(1) +']');
-                if (target.length) {
-                    $('html,body').animate({
-                        scrollTop: target.offset().top
-                    }, 1000);
-                    return false;
-                }
-            }
-        });
-    });
-
     function  dopostinfo() {
 
+        console.log("ananan")
         var fd=new FormData();
         var img=document.getElementById('test-image-file').files[0];
         var name=$("#name").val()
@@ -152,41 +131,87 @@
         fd.append('position',position)
         fd.append('version',version)
         fd.append('num',num)
-        fd.append('publishID',publishID)
-        $.ajax({
-            type: "POST",
-            url: "http://localhost:8080/service/bookin.book",
-            processData:false,  //tell jQuery not to process the data
-            contentType: false,  //tell jQuery not to set contentType
-            data:fd,
-            success: function (res) {
-                alert("成功录入")
-                console.log(res);
-                //如果获取不到用户类别则为登录失败
-                //alert(res.msg)
-                if (res.msg==="ERROR_INPUTDATA" ) {
-                    alert("数据传输失败")
-                }else if(res.msg==="ERROR_SAVED"){
-                    alert("此书已被录入")
-                }else if(res.msg===("ERROR_SERVER")){
-                    alert("服务器内部错误")
-                }
-                else if(res.msg==="SUCCESS"){
-                    alert("Success")
-                    window.location.replace(window.location.href.substring(0, window.location.href.lastIndexOf('/')) + "/main.html")
+        fd.append('publishID', publishID)
+       // alert(publisher)
+        if (name.length <= 0) {
+            //alert("??")
+            $(".Error_prompt").fadeIn(800).html("请输入书名!");
+            console.log("aaa")
+            return;
+        }
+        if (publisher.length <= 0) {
+            //alert("GUGU")
+            $(".Error_prompt").fadeIn(800).html("请输入出版社信息!");
+            return;
+        }
+        if (version.length <= 0) {
+            $(".Error_prompt").fadeIn(800).html("请输入书籍的版本号!")
+            return
+        }
+        if (isbn.length <= 0) {
+            $(".Error_prompt").fadeIn(800).html("请输入书籍的ISBN号!")
+            return
+        }
+        if (author.length <= 0) {
+            $(".Error_prompt").fadeIn(800).html("请输入书籍的作者!")
+            return
+        }
+        if (img == null) {
+            $(".Error_prompt").fadeIn(800).html("请上传书籍的封面!")
+            return
+        }
+        if (type.length <= 0) {
+            $(".Error_prompt").fadeIn(800).html("请输入书籍的类别!")
+            return
+        }
+        if (position.length <= 0) {
+            $(".Error_prompt").fadeIn(800).html("请输入书籍的位置!")
+            return
+        }
+        if (num.length <= 0) {
+            $(".Error_prompt").fadeIn(800).html("请输入书籍的数目!")
+            return
+        }
+        if (publishID.length <= 0) {
+            $(".Error_prompt").fadeIn(800).html("请输入书籍的出版号!")
+            return
+        }
+        alert("FIN")
+        $(".Error_prompt").fadeOut(400);
+        alert("???")
+            $.ajax({
+                type: "POST",
+                url: "http://localhost:8080/service/bookin.book",
+                processData: false,  //tell jQuery not to process the data
+                contentType: false,  //tell jQuery not to set contentType
+                data: fd,
+                success: function (res) {
+                    $(".Error_prompt").fadeIn(800).html("成功录入")
+                    console.log(res);
+                    //如果获取不到用户类别则为登录失败
+                    //alert(res.msg)
+                    if (res.msg === "ERROR_INPUTDATA") {
+                        $(".Error_prompt").fadeIn(800).html("数据传输失败")
+                    } else if (res.msg === "ERROR_SAVED") {
+                        $(".Error_prompt").fadeIn(800).html("此书已被录入")
+                    } else if (res.msg === ("ERROR_SERVER")) {
+                        $(".Error_prompt").fadeIn(800).html("服务器内部错误")
+                    } else if (res.msg === "SUCCESS") {
+                        $(".Error_prompt").fadeIn(800).html("Success")
+                        window.location.replace(window.location.href.substring(0, window.location.href.lastIndexOf('/')) + "/main.html")
 
+                    }
+                },
+                error: function (XMLHttpRequest, textStatus) {
+                    alert("与服务器通讯失败！请刷新重试！");
+                    console.error(textStatus + ":" + XMLHttpRequest.status + " " + XMLHttpRequest.readyState);
                 }
-            },
-            error: function (XMLHttpRequest, textStatus) {
-                alert("与服务器通讯失败！请刷新重试！");
-                console.error(textStatus + ":" + XMLHttpRequest.status + " " + XMLHttpRequest.readyState);
-            }
 
-        })
+            })
     }
 </script>
-<script type = "text/javascript">
-    window.onload = function()
+<script type="text/javascript">
+    window.onload = function ()
     {
 
         var account=sessionStorage.getItem("userAccount")

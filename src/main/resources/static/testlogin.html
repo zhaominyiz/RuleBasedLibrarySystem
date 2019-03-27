@@ -1,0 +1,103 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>无标题文档</title>
+    <script src="jQuery-2.1.0/jquery-2.1.0.js"></script>
+    <style type="text/css">
+        span{color:#F7191D;}
+    </style>
+    <script type="text/javascript">
+        //定义变量全部通过进行提交才跳转
+        var f1;
+        var f2;
+        var f3;
+        var f4;
+        $(function(){
+//鼠标焦点事件
+            $("#name").blur(function(){
+//获取name值
+                var $name=$("#name").val();
+                var $nameid=$("#nameId");
+//进行判断并且提示
+                if($name.length<=4){
+                    $nameid.html("用户名不能小于4位");
+                    f1=false;
+                }else{
+                    $nameid.html("√");
+                    $("#emali").focus();
+                    f1=true;
+                }
+            });
+
+            $("#emali").blur(function(){
+                var $emali=$("#emali").val();
+                var $emaliid=$("#emaliId");
+                if($emali.indexOf("@")>=0){
+                    $emaliid.html("√");
+                    $("#shouji").focus();
+                    f2=true;
+                }else{
+                    $emaliid.html("请输入@符号");
+                    f2=false;
+                }
+            });
+
+            $("#shouji").blur(function(){
+                var $shouji=$("#shouji").val();
+                var $shoujiid=$("#shoujiId");
+                if($shouji.length>=11){
+                    $shoujiid.html("√");
+                    $("#shen").focus();
+                    f3=true;
+                }else{
+                    $shoujiid.html("输入的长度不够11位");
+                    f3=false;
+                }
+            });
+
+            $("#shen").blur(function(){
+                var $shen=$("#shen").val();
+                var $shenId=$("#shenId");
+                if($shen.length>=18){
+                    $shenId.html("√");
+                    f4=true;
+                }else{
+                    $shenId.html("输入的长度不够18位");
+                    f4=false;
+                }
+            });
+        });
+
+        function check(){
+            if(f1&&f2&&f3&&f4){
+                return true;
+            }else{
+                return false;
+            }
+        }
+
+
+    </script>
+
+
+</head>
+
+
+<body>
+<form action="http://www.baidu.com" method="get" onSubmit="return check()">
+    姓名：<input type="text" id="name"/><span id="nameId"></span>
+        <br/>
+        Email地址：<input type="text" id="emali"/><span id="emaliId"></span>
+        <br/>
+        手机号：<input type="text" id="shouji"/><span id="shoujiId"></span>
+        <br/>
+        省份证号码：<input type="text" id="shen"/><span id="shenId"></span>
+        <br/>
+        <button type="submit">提交</button>
+        <button type="reset">重置</button>
+</form>
+
+
+</body>
+</html>

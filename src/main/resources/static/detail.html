@@ -28,74 +28,72 @@
     </div>
 </div>
 <div class="slider_bg" id="mainContainer">
-    <div id="form">
-        <form  action="main.html" method="get" >
-         <table width="800" align="left" style="margin-top: 100px">
-              <tr>
-                <td width="20%" style="color: aliceblue; text-align: left;font-size: 15px,padding: 5px">ISBN号：</td>
-                <td>
-                </td>
+    <div class="container">
+        <div id="content">
+            <div id="word"><h1>。。。详情</h1></div>
+            <div id="form">
+                <form style="margin-left: -120px;margin-top: 15px;">
+                    <table style="width: 800px;height: 420px;">
+                        <tr>
+                            <td></td>
+                            <td style="text-align: right;padding-top: 12px">封面：</td>
+                            <td width="60px" style="text-align: left">...</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td width="20%" style="text-align: right;padding-top: 12px">ISBN号：</td>
+                            <td style="padding-top: 12px;width: 200px;"></td>
+                            <td style="text-align: right;padding-top: 12px">书名：</td>
+                            <td style="padding-top: 12px"></td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: right;">出版社：</td>
+                            <td></td>
+                            <td width="20%" style="text-align: right;">作者：</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: right;">出版号ID：</td>
+                            <td></td>
+                            <td style="text-align: right;">版本号：</td>
+                            <td></td>
+                        </tr>
 
-                 <td width="20%" style="color: aliceblue; text-align: left; font-size: 15px,padding: 5px">图书名称：</td>
-                <td>
-                </td>
+                        <tr>
+                            <td style="text-align: right;">位置：</td>
+                            <td></td>
 
-              </tr>
-
-              <tr>
-                <td  style="color: aliceblue; text-align: left;font-size: 15px,padding: 5px">出版社：</td>
-                <td>
-                </td>
-
-                <td width="20%" style="color: aliceblue; text-align: left;font-size: 15px,padding: 5px">作者：</td>
-                <td>
-                </td>
-              </tr>
-
-               <tr>
-                <td style="color: aliceblue; text-align: left;font-size: 25px;padding: 5px">出版号ID：</td>
-                <td style="width: 150px">
-                </td>
-
-                 <td style="color: aliceblue; text-align:left;font-size: 15px,padding: 5px">描述：</td>
-                <td style="width: 150px">
-                </td>
-
-              </tr>
-              
-               <tr>
-                <td style="color: aliceblue; text-align: left;font-size: 15px,padding: 5px">位置：</td>
-                <td>
-                </td>
-
-                <td style="color: aliceblue; text-align: left;font-size: 15px,padding: 5px">分类：</td>
-                <td>
-                </td>
-              </tr>
-              <tr>
-                <td style="color: aliceblue; text-align: left;font-size: 15px,padding: 5px">数目：</td>
-                <td>
-                </td>
-  
-                <td style="color: aliceblue; text-align: left;font-size: 15px,padding: 5px">版本号：</td>
-                <td>
-                </td>
-              </tr>
-              <tr>
-                <td style="color: aliceblue; text-align: left;font-size: 15px,padding: 5px">封面：</td>
-                <td>
-                </td>
-                
-              </tr>
-              <tr>
-                <td colspan="2" align="center" ><input class="button" type="submit" value="返回" style="position: relative;left: 200px" ></td>
-              </tr>
-        </table>
-    </form>
-
+                            <td style="text-align: right;">分类：</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: right;padding-bottom: 15px">数目：</td>
+                            <td></td>
+                            <td style="text-align: right;padding-bottom: 15px">简介：</td>
+                            <td colspan="2"></td>
+                        </tr>
+                        <!--<tr>-->
+                            <!--<td colspan="2" align="center" style="padding-bottom: 15px;">-->
+                                <!--<input-->
+                                        <!--style="color: antiquewhite;position: relative;left: 350px;font-size: 20px;height: 35px;width: 100px;"-->
+                                        <!--type="button" value="提 交"-->
+                                        <!--class="buttom" onclick="dopostinfo()"/>-->
+                            <!--</td>-->
+                            <!--&nbsp;&nbsp;&nbsp;&nbsp;-->
+                            <!--<td><input style="color: antiquewhite;"  type="reset" value="重 置" class="buttom" /></td>-->
+                        </tr>
+                        <!--<tr>-->
+                        <!--<td colspan="2" align="center" ><input class="button" type="submit" value="添加" style="position: relative;left: 400px" ></td>-->
+                        <!--</tr>-->
+                    </table>
+                </form>
+            </div>
+            <div class="Error_prompt" style="margin-top: 60px">
+                <span>有误</span>
+            </div>
+        </div>
     </div>
 </div>
-
 <script type="text/javascript">
   
   $.ajax({ 

@@ -101,7 +101,7 @@
             $("#right_btn3").html("<a >"+realname+"</a>");
             $("#right_btn4").html(txtlogout);
             $("#left_btn").html(txt1);
-            $("#left_btn3").html(txt3);
+            $("#left_btn2").html(txt3);
             $("#right_btn").html(txt2);
 
         }else if(usertype==="user"){
@@ -135,7 +135,7 @@
                         " <td >"+object.bookname+"</td>\n" +
                         "<td >"+object.author+"</td>\n" +
                         "<td >"+object.publisher+"</td>\n" +
-                        "<td i><a href=\"javascript:void(0)\" onclick='getDetail("+object.isbn+")'>查看详情</a></td>\n" +
+                        "<td i><a href=\"detail.html\" onclick='getDetail("+object.isbn+")'>查看详情</a></td>\n" +
                         "</tr>"
                     //alert(txt)
                     $("#booklist").append(txt);

@@ -300,3 +300,11 @@ a:hover, .actionDiv li:hover{
 .bookTypeBox{
     padding-top: 30px;
 }
+#description{
+    width: 226px;
+    border-radius: 10px;
+    font-size: 18px;
+    margin: 8px 0px 0px;
+    color: black;
+    height: 42px;
+}
