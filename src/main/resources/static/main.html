@@ -130,14 +130,14 @@
             success: function (res) {
                 console.log(res);
                 $.each(res.booklist, function (index, object) {
-                    var txt="<tr style=\"height: 40px; \"><td i><img src=\""+object.img+"\" style=\"width:60px;height: 80px;\" href=\"#\" onclick='getDetail(\"+object.isbn+\")'" +
+                    var txt="<tr style=\"height: 40px; \"><td i><img src=\""+object.img+"\" style=\"width:60px;height: 80px;\" \"javascript:void(0);\" onclick='getDetail(\"+object.id+\")'" +
                         "'height=700, width=600, toolbar =no, menubar=no, scrollbars=no, resizable=no, location=no, status=no')\"/></td>\n" +
                         " <td >"+object.bookname+"</td>\n" +
                         "<td >"+object.author+"</td>\n" +
                         "<td >"+object.publisher+"</td>\n" +
-                        "<td i><a href=\"detail.html\" onclick='getDetail("+object.isbn+")'>查看详情</a></td>\n" +
+                        "<td i><a \"javascript:void(0);\" onclick='getDetail("+object.id+")'>查看详情</a></td>\n" +
                         "</tr>"
-                    //alert(txt)
+                    //alert(object.isbn)
                     $("#booklist").append(txt);
                 });
             },
@@ -149,7 +149,48 @@
         })
     }
     function getDetail(isbn) {
-
+        let resultJson={
+            "isbn":isbn.toString()
+        };
+        //console.log(resultJson);
+       // alert(JSON.stringify(resultJson));
+        $.ajax({
+            type: "POST",
+            url: "http://localhost:8080/service/finddetail.book",
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify(resultJson),
+            dataType: "json",
+            success: function (res) {
+                console.log(res);
+                if (res.msg==="ERROR_INPUTDATA" ) {
+                    alert("数据传输失败")
+                }else if(res.msg===("ERROR_SERVER")){
+                    alert("服务器内部错误")
+                }else if(res.msg==="SUCCESS"){
+                    //alert(res.isbn)
+                    sessionStorage.setItem("bookid",res.id);
+                    sessionStorage.setItem("bookname",res.bookname);
+                    sessionStorage.setItem("img",res.img);
+                    sessionStorage.setItem("description",res.description);
+                    sessionStorage.setItem("type",res.type);
+                    sessionStorage.setItem("position",res.position);
+                    sessionStorage.setItem("num",res.num);
+                    sessionStorage.setItem("res",res.res);
+                    sessionStorage.setItem("author",res.author);
+                    sessionStorage.setItem("publisher",res.publisher);
+                    sessionStorage.setItem("publishID",res.publishID);
+                    sessionStorage.setItem("isbn",res.isbn);
+                    sessionStorage.setItem("version",res.version);
+                    //alert("ISBN"+sessionStorage.getItem("isbn"))
+                    window.location.replace(window.location.href.substring(0, window.location.href.lastIndexOf('/')) + "/detail.html")
+                        // window.location.replace(window.location.href.substring(0, window.location.href.lastIndexOf('/')) + "/test.html")
+                }
+            },
+            error: function (XMLHttpRequest, textStatus) {
+                alert("与服务器通讯失败！请刷新重试！");
+                alert(textStatus + ":" + XMLHttpRequest.status + " " + XMLHttpRequest.readyState);
+            }
+        })
     }
     function getbooklist() {
         let resultJson={

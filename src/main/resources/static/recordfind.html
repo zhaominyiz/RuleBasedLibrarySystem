@@ -22,7 +22,7 @@
 							<li id="left_btn3"><a href=""></a></li>
 							<li id="left_btn2"><a href=""></a></li>
 							<li><a href="login.html" id="left_btn">登录</a></li>
-							<li class="logo page-scroll"><a href=""><img src="imgs/logo.png"></a></li>
+							<li class="logo page-scroll"><a href="main.html"><img src="imgs/logo.png"></a></li>
 							<li class="page-scroll" id="right_btn"><a href="signup.html">注册</a></li>
 							<li id="right_btn2"><a href=""></a></li>
 							<li id="right_btn3"><a href=""></a></li>
@@ -67,9 +67,6 @@
 											<th>序号</th>
 											<th>书名</th>
 											<th>借书者</th>
-											<th>ISBN</th>
-											<th>作者</th>
-											<th>出版社</th>
 											<th>借书时间</th>
 											<th>查看详情</th>
 										</tr>
@@ -173,8 +170,8 @@
                         var cnt=1;
                         $.each(res.booklist, function (index, object) {
                             var txt="<tr ><th>"+cnt+"</th>"+"<th>"+object.name+"</th>"+"<th>"+object.user+"</th>"
-							+"<th>"+object.isbn+"</th>"+"<th>"+object.author+"</th>"+"<th>"+object.publisher+"</th>"
-                                +"<th>"+object.datetime+"</th>"+"<th><a href=\"javascript:void(0)\" onclick='getDetail("+object.isbn+")'>查看详情</a></th>"
+							+"<th>"+object.isbn+"</th>"
+                                +"<th>"+object.datetime+"</th>"+"<th><a href=\"javascript:void(0)\" onclick='getDetail("+object.id+")'>查看详情</a></th>"
                             //alert(txt)
                             $("#record").append(txt);
                         });
@@ -195,6 +192,51 @@
                 sessionStorage.setItem("keyword_bo", $("#keyword_bo").val())
 				//alert(sessionStorage.getItem("keyword_bo"))
                 window.location.replace(window.location.href.substring(0, window.location.href.lastIndexOf('/')) + "/recordfind.html")
+            }
+            function getDetail(isbn) {
+			    //alert("G")
+                let resultJson={
+                    "isbn":isbn.toString()
+                };
+                //console.log(resultJson);
+                // alert(JSON.stringify(resultJson));
+                $.ajax({
+                    type: "POST",
+                    url: "http://localhost:8080/service/finddetail.book",
+                    contentType: "application/json; charset=utf-8",
+                    data: JSON.stringify(resultJson),
+                    dataType: "json",
+                    success: function (res) {
+                        console.log(res);
+                        if (res.msg==="ERROR_INPUTDATA" ) {
+                            alert("数据传输失败")
+                        }else if(res.msg===("ERROR_SERVER")){
+                            alert("服务器内部错误")
+                        }else if(res.msg==="SUCCESS"){
+                            //alert(res.isbn)
+                            sessionStorage.setItem("bookid",res.id);
+                            sessionStorage.setItem("bookname",res.bookname);
+                            sessionStorage.setItem("img",res.img);
+                            sessionStorage.setItem("description",res.description);
+                            sessionStorage.setItem("type",res.type);
+                            sessionStorage.setItem("position",res.position);
+                            sessionStorage.setItem("num",res.num);
+                            sessionStorage.setItem("res",res.res);
+                            sessionStorage.setItem("author",res.author);
+                            sessionStorage.setItem("publisher",res.publisher);
+                            sessionStorage.setItem("publishID",res.publishID);
+                            sessionStorage.setItem("isbn",res.isbn);
+                            sessionStorage.setItem("version",res.version);
+                            //alert("ISBN"+sessionStorage.getItem("isbn"))
+                            window.location.replace(window.location.href.substring(0, window.location.href.lastIndexOf('/')) + "/detail.html")
+                            // window.location.replace(window.location.href.substring(0, window.location.href.lastIndexOf('/')) + "/test.html")
+                        }
+                    },
+                    error: function (XMLHttpRequest, textStatus) {
+                        alert("与服务器通讯失败！请刷新重试！");
+                        alert(textStatus + ":" + XMLHttpRequest.status + " " + XMLHttpRequest.readyState);
+                    }
+                })
             }
 		</script>
 		<!-- Optional JavaScript -->

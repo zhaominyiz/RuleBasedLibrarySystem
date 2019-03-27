@@ -17,9 +17,15 @@
             </div>
             <div class="top-nav" id="nav">
                 <ul class="top-nav nav-list">
-                    <li><a href="main.html">主页</a></li>
+                    <li id="left_btn4"><a href=""></a></li>
+                    <li id="left_btn3"><a href=""></a></li>
+                    <li id="left_btn2"><a href=""></a></li>
+                    <li><a href="login.html" id="left_btn">登录</a></li>
                     <li class="logo page-scroll"><a href="main.html"><img src="imgs/logo.png"></a></li>
-                    <li class="page-scroll"><a href="login.html">退出登录</a></li>
+                    <li class="page-scroll" id="right_btn"><a href="signup.html">注册</a></li>
+                    <li id="right_btn2"><a href=""></a></li>
+                    <li id="right_btn3"><a href=""></a></li>
+                    <li id="right_btn4"><a href=""></a></li>
                 </ul>
                 <a href="#" id="pull"><img src="imgs/nav-icon.png"></a>
             </div>
@@ -30,46 +36,46 @@
 <div class="slider_bg" id="mainContainer">
     <div class="container">
         <div id="content">
-            <div id="word"><h1>。。。详情</h1></div>
+            <div id="word"><h1>书本详情</h1></div>
             <div id="form">
                 <form style="margin-left: -120px;margin-top: 15px;">
                     <table style="width: 800px;height: 420px;">
                         <tr>
                             <td></td>
                             <td style="text-align: right;padding-top: 12px">封面：</td>
-                            <td width="60px" style="text-align: left">...</td>
+                            <td width="60px" style="text-align: left" ><img src="" id="bookimg" width="60px"></td>
                             <td></td>
                         </tr>
                         <tr>
                             <td width="20%" style="text-align: right;padding-top: 12px">ISBN号：</td>
-                            <td style="padding-top: 12px;width: 200px;"></td>
+                            <td style="padding-top: 12px;width: 200px;" id="isbn"></td>
                             <td style="text-align: right;padding-top: 12px">书名：</td>
-                            <td style="padding-top: 12px"></td>
+                            <td style="padding-top: 12px"id="bookname"></td>
                         </tr>
                         <tr>
                             <td style="text-align: right;">出版社：</td>
-                            <td></td>
+                            <td id="publisher"></td>
                             <td width="20%" style="text-align: right;">作者：</td>
-                            <td></td>
+                            <td id="author"></td>
                         </tr>
                         <tr>
                             <td style="text-align: right;">出版号ID：</td>
-                            <td></td>
+                            <td id="publishID"></td>
                             <td style="text-align: right;">版本号：</td>
-                            <td></td>
+                            <td id="version"></td>
                         </tr>
                         <tr>
                             <td style="text-align: right;">位置：</td>
-                            <td></td>
+                            <td id="position"></td>
 
                             <td style="text-align: right;">分类：</td>
-                            <td></td>
+                            <td id="type"></td>
                         </tr>
                         <tr>
                             <td style="text-align: right;padding-bottom: 15px">数目：</td>
-                            <td></td>
+                            <td id="res"></td>
                             <td style="text-align: right;padding-bottom: 15px">简介：</td>
-                            <td colspan="2"></td>
+                            <td colspan="2" id="description" style="color: aliceblue"></td>
                         </tr>
                         <!--<tr>-->
                             <!--<td colspan="2" align="center" style="padding-bottom: 15px;">-->
@@ -123,13 +129,15 @@
         }else if(usertype==="admin"){
             //alert("IS ADMIN");
             var txt1="<a href=\"bookin.html\">录入书籍</a>";
-            var txt2="<a href=\"../../../../../../Documents/Tencent%20Files/1044774028/FileRecv/recordfind.html\">查询记录</a>";
+            var txt2="<a href=\"recordfind.html\">查询记录</a>";
             var txt4="<a >"+"欢迎使用："+"</a>";
+            var txt3="<a href=\main.html\">主页</a>";
             var txtlogout="<input type=\"button\" value=\"注 销\" class=\"buttom\" onclick='logout()'/>"
             $("#right_btn2").html(txt4);
             $("#right_btn3").html("<a >"+realname+"</a>");
             $("#right_btn4").html(txtlogout);
             $("#left_btn").html(txt1);
+            $("#left_btn2").html(txt3);
             $("#right_btn").html(txt2);
 
         }else if(usertype==="user"){
@@ -143,12 +151,27 @@
             $("#left_btn").html(txt1);
             $("#right_btn").html(txt2);
         }
+        InsertBookData();
     }
     function  logout() {
         sessionStorage.removeItem("userAccount")
         sessionStorage.removeItem("userName")
         sessionStorage.removeItem("userType")
         window.location.replace(window.location.href.substring(0, window.location.href.lastIndexOf('/')) + "/main.html")
+    }
+    function InsertBookData() {
+        //alert(sessionStorage.getItem("isbn")+"??")
+        $("#isbn").html(sessionStorage.getItem("isbn"))
+        $("#bookname").html(sessionStorage.getItem("bookname"))
+        $("#description").html(sessionStorage.getItem("description"))
+        $("#type").html(sessionStorage.getItem("type"))
+        $("#position").html(sessionStorage.getItem("position"))
+        $("#res").html(sessionStorage.getItem("res"))
+        $("#author").html(sessionStorage.getItem("author"))
+        $("#publisher").html(sessionStorage.getItem("publisher"))
+        $("#publishID").html(sessionStorage.getItem("publishID"))
+        $("#version").html(sessionStorage.getItem("version"))
+        $("#bookimg").attr("src",sessionStorage.getItem("img"));
     }
 </script>
 
@@ -166,5 +189,12 @@
         </div>
     </div>
 </div>
+<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js" crossorigin="anonymous"></script>
+<script src="https://cdn.bootcss.com/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.bootcss.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
 </body>
 </html>

@@ -291,6 +291,7 @@ public class BookEngine {
                 reTmp.put("publisher",bookTmp.getPublisher());
                 reTmp.put("isbn",bookTmp.getIsbn());
                 reTmp.put("version",bookTmp.getVersion());
+                reTmp.put("publishID",bookTmp.getPublishId());
                 booklistbooklist.put(reTmp);
             }
             List<BookEntity> tmpList2=bookDB.findAuthor(msg,bookType);
@@ -300,6 +301,7 @@ public class BookEngine {
                 JSONObject reTmp=new JSONObject();
                 reTmp.put("id",bookTmp.getId());
                 reTmp.put("bookname",bookTmp.getName());
+                reTmp.put("publishID",bookTmp.getPublishId());
                 reTmp.put("img",bookTmp.getImg());
                 reTmp.put("description",bookTmp.getDescription());
                 reTmp.put("type",bookTmp.getType());
@@ -320,6 +322,7 @@ public class BookEngine {
                 reTmp.put("id",bookTmp.getId());
                 reTmp.put("bookname",bookTmp.getName());
                 reTmp.put("img",bookTmp.getImg());
+                reTmp.put("publishID",bookTmp.getPublishId());
                 reTmp.put("description",bookTmp.getDescription());
                 reTmp.put("type",bookTmp.getType());
                 reTmp.put("position",bookTmp.getPosition());
@@ -340,6 +343,7 @@ public class BookEngine {
                 reTmp.put("bookname",bookTmp.getName());
                 reTmp.put("img",bookTmp.getImg());
                 reTmp.put("description",bookTmp.getDescription());
+                reTmp.put("publishID",bookTmp.getPublishId());
                 reTmp.put("type",bookTmp.getType());
                 reTmp.put("position",bookTmp.getPosition());
                 reTmp.put("num",bookTmp.getNum());
@@ -362,10 +366,10 @@ public class BookEngine {
     }
 
     //寻找一本书的详细信息
-    public String findDetail(String isbn){
+    public String findDetail(int isbn){
         JSONObject re=new JSONObject();
         try {
-            BookEntity currentBook = bookDB.findByIsbn(isbn);
+            BookEntity currentBook = bookDB.findById(isbn);
             if(currentBook==null){
                 re.put("msg","ERROR_NOTFOUND");
                 return re.toString();
@@ -382,6 +386,7 @@ public class BookEngine {
             re.put("publisher",currentBook.getPublisher());
             re.put("isbn",currentBook.getIsbn());
             re.put("version",currentBook.getVersion());
+            re.put("publishID",currentBook.getPublishId());
             return re.toString();
         }catch (Exception e){
             e.printStackTrace();

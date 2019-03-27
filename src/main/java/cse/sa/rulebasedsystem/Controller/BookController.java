@@ -83,17 +83,20 @@ public class BookController {
     @RequestMapping(value="service/finddetail.book", produces = "application/json;charset=UTF-8",method = RequestMethod.POST)
     @ResponseBody
     public String findDetail(@RequestBody String jsonstr){
-        String isbn="";
+        int id=0;
         try{
             JSONObject jsonObject=new JSONObject(jsonstr);
-            isbn=jsonObject.getString("isbn");
+            id=Integer.parseInt(jsonObject.getString("isbn"));
+            System.out.println("ID="+id);
         }catch (Exception ex){
             ex.printStackTrace();
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("msg", "ERROR_INPUTDATA");
             return jsonObject.toString();
         }
-        return bookEngine.findDetail(isbn);
+        String s=bookEngine.findDetail(id);
+        System.out.println(s);
+        return s;
     }
 
     @RequestMapping(value="service/delete.manage", produces = "application/json;charset=UTF-8",method = RequestMethod.POST)

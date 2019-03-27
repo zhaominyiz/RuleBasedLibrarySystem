@@ -139,7 +139,7 @@
                         "<td >"+object.isbn+"</td>\n" +
                         "<td >"+object.res+"</td>\n" +
                         "<td >"+object.position+"</td>\n" +
-                        "<td i><a href=\"javascript:void(0)\" onclick='getDetail("+object.isbn+")'>查看详情</a></td>\n" +
+                        "<td i><a href=\"javascript:void(0)\" onclick='getDetail("+object.id+")'>查看详情</a></td>\n" +
                         "</tr>"+"</tbody>"
                     //alert(txt)
                     $("#booklist").append(txt);
@@ -158,6 +158,50 @@
         sessionStorage.removeItem("userName")
         sessionStorage.removeItem("userType")
         window.location.replace(window.location.href.substring(0, window.location.href.lastIndexOf('/')) + "/main.html")
+    }
+    function getDetail(isbn) {
+        let resultJson={
+            "isbn":isbn.toString()
+        };
+        //console.log(resultJson);
+        // alert(JSON.stringify(resultJson));
+        $.ajax({
+            type: "POST",
+            url: "http://localhost:8080/service/finddetail.book",
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify(resultJson),
+            dataType: "json",
+            success: function (res) {
+                console.log(res);
+                if (res.msg==="ERROR_INPUTDATA" ) {
+                    alert("数据传输失败")
+                }else if(res.msg===("ERROR_SERVER")){
+                    alert("服务器内部错误")
+                }else if(res.msg==="SUCCESS"){
+                    //alert(res.isbn)
+                    sessionStorage.setItem("bookid",res.id);
+                    sessionStorage.setItem("bookname",res.bookname);
+                    sessionStorage.setItem("img",res.img);
+                    sessionStorage.setItem("description",res.description);
+                    sessionStorage.setItem("type",res.type);
+                    sessionStorage.setItem("position",res.position);
+                    sessionStorage.setItem("num",res.num);
+                    sessionStorage.setItem("res",res.res);
+                    sessionStorage.setItem("author",res.author);
+                    sessionStorage.setItem("publisher",res.publisher);
+                    sessionStorage.setItem("publishID",res.publishID);
+                    sessionStorage.setItem("isbn",res.isbn);
+                    sessionStorage.setItem("version",res.version);
+                    //alert("ISBN"+sessionStorage.getItem("isbn"))
+                    window.location.replace(window.location.href.substring(0, window.location.href.lastIndexOf('/')) + "/detail.html")
+                    // window.location.replace(window.location.href.substring(0, window.location.href.lastIndexOf('/')) + "/test.html")
+                }
+            },
+            error: function (XMLHttpRequest, textStatus) {
+                alert("与服务器通讯失败！请刷新重试！");
+                alert(textStatus + ":" + XMLHttpRequest.status + " " + XMLHttpRequest.readyState);
+            }
+        })
     }
 </script>
 
