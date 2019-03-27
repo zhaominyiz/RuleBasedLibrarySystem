@@ -175,9 +175,9 @@
             $(".Error_prompt").fadeIn(800).html("请输入书籍的出版号!")
             return
         }
-        alert("FIN")
+        //alert("FIN")
         $(".Error_prompt").fadeOut(400);
-        alert("???")
+        //alert("???")
             $.ajax({
                 type: "POST",
                 url: "http://localhost:8080/service/update.manage",
