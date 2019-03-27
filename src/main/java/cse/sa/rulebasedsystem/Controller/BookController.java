@@ -129,7 +129,10 @@ public class BookController {
             String version = request.getParameter("version");
             Integer num = Integer.parseInt(request.getParameter("num"));
             String publishID = request.getParameter("publishID");
-            return bookEngine.updateBook(name,publisher,author,img,isbn,description,type,position,version,num,publishID);
+
+            String s= bookEngine.updateBook(name,publisher,author,img,isbn,description,type,position,version,num,publishID);
+            System.out.println(s);
+            return s;
         }catch (Exception ex){
             ex.printStackTrace();
             JSONObject jsonObject = new JSONObject();

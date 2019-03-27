@@ -36,60 +36,58 @@
 <div class="slider_bg" id="mainContainer">
     <div class="container">
         <div id="content">
-            <div id="word"><h1>书本详情</h1></div>
+            <div id="word"><h1 id="bookname"></h1></div>
             <div id="form">
                 <form style="margin-left: -120px;margin-top: 15px;">
-                    <table style="width: 800px;height: 420px;">
+                    <table style="width: 800px;height: 450px;">
                         <tr>
-                            <td></td>
-                            <td style="text-align: right;padding-top: 12px">封面：</td>
-                            <td width="60px" style="text-align: left" ><img src="" id="bookimg" width="60px"></td>
-                            <td></td>
+
+                            <td colspan="2" style="text-align: right;padding-top: 12px">封面：</td>
+                            <td colspan="2" style="text-align: left" ><img src="" id="bookimg" width="70px" height="90px"></td>
+
                         </tr>
                         <tr>
-                            <td width="20%" style="text-align: right;padding-top: 12px">ISBN号：</td>
-                            <td style="padding-top: 12px;width: 200px;" id="isbn"></td>
-                            <td style="text-align: right;padding-top: 12px">书名：</td>
-                            <td style="padding-top: 12px"id="bookname"></td>
+                            <td width="145px" style="text-align: right;">作者：</td>
+                            <td width="230px" id="author"></td>
+                            <td width="145px" style="text-align: right;">ISBN号：</td>
+                            <td id="isbn"></td>
+
                         </tr>
                         <tr>
+                            <td style="text-align: right;">余量：</td>
+                            <td id="res"></td>
                             <td style="text-align: right;">出版社：</td>
                             <td id="publisher"></td>
-                            <td width="20%" style="text-align: right;">作者：</td>
-                            <td id="author"></td>
                         </tr>
                         <tr>
-                            <td style="text-align: right;">出版号ID：</td>
+                            <td style="text-align: right;">分类：</td>
+                            <td id="type"></td>
+                            <td style="text-align: right;">出版号：</td>
                             <td id="publishID"></td>
-                            <td style="text-align: right;">版本号：</td>
-                            <td id="version"></td>
+
                         </tr>
                         <tr>
                             <td style="text-align: right;">位置：</td>
                             <td id="position"></td>
-
-                            <td style="text-align: right;">分类：</td>
-                            <td id="type"></td>
+                            <td style="text-align: right;">版本号：</td>
+                            <td id="version"></td>
                         </tr>
                         <tr>
-                            <td style="text-align: right;padding-bottom: 15px">数目：</td>
-                            <td id="res"></td>
                             <td style="text-align: right;padding-bottom: 15px">简介：</td>
-                            <td colspan="2" id="description" style="color: aliceblue"></td>
+                            <td colspan="3" id="description" style="color: aliceblue;padding-bottom: 15px;font-size: 21px;"></td>
                         </tr>
-                        <!--<tr>-->
-                            <!--<td colspan="2" align="center" style="padding-bottom: 15px;">-->
-                                <!--<input-->
-                                        <!--style="color: antiquewhite;position: relative;left: 350px;font-size: 20px;height: 35px;width: 100px;"-->
-                                        <!--type="button" value="提 交"-->
-                                        <!--class="buttom" onclick="dopostinfo()"/>-->
-                            <!--</td>-->
-                            <!--&nbsp;&nbsp;&nbsp;&nbsp;-->
-                            <!--<td><input style="color: antiquewhite;"  type="reset" value="重 置" class="buttom" /></td>-->
+                        <tr>
+                            <td  align="center" style="padding-bottom: 15px;">
+                                <input id="b1"
+                                       style="color: antiquewhite;position: relative;left: 220px;font-size: 20px;height: 35px;width: 100px;"
+                                       type="button" value="更 新"
+                                       class="buttom" onclick="updatebook()"/>
+                            </td>
+                            <td style="padding-bottom: 15px;" ><input id="b2" style="color: antiquewhite;position: relative;left: 320px;font-size: 20px;height: 35px;width: 100px;"
+                                                                      type="reset" value="下 架"
+                                                                      class="buttom" onclick="deletebook()"/>
+                            </td>
                         </tr>
-                        <!--<tr>-->
-                        <!--<td colspan="2" align="center" ><input class="button" type="submit" value="添加" style="position: relative;left: 400px" ></td>-->
-                        <!--</tr>-->
                     </table>
                 </form>
             </div>
@@ -99,39 +97,23 @@
         </div>
     </div>
 </div>
-<script type="text/javascript">
-  
-  $.ajax({ 
-    type:"GET",
-    url:"http://localhost:8080/service/finddetail.book"
-    data:{bookname:$("#bookname").val(),img:$("#img").val(),description:$("#description").val(),type:$("#type").val(),position:$("#position").val(),num:$("#num").val(),res:$("#res").val(),author:$("#author").val(),publisher:$("#publisher").val(),isbn:$("#isbn").val(),version:$("#version").val()},
-    dataType:"json",
-    success:function(data){
-      var html = '';
-      $.each(data,function(index,comment){
-        html+='<div class="comment"><p>' + comment['bookname']+'</p><p>'+comment['img']+'</p><p>'+comment['description']+'</p><p>'+comment['type']+'</p><p>'+comment['position']+'</p><p>'+comment['num']+'</p><p>'+comment['res']+'</p><p>'+comment['author']+'</p><p>'+comment['publisher']+'</p><p>'+comment['isbn']+'</p><p>'+comment['version']+'</p></div>';
-      });
-    }
-  });
-
-</script>
-
 <script type = "text/javascript">
+
     window.onload = function()
     {
-
         var account=sessionStorage.getItem("userAccount")
         var realname=sessionStorage.getItem("userName")
         var usertype=sessionStorage.getItem("userType")
         //alert(account+";"+realname+";"+usertype)
-        if(usertype===null){
-
-        }else if(usertype==="admin"){
-            //alert("IS ADMIN");
+        if(usertype==null){
+            $("#b1").hide();
+            $("#b2").hide();
+        }
+        if(usertype==="admin"){
             var txt1="<a href=\"bookin.html\">录入书籍</a>";
             var txt2="<a href=\"recordfind.html\">查询记录</a>";
             var txt4="<a >"+"欢迎使用："+"</a>";
-            var txt3="<a href=\main.html\">主页</a>";
+            var txt3="<a href=\"main.html\">主页</a>";
             var txtlogout="<input type=\"button\" value=\"注 销\" class=\"buttom\" onclick='logout()'/>"
             $("#right_btn2").html(txt4);
             $("#right_btn3").html("<a >"+realname+"</a>");
@@ -141,6 +123,8 @@
             $("#right_btn").html(txt2);
 
         }else if(usertype==="user"){
+            $("#b1").hide();
+            $("#b2").hide();
             var txt1="<a href=\"borrow.html\">借书</a>";
             var txt2="<a href=\"return.html\">还书</a>";
             var txt4="<a >"+"欢迎使用："+"</a>";
@@ -158,6 +142,37 @@
         sessionStorage.removeItem("userName")
         sessionStorage.removeItem("userType")
         window.location.replace(window.location.href.substring(0, window.location.href.lastIndexOf('/')) + "/main.html")
+    }
+    function  updatebook() {
+        window.location.replace(window.location.href.substring(0, window.location.href.lastIndexOf('/')) + "/bookupdate.html")
+    }
+    function deletebook() {
+        let loginJson = {
+            "isbn": sessionStorage.getItem("isbn")
+        };
+        console.log(loginJson);
+        console.log(JSON.stringify(loginJson));
+        $.ajax({
+            type: "POST",
+            url: "http://localhost:8080/service/delete.manage",
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify(loginJson),
+            dataType: "json",
+            success: function (res) {
+                console.log(res);
+                //如果获取不到用户类别则为登录失败
+                if(res.msg==="SUCCESS"){
+                    window.location.replace(window.location.href.substring(0, window.location.href.lastIndexOf('/')) + "/main.html")
+                }else{
+                    alert("发生错误")
+                }
+            },
+            error: function (XMLHttpRequest, textStatus) {
+                alert("与服务器通讯失败！请刷新重试！");
+                console.error(textStatus + ":" + XMLHttpRequest.status + " " + XMLHttpRequest.readyState);
+            }
+
+        })
     }
     function InsertBookData() {
         //alert(sessionStorage.getItem("isbn")+"??")
@@ -178,7 +193,7 @@
 
 <div class="footer_bg" id="contact">
     <div class="container"></div>
-</div>      
+</div>
 <div class="footer1_bg">
     <div class="container">
         <div class="row  footer">

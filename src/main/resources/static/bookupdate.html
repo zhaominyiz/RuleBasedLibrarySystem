@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>书本录入</title>
+    <title>书本更新</title>
     <link rel="stylesheet" type="text/css" href="css/global.css">
     <link rel="stylesheet" type="text/css" href="css/style.css">
     <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
@@ -36,7 +36,7 @@
 <div class="slider_bg" id="mainContainer">
     <div class="container">
         <div id="content">
-            <div id="word"><h1>图书录入</h1></div>
+            <div id="word"><h1>图书更新</h1></div>
             <div id="form">
                 <form style="margin-left: -120px;margin-top: 15px;">
                     <table style="width: 800px;height: 420px;">
@@ -87,7 +87,7 @@
                                 <input
                                     style="color: antiquewhite;position: relative;left: 350px;font-size: 20px;height: 35px;width: 100px;"
                                     type="button" value="提 交"
-                                    class="buttom" onclick="dopostinfo()"/>
+                                    class="buttom" onclick="doupdateinfo()"/>
                             </td>
                                 <!--&nbsp;&nbsp;&nbsp;&nbsp;-->
                                 <!--<td><input style="color: antiquewhite;"  type="reset" value="重 置" class="buttom" /></td>-->
@@ -106,7 +106,7 @@
 </div>
 
 <script type = "text/javascript">
-    function  dopostinfo() {
+    function  doupdateinfo() {
 
         console.log("ananan")
         var fd=new FormData();
@@ -132,7 +132,6 @@
         fd.append('version',version)
         fd.append('num',num)
         fd.append('publishID', publishID)
-       // alert(publisher)
         if (name.length <= 0) {
             //alert("??")
             $(".Error_prompt").fadeIn(800).html("请输入书名!");
@@ -176,34 +175,33 @@
             $(".Error_prompt").fadeIn(800).html("请输入书籍的出版号!")
             return
         }
-        //alert("FIN")
+        alert("FIN")
         $(".Error_prompt").fadeOut(400);
-        //alert("???")
+        alert("???")
             $.ajax({
                 type: "POST",
-                url: "http://localhost:8080/service/bookin.book",
+                url: "http://localhost:8080/service/update.manage",
                 processData: false,  //tell jQuery not to process the data
                 contentType: false,  //tell jQuery not to set contentType
                 data: fd,
                 success: function (res) {
-
                     console.log(res);
                     //如果获取不到用户类别则为登录失败
                     //alert(res.msg)
                     if (res.msg === "ERROR_INPUTDATA") {
                         $(".Error_prompt").fadeIn(800).html("数据传输失败")
                     } else if (res.msg === "ERROR_SAVED") {
-                        $(".Error_prompt").fadeIn(800).html("此书已被录入")
+                        $(".Error_prompt").fadeIn(800).html("成功更新")
                     } else if (res.msg === ("ERROR_SERVER")) {
                         $(".Error_prompt").fadeIn(800).html("服务器内部错误")
                     } else if (res.msg === "SUCCESS") {
-                        $(".Error_prompt").fadeIn(800).html("成功录入")
+                        $(".Error_prompt").fadeIn(800).html("成功更新")
                         //window.location.replace(window.location.href.substring(0, window.location.href.lastIndexOf('/')) + "/main.html")
 
                     }
                 },
                 error: function (XMLHttpRequest, textStatus) {
-                    alert("与服务器通讯失败！请刷新重试！");
+                    $(".Error_prompt").fadeIn(800).html("更新失败")
                     console.error(textStatus + ":" + XMLHttpRequest.status + " " + XMLHttpRequest.readyState);
                 }
 
@@ -243,6 +241,16 @@
             $("#left_btn").html(txt1);
             $("#right_btn").html(txt2);
         }
+        document.getElementById("isbn").value = sessionStorage.getItem("isbn");
+        document.getElementById("name").value = sessionStorage.getItem("bookname");
+        document.getElementById("type").value = sessionStorage.getItem("type");
+        document.getElementById("description").value = sessionStorage.getItem("description");
+        document.getElementById("author").value = sessionStorage.getItem("author");
+        document.getElementById("version").value = sessionStorage.getItem("version");
+        document.getElementById("publisher").value = sessionStorage.getItem("publisher");
+        document.getElementById("position").value = sessionStorage.getItem("position");
+        document.getElementById("publishID").value = sessionStorage.getItem("publishID");
+        document.getElementById("num").value = sessionStorage.getItem("res");
     }
     function  logout() {
         sessionStorage.removeItem("userAccount")
@@ -252,56 +260,6 @@
     }
 </script>
 <script type="text/javascript">
-    function isIntNum(val){
-        var regPos = / ^\d+$/; // 非负整数
-        var regNeg = /^\-[1-9][0-9]*$/; // 负整数
-        if(regPos.test(val) || regNeg.test(val)){
-            byId("isInt_span").sytle.color = "green";
-        }else{
-            byId("isInt_span").style.color = "red";
-        }
-    }
-
-    var
-        fileInput = document.getElementById('test-image-file'),
-        info = document.getElementById('test-file-info'),
-        preview = document.getElementById('test-image-preview');
-    // 监听change事件:
-    fileInput.addEventListener('change', function() {
-        // 清除背景图片:
-        preview.style.backgroundImage = '';
-        // 检查文件是否选择:
-        if(!fileInput.value) {
-            info.innerHTML = '没有选择文件';
-            return;
-        }
-        // 获取File引用:
-        var file = fileInput.files[0];
-        //判断文件大小
-        var size = file.size;
-        if(size >= 1*1024*1024){
-            alert('文件大于1兆不行!');
-            return false;
-        }
-        // 获取File信息:
-        info.innerHTML = '文件: ' + file.name + '<br>' +
-            '大小: ' + file.size + '<br>' +
-            '修改: ' + file.lastModifiedDate;
-        if(file.type !== 'image/jpeg' && file.type !== 'image/png' && file.type !== 'image/gif') {
-            alert('不是有效的图片文件!');
-            return;
-
-            // 读取文件:
-            var reader = new FileReader();
-            reader.onload = function(e) {
-                var
-                    data = e.target.result; // 'data:image/jpeg;base64,/9j/4AAQSk...(base64编码)...}'
-                preview.style.backgroundImage = 'url(' + data + ')';
-            };
-            // 以DataURL的形式读取文件:
-            reader.readAsDataURL(file);
-            console.log(file);
-        };
 </script>
 
 <div class="footer_bg" id="contact">

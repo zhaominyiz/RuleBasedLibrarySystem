@@ -419,42 +419,54 @@ public class BookEngine {
             re.put("msg","ERROR_NOTFOUND");
             return re.toString();
         }
-        newBook.setName(name);
-        newBook.setPublisher(publisher);
-        newBook.setAuthor(author);
-        String outurl="";
-        String fileurl="";
-        String fileName = file.getOriginalFilename();
-        String filePath = ("src/main/resources/static/book_img");//request.getSession().getServletContext().getRealPath("/uploader");
-        List<BookEntity> booklist = bookDB.getBookEntitiesByPublisherID(publishID);
-        if (booklist.size() != 0) {
-            JSONObject result = new JSONObject();
-            result.put("msg", "ERROR_SAVED");
-            return result.toString();
-        }
-        try {
-            File targetFile = new File(filePath);
-            if(!targetFile.exists()){
-                targetFile.mkdirs();
+        if(!name.equals(""))
+            newBook.setName(name);
+        if(!publisher.equals(""))
+            newBook.setPublisher(publisher);
+        if(!author.equals(""))
+            newBook.setAuthor(author);
+        if(file!=null) {
+            String outurl = "";
+            String fileurl = "";
+            String fileName = file.getOriginalFilename();
+            String filePath = ("src/main/resources/static/book_img");//request.getSession().getServletContext().getRealPath("/uploader");
+            List<BookEntity> booklist = bookDB.getBookEntitiesByPublisherID(publishID);
+            if (booklist.size() != 0) {
+                JSONObject result = new JSONObject();
+                result.put("msg", "ERROR_SAVED");
+                return result.toString();
             }
-            fileurl=filePath+"\\"+fileName;
-            outurl="src/main/resources/static/book_img"+fileName;
-            FileOutputStream out = new FileOutputStream(fileurl);
-            out.write(file.getBytes());
-            out.flush();
-            out.close();
-        }catch (Exception e){
-            e.printStackTrace();
-            fileurl="ERROR";
+            try {
+                File targetFile = new File(filePath);
+                if (!targetFile.exists()) {
+                    targetFile.mkdirs();
+                }
+                fileurl = filePath + "\\" + fileName;
+                outurl = "src/main/resources/static/book_img" + fileName;
+                FileOutputStream out = new FileOutputStream(fileurl);
+                out.write(file.getBytes());
+                out.flush();
+                out.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+                fileurl = "ERROR";
+            }
+            newBook.setImg("book_img/" + fileName);
         }
-        newBook.setImg("book_img/"+fileName);
-        newBook.setIsbn(isbn);
+        if(!isbn.equals(""))
+            newBook.setIsbn(isbn);
+        if(!description.equals(""))
         newBook.setDescription(description);
-        newBook.setType(type);
-        newBook.setPosition(position);
-        newBook.setVersion(version);
-        newBook.setNum(num);
-        newBook.setPublishId(publishID);
+        if(!type.equals(""))
+            newBook.setType(type);
+        if(!position.equals(""))
+            newBook.setPosition(position);
+        if(!version.equals(""))
+            newBook.setVersion(version);
+        if(!num.equals(""))
+            newBook.setNum(num);
+        if(!publishID.equals(""))
+            newBook.setPublishId(publishID);
         try{
             bookDB.save(newBook);
             re.put("msg","SUCCESS");

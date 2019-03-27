@@ -95,7 +95,7 @@
             var txt1="<a href=\"bookin.html\">录入书籍</a>";
             var txt2="<a href=\"recordfind.html\">查询记录</a>";
             var txt4="<a >"+"欢迎使用："+"</a>";
-            var txt3="<a href=\main.html\">主页</a>";
+            var txt3="<a href=\"main.html\">主页</a>";
             var txtlogout="<input type=\"button\" value=\"注 销\" class=\"buttom\" onclick='logout()'/>"
             $("#right_btn2").html(txt4);
             $("#right_btn3").html("<a >"+realname+"</a>");
@@ -130,7 +130,7 @@
             success: function (res) {
                 console.log(res);
                 $.each(res.booklist, function (index, object) {
-                    var txt="<tr style=\"height: 40px; \"><td i><img src=\""+object.img+"\" style=\"width:60px;height: 80px;\" \"javascript:void(0);\" onclick='getDetail(\"+object.id+\")'" +
+                    var txt="<tr style=\"height: 40px; \"><td i><img src=\""+object.img+"\" style=\"width:60px;height: 80px;\"  onclick='getDetail("+object.id+")'" +
                         "'height=700, width=600, toolbar =no, menubar=no, scrollbars=no, resizable=no, location=no, status=no')\"/></td>\n" +
                         " <td >"+object.bookname+"</td>\n" +
                         "<td >"+object.author+"</td>\n" +
@@ -163,9 +163,9 @@
             success: function (res) {
                 console.log(res);
                 if (res.msg==="ERROR_INPUTDATA" ) {
-                    alert("数据传输失败")
+                    //alert("数据传输失败")
                 }else if(res.msg===("ERROR_SERVER")){
-                    alert("服务器内部错误")
+                    //alert("服务器内部错误")
                 }else if(res.msg==="SUCCESS"){
                     //alert(res.isbn)
                     sessionStorage.setItem("bookid",res.id);
