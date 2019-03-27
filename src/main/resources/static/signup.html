@@ -32,74 +32,62 @@
         <div id="content">
             <div id="word"><h1>SIGNUP</h1></div>
             <div id="form">
-                <form style="padding-right: 230px;vertical-align: bottom;" action="login.html"  onsubmit="return finalCheck(this)">
-                    <table height="353" id="table">
+                <form style="padding-right: 230px;vertical-align: bottom;" action="login.html"
+                      onsubmit="return finalCheck(this)">
+                    <table height="280" id="table">
                         <tr>
-                            <td width="126px" style="text-align: right;padding-top: 12px" > 姓 名：</td>
-                            <td style="padding-top: 12px"><input type="text" name="name" id="name" required="required" placeholder="请输入姓名" class="ipt" /></td>
+                            <td width="126px" style="text-align: right;padding-top: 12px"> 姓 名：</td>
+                            <td style="padding-top: 12px"><input type="text" name="name" id="name" required="required"
+                                                                 placeholder="请输入姓名" class="ipt"/></td>
                         </tr>
                         <tr>
-                            <td style="text-align: right;" >账 号：</td>
-                            <td><input type="text" name="account" id="account" required="required" placeholder="请输入学号" class="ipt" /></td>
+                            <td style="text-align: right;">账 号：</td>
+                            <td><input type="text" name="account" id="account" required="required" placeholder="请输入学号"
+                                       class="ipt"/></td>
                         </tr>
                         <tr>
                             <td style="text-align: right;">密 码：</td>
-                            <td><input type="password" name="password" id="pwd" required="required" placeholder="请输入密码" class="ipt" /> </td>
+                            <td><input type="password" name="password" id="pwd" required="required" placeholder="请输入密码"
+                                       class="ipt"/></td>
                         </tr>
                         <tr>
-                                <td style="text-align: right;" >身份证：</td>
-                                <td><input type="text" name="id" id="idNo" required="required" placeholder="请输入身份证号" class="ipt"  /></td>
-                            </tr>
-                        <tr>
-                            <td colspan="2" style="text-align: center;"><input style="color: antiquewhite;" type="button" value="提 交" class="buttom" onclick="dosignup()"/>
+                            <td colspan="2" style="text-align: center;"><input style="color: antiquewhite;"
+                                                                               type="button" value="提 交" class="buttom"
+                                                                               onclick="dosignup()"/>
                                 &nbsp;&nbsp;&nbsp;&nbsp;
-                                <input style="color: antiquewhite;"  type="reset" value="重 置" class="buttom" /></td>
+                                <input style="color: antiquewhite;" type="reset" value="重 置" class="buttom"/></td>
                         </tr>
                         <tr>
-                            <td colspan="2" style="text-align: center; font-size: 19px;padding-bottom: 14px;"><a href="login.html">已有帐号？登录</a></td>
+                            <td colspan="2" style="text-align: center; font-size: 19px;padding-bottom: 14px;"><a
+                                    href="login.html">已有帐号？登录</a></td>
                         </tr>
                     </table>
                 </form>
+            </div>
+            <div class="Error_prompt">
+                <span>该用户不存在或密码错误，请更换账户。</span>
             </div>
         </div>
     </div>
 </div>
 <script type="text/javascript">
-    $(function() {
-        $('a[href*=#]:not([href=#])').click(function() {
-            if (location.name.replace(/^\//,'') == this.name.replace(/^\//,'') && location.hostname == this.hostname) {
-
-                var target = $(this.hash);
-                target = target.length ? target : $('[name=' + this.hash.slice(1) +']');
-                if (target.length) {
-                    $('html,body').animate({
-                        scrollTop: target.offset().top
-                    }, 1000);
-                    return false;
-                }
-            }
-        });
-    });
-
     function dosignup() {
-        //alert("????")
-        if($("#name").val().left<=0){
-            alert("请输入姓名");
+        if($("#name").val().length<=0){
+            $(".Error_prompt").fadeIn(800).html("请输入姓名!");
             return;
         }
         if($("#account").val().length<=0){
-            alert("请输入学号或工号");
+            $(".Error_prompt").fadeIn(800).html("请输入学号或工号!");
             return;
         }
         if ($("#pwd").val().length <= 0) {
-            alert("请设置密码")
+            $(".Error_prompt").fadeIn(800).html("请设置密码!")
             return
         }
         if($("#pwd").val().length<6) {
-            alert("密码长度需大于等于6")
+            $(".Error_prompt").fadeIn(800).html("密码长度需大于等于6!")
             return
         }
-       // alert("????")
         let loginJson = {
             "name": $("#name").val(),
             "account": $("#account").val(),
@@ -119,11 +107,11 @@
                 //如果获取不到用户类别则为登录失败
                 //alert(res.msg)
                 if (res.msg==="ERROR_INPUTDATA" ) {
-                    alert("数据传输失败")
+                    $(".Error_prompt").fadeIn(800).html("数据传输失败!")
                 }else if(res.msg==="ERROR_ACCOUNT"){
-                    alert("用户名有误")
+                    $(".Error_prompt").fadeIn(800).html("用户名有误!")
                 }else if(res.msg===("ERROR_SERVER")){
-                    alert("服务器内部错误")
+                    $(".Error_prompt").fadeIn(800).html("服务器内部错误!")
                 }
                 else if(res.msg==="SUCCESS"){
                     //alert("Success")

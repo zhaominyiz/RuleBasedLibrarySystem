@@ -73,6 +73,9 @@
         </div>
     </div>
 </div>
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script src="js/jquery.pagination.js"></script>
+<link href="css/pagination.css" rel="stylesheet" type="text/css" />
 <script type = "text/javascript">
 
     window.onload = function()
@@ -109,8 +112,11 @@
         }
         getIndexBook()
     }
-    function getIndexBook() {
+
+
+        function getIndexBook() {
         var key=sessionStorage.getItem("keyword")
+        var num=sessionStorage.getItem("num")
         console.log(key)
         let loginJson = {
             "msg":key,
@@ -137,6 +143,7 @@
                         "</tr>"+"</tbody>"
                     //alert(txt)
                     $("#booklist").append(txt);
+                    init();
                 });
             },
             error: function (XMLHttpRequest, textStatus) {

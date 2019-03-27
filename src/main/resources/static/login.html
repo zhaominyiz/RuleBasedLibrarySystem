@@ -30,105 +30,99 @@
     </div>
 </div>
 <div class="slider_bg" id="mainContainer">
-            <div class="container">
-                <div id="content">
+    <div class="container">
+        <div id="content">
             <div id="word"><h1>LOGIN</h1></div>
-                <div id="form">
-                    <form style="padding-right: 230px;vertical-align: bottom;" action="" >
-                        <table height="253" id="table">
-                            <tr style="padding-top: 20px">
-                                <td width="95" style="color: aliceblue; text-align: right;    padding-top: 12px" >帐 号：</td>
-                                <td width="80" style="padding-top: 12px"><input type="text" name="account" id="account" required="required" placeholder="请输入学号" class="ipt"  /></td>
-                            </tr>
-                            <tr>
-                                <td height="58" style="color: aliceblue; text-align: right;">密 码：</td>
-                                <td><input type="password" name="password" id="pwd" required="required"  placeholder="请输入密码" class="ipt" /> </td>
-                            </tr>
-                            <tr>
-                                <td colspan="2" style="text-align: center;"><input style="color: aliceblue; " type="button" value="登 录" class="buttom" onclick="checkandlogin()"/>
-                                    &nbsp;&nbsp;&nbsp;&nbsp;
-                                    <input input style="color: aliceblue; " type="reset" value="重 置" class="buttom" /></td>
-                            </tr>
-                            <tr>
-                                <td colspan="2" style="text-align: center; font-size: 19px;padding-bottom: 14px;"><a href="signup.html">还没帐号？注册</a></td>
-                            </tr>
-                        </table> 
-                    </form>
-                </div>
+            <div id="form">
+                <form style="padding-right: 230px;vertical-align: bottom;" action="">
+                    <table height="253" id="table">
+                        <tr style="padding-top: 20px">
+                            <td width="95" style="color: aliceblue; text-align: right;    padding-top: 12px">帐 号：</td>
+                            <td width="80" style="padding-top: 12px"><input type="text" name="account" id="account"
+                                                                            required="required" placeholder="请输入学号"
+                                                                            class="ipt"/></td>
+                        </tr>
+                        <tr>
+                            <td height="58" style="color: aliceblue; text-align: right;">密 码：</td>
+                            <td><input type="password" name="password" id="pwd" required="required" placeholder="请输入密码"
+                                       class="ipt"/></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" style="text-align: center;"><input style="color: aliceblue; " type="button"
+                                                                               value="登 录" class="buttom"
+                                                                               onclick="checkandlogin()"/>
+                                &nbsp;&nbsp;&nbsp;&nbsp;
+                                <input input style="color: aliceblue; " type="reset" value="重 置" class="buttom"/></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" style="text-align: center; font-size: 19px;padding-bottom: 14px;"><a
+                                    href="signup.html">还没帐号？注册</a></td>
+                        </tr>
+                    </table>
+                </form>
+            </div>
+            <div class="Error_prompt"></div>
         </div>
     </div>
 </div>
-<script type="text/javascript">
-    $(function() {
-        $('a[href*=#]:not([href=#])').click(function() {
-            if (location.name.replace(/^\//,'') == this.name.replace(/^\//,'') && location.hostname == this.hostname) {
 
-                var target = $(this.hash);
-                target = target.length ? target : $('[name=' + this.hash.slice(1) +']');
-                if (target.length) {
-                    $('html,body').animate({
-                        scrollTop: target.offset().top
-                    }, 1000);
-                    return false;
-                }
-            }
-        });
-    });
+<script type="text/javascript">
     function checkandlogin() {
 
-        if($("#account").val().length<0) {
-            alert("请输入学号或工号")
-            return
+        if ($("#account").val() == "" || $("#pwd").val() == "") {
+            $(".Error_prompt").fadeIn(800).html("帐号或密码不能为空！");
+            return false;
         }
-        if($("#pwd").val().length<0) {
-            alert("请输入密码")
-            return
-        }
-        if($("#pwd").val().length<6) {
-            alert("密码长度需大于等于6")
-            return
-        }
-        let loginJson = {
-            "account": $("#account").val(),
-            "password": $("#pwd").val()
-        };
-        console.log(loginJson);
-        console.log(JSON.stringify(loginJson));
-        $.ajax({
-            type: "POST",
-            url: "http://localhost:8080/service/login.login",
-            contentType: "application/json; charset=utf-8",
-            data: JSON.stringify(loginJson),
-            dataType: "json",
-            success: function (res) {
-                console.log(res);
-                //如果获取不到用户类别则为登录失败
-                if (res.msg==="ERROR_INPUTDATA" ) {
-                    alert("数据传输失败")
-                }else if(res.msg==="ERROR_ACCOUNT"){
-                    alert("用户名有误")
-                }else if(res.msg==="ERROR_PWD"){
-                    alert("密码错误")
-                }else if(res.msg===("ERROR_SERVER")){
-                    alert("服务器内部错误")
-                }
-                else if(res.msg==="SUCCESS"){//登录成功
-                    //设置登录类别
-                    sessionStorage.setItem("userType", res.type);
-                    sessionStorage.setItem("userName", res.name);
-                    sessionStorage.setItem("userAccount",  $("#account").val());
-                    //alert(res.type+res.name);
-                    //alert(window.location.href.substring(0, window.location.href.lastIndexOf('/')) + "/main.html")
-                    window.location.replace(window.location.href.substring(0, window.location.href.lastIndexOf('/')) + "/main.html")
+        if ($("#pwd").val().length < 6) {
+            $(".Error_prompt").fadeIn(800).html("密码长度需大于等于6！");
+            return false;
+        } else {
+            $(".Error_prompt").fadeOut(400);
+            //前端初步判断数据类型成功以后像后台发出请求来判断登陆是否成功
 
-                }
-            },
-            error: function (XMLHttpRequest, textStatus) {
-                alert("与服务器通讯失败！请刷新重试！");
-                console.error(textStatus + ":" + XMLHttpRequest.status + " " + XMLHttpRequest.readyState);
-            }
+            let loginJson = {
+                "account": $("#account").val(),
+                "password": $("#pwd").val()
+            };
+            console.log(loginJson);
+            console.log(JSON.stringify(loginJson));
+            $.ajax({
+                type: "POST",
+                url: "http://localhost:8080/service/login.login",
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify(loginJson),
+                dataType: "json",
+                success: function (res) {
+                    console.log(res);
+                    //如果获取不到用户类别则为登录失败
+                    if (res.msg === "ERROR_INPUTDATA") {
+                        $(".Error_prompt").fadeIn(800).html("数据传输失败!")
+                    } else if (res.msg === "ERROR_ACCOUNT") {
+                        $(".Error_prompt").fadeIn(800).html("用户名有误!")
+                        // $(".Error_prompt").fadeIn("fast", "linear");
+                    } else if (res.msg === "ERROR_PWD") {
+                        $(".Error_prompt").fadeIn(800).html("密码错误!")
+                        //$(".Error_prompt").fadeIn("fast", "linear");
+                    } else if (res.msg === ("ERROR_SERVER")) {
+                        $(".Error_prompt").fadeIn(800).html("服务器内部错误!")
+                    } else if (res.msg === "SUCCESS") {//登录成功
+                        //设置登录类别
+                        sessionStorage.setItem("userType", res.type);
+                        sessionStorage.setItem("userName", res.name);
+                        sessionStorage.setItem("userAccount", $("#account").val());
+                        //alert(res.type+res.name);
+                        //alert(window.location.href.substring(0, window.location.href.lastIndexOf('/')) + "/main.html")
+                        window.location.replace(window.location.href.substring(0, window.location.href.lastIndexOf('/')) + "/main.html")
 
-        })
+                    }
+                },
+                error: function (XMLHttpRequest, textStatus) {
+                    $(".Error_prompt").fadeIn(800).html("与服务器通讯失败！请刷新重试！");
+                    console.error(textStatus + ":" + XMLHttpRequest.status + " " + XMLHttpRequest.readyState);
+                }
+
+            })
+        }
     }
  
 </script>
