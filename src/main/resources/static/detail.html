@@ -41,9 +41,9 @@
                 <form style="margin-left: -120px;margin-top: 15px;">
                     <table style="width: 800px;height: 450px;">
                         <tr>
-
                             <td colspan="2" style="text-align: right;padding-top: 12px">封面：</td>
                             <td colspan="2" style="text-align: left" ><img src="" id="bookimg" width="70px" height="90px"></td>
+                            <td width="40px"></td>
 
                         </tr>
                         <tr>
@@ -88,6 +88,9 @@
                                                                       class="buttom" onclick="deletebook()"/>
                             </td>
                         </tr>
+                        <!--<tr>-->
+                        <!--<td colspan="2" align="center" ><input class="button" type="submit" value="添加" style="position: relative;left: 400px" ></td>-->
+                        <!--</tr>-->
                     </table>
                 </form>
             </div>
@@ -97,10 +100,27 @@
         </div>
     </div>
 </div>
-<script type = "text/javascript">
+<script type="text/javascript">
+  
+  $.ajax({ 
+    type:"GET",
+    url:"http://localhost:8080/service/finddetail.book"
+    data:{bookname:$("#bookname").val(),img:$("#img").val(),description:$("#description").val(),type:$("#type").val(),position:$("#position").val(),num:$("#num").val(),res:$("#res").val(),author:$("#author").val(),publisher:$("#publisher").val(),isbn:$("#isbn").val(),version:$("#version").val()},
+    dataType:"json",
+    success:function(data){
+      var html = '';
+      $.each(data,function(index,comment){
+        html+='<div class="comment"><p>' + comment['bookname']+'</p><p>'+comment['img']+'</p><p>'+comment['description']+'</p><p>'+comment['type']+'</p><p>'+comment['position']+'</p><p>'+comment['num']+'</p><p>'+comment['res']+'</p><p>'+comment['author']+'</p><p>'+comment['publisher']+'</p><p>'+comment['isbn']+'</p><p>'+comment['version']+'</p></div>';
+      });
+    }
+  });
 
+</script>
+
+<script type = "text/javascript">
     window.onload = function()
     {
+
         var account=sessionStorage.getItem("userAccount")
         var realname=sessionStorage.getItem("userName")
         var usertype=sessionStorage.getItem("userType")

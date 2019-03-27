@@ -67,7 +67,11 @@
 </div>
 
 <script type="text/javascript">
+    window.onload = function() {
+        var prevLink = document.referrer;
+    }
     function checkandlogin() {
+        var prevLink = document.referrer;
 
         if ($("#account").val() == "" || $("#pwd").val() == "") {
             $(".Error_prompt").fadeIn(800).html("帐号或密码不能为空！");
@@ -110,10 +114,12 @@
                         sessionStorage.setItem("userType", res.type);
                         sessionStorage.setItem("userName", res.name);
                         sessionStorage.setItem("userAccount", $("#account").val());
-                        //alert(res.type+res.name);
-                        //alert(window.location.href.substring(0, window.location.href.lastIndexOf('/')) + "/main.html")
-                        window.location.replace(window.location.href.substring(0, window.location.href.lastIndexOf('/')) + "/main.html")
-
+                        if($.trim(prevLink)==""){
+                            alert("aaa")
+                            window.location.replace(window.location.href.substring(0, window.location.href.lastIndexOf('/')) + "/main.html")
+                        }else{
+                            location.href = prevLink;
+                        }
                     }
                 },
                 error: function (XMLHttpRequest, textStatus) {
