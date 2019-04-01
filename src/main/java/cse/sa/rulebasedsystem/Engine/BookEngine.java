@@ -245,6 +245,7 @@ public class BookEngine {
         newBook.setPosition(position);
         newBook.setVersion(version);
         newBook.setNum(num);
+        newBook.setRes(num);
         Timestamp d = new Timestamp(System.currentTimeMillis());
         newBook.setAddTime(d);
         newBook.setPublishId(publishID);
@@ -415,6 +416,7 @@ public class BookEngine {
                          String type,String position,String version,Integer num,String publishID){
         BookEntity newBook=bookDB.findByIsbn(isbn);
         JSONObject re=new JSONObject();
+        //System.out.println("GA?");
         if(newBook==null){
             re.put("msg","ERROR_NOTFOUND");
             return re.toString();
@@ -425,38 +427,12 @@ public class BookEngine {
             newBook.setPublisher(publisher);
         if(!author.equals(""))
             newBook.setAuthor(author);
-        if(file!=null) {
-            String outurl = "";
-            String fileurl = "";
-            String fileName = file.getOriginalFilename();
-            String filePath = ("src/main/resources/static/book_img");//request.getSession().getServletContext().getRealPath("/uploader");
-            List<BookEntity> booklist = bookDB.getBookEntitiesByPublisherID(publishID);
-            if (booklist.size() != 0) {
-                JSONObject result = new JSONObject();
-                result.put("msg", "ERROR_SAVED");
-                return result.toString();
-            }
-            try {
-                File targetFile = new File(filePath);
-                if (!targetFile.exists()) {
-                    targetFile.mkdirs();
-                }
-                fileurl = filePath + "\\" + fileName;
-                outurl = "src/main/resources/static/book_img" + fileName;
-                FileOutputStream out = new FileOutputStream(fileurl);
-                out.write(file.getBytes());
-                out.flush();
-                out.close();
-            } catch (Exception e) {
-                e.printStackTrace();
-                fileurl = "ERROR";
-            }
-            newBook.setImg("book_img/" + fileName);
+        //System.out.println("GA??"+newBook.getDescription());
+        if(!description.equals("")) {
+            newBook.setDescription(description);
+            //System.out.println("DUDURU");
         }
-        if(!isbn.equals(""))
-            newBook.setIsbn(isbn);
-        if(!description.equals(""))
-        newBook.setDescription(description);
+        newBook.setRes(num);
         if(!type.equals(""))
             newBook.setType(type);
         if(!position.equals(""))
@@ -468,6 +444,7 @@ public class BookEngine {
         if(!publishID.equals(""))
             newBook.setPublishId(publishID);
         try{
+            System.out.println(newBook.getDescription());
             bookDB.save(newBook);
             re.put("msg","SUCCESS");
             return re.toString();
